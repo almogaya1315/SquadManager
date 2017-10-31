@@ -90,6 +90,8 @@
     <Compile Include="AppContainer\Views\Container.xaml.cs">
       <DependentUpon>Container.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\Browser.cs" />
+    <Compile Include="Base\IBrowsable.cs" />
     <Compile Include="Base\Injector.cs" />
     <Compile Include="Menu\ViewModels\MenuViewModel.cs" />
     <Compile Include="Menu\Views\MenuView.xaml.cs">

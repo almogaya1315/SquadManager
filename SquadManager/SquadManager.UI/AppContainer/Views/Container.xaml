@@ -14,7 +14,7 @@
         Width="1240">
     <Window.Resources>
 
-        <DataTemplate DataType="menuViewModels:MenuViewModel">
+        <DataTemplate DataType="{x:Type menuViewModels:MenuViewModel}">
             <menuViews:MenuView />
         </DataTemplate>
            

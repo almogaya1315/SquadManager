@@ -7,15 +7,67 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="1000"
-             Background="#ecf9f2">
+             Background="#e7f5f7">
 
-        <Canvas Background="#d8f3e4"
-                Margin="250 150">
-            <Canvas.Effect>
-                <DropShadowEffect ShadowDepth="3"
-                                  BlurRadius="2" />
-            </Canvas.Effect>
+    <UserControl.Resources>
 
-        </Canvas>
+        <Style x:Key="MenuButtonTemplateStyle" 
+               TargetType="TextBlock">
+            <Setter Property="Margin"
+                    Value="10" />
+            <Setter Property="Width"
+                    Value="170" />
+            <Setter Property="FontSize"
+                    Value="30" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
 
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="true">
+                    <Setter Property="Foreground"
+                            Value="#249eb4"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="false">
+                    <Setter Property="Foreground"
+                            Value="#3c5458" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <ControlTemplate x:Key="MenuButtonTemplate">
+            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Content}"
+                       Style="{StaticResource MenuButtonTemplateStyle}"/>
+        </ControlTemplate>
+        
+    </UserControl.Resources>
+
+    <Border Background="#bfe3e9"
+            Height="500"
+            Width="600">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="3"
+                              BlurRadius="1"
+                              Color="#a6d6df" />
+        </Border.Effect>
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock FontSize="40"
+                       Foreground="#3c5458"
+                       Text="SQUAD MANAGER" 
+                       Margin="20"/>
+            <Button Content="New squad"
+                    Command="{Binding NewSquad}"
+                    Template="{StaticResource MenuButtonTemplate}" />
+            <Button Content="Load squad"
+                    Template="{StaticResource MenuButtonTemplate}" />
+            <Button Content="Options"
+                    Template="{StaticResource MenuButtonTemplate}" />
+            <Button Content="Exit"
+                    Template="{StaticResource MenuButtonTemplate}" />
+
+        </StackPanel>
+    </Border>
 </UserControl>

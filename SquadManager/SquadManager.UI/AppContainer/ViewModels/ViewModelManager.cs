@@ -9,11 +9,11 @@ namespace SquadManager.UI.AppContainer.ViewModels
 
         public MenuViewModel Menu { get; set; }
 
-        public ViewModelManager()
+        public ViewModelManager(Browser browser)
         {
             _injector = new Injector();
 
-            Menu = new MenuViewModel();
+            Menu = new MenuViewModel(browser);
         }
     }
 }
