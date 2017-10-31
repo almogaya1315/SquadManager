@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:menuViewModels="clr-namespace:SquadManager.UI.Menu.ViewModels"
         xmlns:menuViews="clr-namespace:SquadManager.UI.Menu.Views"
+        xmlns:squadDetailsViewModels="clr-namespace:SquadManager.UI.SquadDetails.ViewModels"
+        xmlns:squadDetailsViews="clr-namespace:SquadManager.UI.SquadDetails.Views"
         mc:Ignorable="d"
         Title="SQUAD MANAGER"
         ResizeMode="CanResizeWithGrip"
@@ -16,6 +18,10 @@
 
         <DataTemplate DataType="{x:Type menuViewModels:MenuViewModel}">
             <menuViews:MenuView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type squadDetailsViewModels:SquadDetailsViewModel}">
+            <squadDetailsViews:SquadDetailsView />
         </DataTemplate>
            
     </Window.Resources>

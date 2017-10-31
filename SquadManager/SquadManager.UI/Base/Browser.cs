@@ -13,7 +13,7 @@ namespace SquadManager.UI.Base
         {
             _browsables = new List<IBrowsable>()
             {
-                viewModelManager.Menu,
+                viewModelManager.Menu, 
             };
         }
 

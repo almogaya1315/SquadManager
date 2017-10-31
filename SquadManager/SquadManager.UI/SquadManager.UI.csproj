@@ -83,6 +83,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Base\ConstructorParameter.cs" />
+    <Compile Include="SquadDetails\ViewModels\SquadDetailsViewModel.cs" />
+    <Compile Include="SquadDetails\Views\SquadDetailsView.xaml.cs">
+      <DependentUpon>SquadDetailsView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContainer\ViewModels\ContainerViewModel.cs" />
@@ -131,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menu\Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SquadDetails\Views\SquadDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

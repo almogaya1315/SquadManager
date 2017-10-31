@@ -1,19 +1,18 @@
 ﻿using SquadManager.UI.Base;
 using SquadManager.UI.Menu.ViewModels;
+using SquadManager.UI.SquadDetails.ViewModels;
 
 namespace SquadManager.UI.AppContainer.ViewModels
 {
     public class ViewModelManager
     {
-        private Injector _injector;
-
         public MenuViewModel Menu { get; set; }
+        public SquadDetailsViewModel SquadDetails { get; set; }
 
-        public ViewModelManager(Browser browser)
+        public ViewModelManager(Injector injector)
         {
-            _injector = new Injector();
-
-            Menu = new MenuViewModel(browser);
+            Menu = injector.New<MenuViewModel>(new ConstructorParameter("Browser", Browser)); //new MenuViewModel(browser);
+            SquadDetails = new SquadDetailsViewModel();
         }
     }
 }

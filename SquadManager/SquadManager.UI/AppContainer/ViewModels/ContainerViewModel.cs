@@ -7,13 +7,14 @@ namespace SquadManager.UI.Container.ViewModels
 {
     public class ContainerViewModel : ViewModelBase
     {
+        private Injector _injector;
         private ViewModelManager _viewModelManager;
 
         public ViewModelBase ContainerContent { get; set; }
 
         public ContainerViewModel()
         {
-            _viewModelManager = new ViewModelManager(new Browser());
+            _viewModelManager = new ViewModelManager();
 
             ContainerContent = _viewModelManager.Menu;
         }

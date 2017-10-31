@@ -12,9 +12,9 @@ namespace SquadManager.UI.Menu.ViewModels
 
         public ICommand NewSquad { get; set; }
 
-        public MenuViewModel(Browser browser)
+        public MenuViewModel() // Browser browser
         {
-            _browser = browser;
+            //_browser = browser;
 
             NewSquad = new RelayCommand(CreateNewSquad);
         }
