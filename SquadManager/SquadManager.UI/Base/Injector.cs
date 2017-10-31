@@ -1,23 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using GalaSoft.MvvmLight;
+using SquadManager.UI.AppContainer.ViewModels;
+using SquadManager.UI.Menu.ViewModels;
+using SquadManager.UI.SquadDetails.ViewModels;
+using System;
 
 namespace SquadManager.UI.Base
 {
-    public class Injector 
+    public class Injector
     {
-        private List<ConstructorParameter> _parameters;
+        //SimpleInjector.Container _injectorContainer;
+
+        private ViewModelManager _manager;
 
         public Injector()
         {
-            _parameters = new List<ConstructorParameter>()
-            {
-                new Browser()
-            };
+            /*
+            _injectorContainer = new SimpleInjector.Container();
+            _injectorContainer.Register<ViewModelManager>();
+            _injectorContainer.Register<MenuViewModel>();
+            _injectorContainer.Register<SquadDetailsViewModel>();
+            */
         }
 
-        public T New<T>(params ConstructorParameter[] parameters) where T : class, new() 
+        public ViewModelManager GetManager()
         {
-            var parameterName = (parameters.GetValue(1) as ConstructorParameter).ParameterName;
-            return new T();
+            return _manager = new ViewModelManager(this);
+        }
+
+        public T New<T>() where T : IViewModel, new()
+        {
+            var instance = new T();
+            instance.Manager = _manager;
+            return instance;
         }
     }
 }

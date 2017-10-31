@@ -3,30 +3,29 @@ using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
 using System;
 using SquadManager.UI.Base;
+using SquadManager.UI.AppContainer.ViewModels;
 
 namespace SquadManager.UI.Menu.ViewModels
 {
-    public class MenuViewModel : ViewModelBase, IBrowsable
+    public class MenuViewModel : ViewModelBase, IViewModel
     {
-        private readonly Browser _browser;
+        public ViewModelManager Manager { get; set; }
 
         public ICommand NewSquad { get; set; }
 
-        public MenuViewModel() // Browser browser
+        public MenuViewModel() 
         {
-            //_browser = browser;
-
             NewSquad = new RelayCommand(CreateNewSquad);
         }
 
         private void CreateNewSquad()
         {
-            _browser.Browse();
+
         }
 
         public void Browsed()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
