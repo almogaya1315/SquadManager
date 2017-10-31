@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SquadManager.UI
+namespace SquadManager.UI.Menu.Views
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for MenuView.xaml
+    /// </summary>
+    public partial class MenuView : UserControl
     {
-        public MainWindow()
+        public MenuView()
         {
             InitializeComponent();
         }
