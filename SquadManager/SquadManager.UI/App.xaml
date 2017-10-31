@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:SquadManager.UI"
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             StartupUri="Container\Views\AppContainer.xaml"
+             StartupUri="AppContainer\Views\Container.xaml"
              d1p1:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>

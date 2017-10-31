@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SquadManager.UI.Container.ViewModels;
+using System.Windows;
 
 namespace SquadManager.UI.AppContainer.Views
 {
@@ -7,6 +8,8 @@ namespace SquadManager.UI.AppContainer.Views
         public Container()
         {
             InitializeComponent();
+
+            DataContext = new ContainerViewModel();
         }
     }
 }

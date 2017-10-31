@@ -6,8 +6,16 @@
              xmlns:local="clr-namespace:SquadManager.UI.Menu.Views"
              mc:Ignorable="d"
              d:DesignHeight="600"
-             d:DesignWidth="1000">
-    <Grid>
+             d:DesignWidth="1000"
+             Background="#ecf9f2">
 
-    </Grid>
+        <Canvas Background="#d8f3e4"
+                Margin="250 150">
+            <Canvas.Effect>
+                <DropShadowEffect ShadowDepth="3"
+                                  BlurRadius="2" />
+            </Canvas.Effect>
+
+        </Canvas>
+
 </UserControl>
