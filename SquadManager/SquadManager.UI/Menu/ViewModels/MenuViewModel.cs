@@ -7,10 +7,8 @@ using SquadManager.UI.AppContainer.ViewModels;
 
 namespace SquadManager.UI.Menu.ViewModels
 {
-    public class MenuViewModel : ViewModelBase, IViewModel
+    public class MenuViewModel : ViewModel, IBrowseable
     {
-        public ViewModelManager Manager { get; set; }
-
         public ICommand NewSquad { get; set; }
 
         public MenuViewModel() 
@@ -20,10 +18,10 @@ namespace SquadManager.UI.Menu.ViewModels
 
         private void CreateNewSquad()
         {
-
+            Manager.Browse(new BrowseArgs(ArgsType.SquadDetailsArgs));
         }
 
-        public void Browsed()
+        public void Browsed(BrowseArgs args)
         {
             
         }

@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace SquadManager.UI.SquadDetails.Views
 {
-    /// <summary>
-    /// Interaction logic for SquadDetailsView.xaml
-    /// </summary>
     public partial class SquadDetailsView : UserControl
     {
         public SquadDetailsView()

@@ -1,5 +1,4 @@
-﻿using SquadManager.UI.AppContainer.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SquadManager.UI.Base
 {
-    public interface IViewModel
+    public interface IBrowseable
     {
-        ViewModelManager Manager { get; set; }
+        void Browsed(BrowseArgs args);
     }
 }
