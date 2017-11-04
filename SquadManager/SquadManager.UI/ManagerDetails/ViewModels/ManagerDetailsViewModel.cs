@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.Base;
+using SquadManager.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,9 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
 {
     public class ManagerDetailsViewModel : ViewModel
     {
+        public ManagerDetailsViewModel()
+        {
+
+        }
     }
 }

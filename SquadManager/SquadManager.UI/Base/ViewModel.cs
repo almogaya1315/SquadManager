@@ -12,7 +12,7 @@ namespace SquadManager.UI.Base
 {
     public class ViewModel : ViewModelBase
     {
-        public Application App;
+        public Application App { get; set; }
 
         public ViewModelManager Manager { get; set; }
 
