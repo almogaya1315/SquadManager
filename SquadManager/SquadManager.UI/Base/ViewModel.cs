@@ -14,7 +14,7 @@ namespace SquadManager.UI.Base
     {
         public Application App { get; set; }
 
-        public ViewModelManager Manager { get; set; }
+        public ViewModelBrowser Browser { get; set; }
 
         public ISquadRepository SquadRepository { get; set; }
 

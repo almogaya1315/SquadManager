@@ -87,6 +87,43 @@
                        Margin="20"
                        TextAlignment="Center" />
 
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Choose manager"
+                           Style="{StaticResource ManagerDetailsTextBlockStyle}"
+                           Width="230"/>
+                <ComboBox Grid.Column="1"
+                          SelectedItem="{Binding ManagerViewModel}"
+                          ItemsSource="{Binding Managers}"
+                          FontSize="18"
+                          DisplayMemberPath="Name"
+                          Width="200"
+                          Margin="10,21,0,7"
+                          Height="32"
+                          HorizontalAlignment="Left">
+                    <ComboBox.Effect>
+                        <DropShadowEffect ShadowDepth="3"
+                                          BlurRadius="3"
+                                          Color="#a6d6df" />
+                    </ComboBox.Effect>
+                </ComboBox>
+
+                <TextBlock Text="or type in new details"
+                           Grid.ColumnSpan="2"
+                           Grid.Row="1"
+                           Style="{StaticResource ManagerDetailsTextBlockStyle}"
+                           Width="210"
+                           FontSize="22"/>
+            </Grid>
+
             <Grid Margin="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="320" />
@@ -146,10 +183,27 @@
                         Command="{Binding Cancel}"
                         Template="{StaticResource ButtonTemplate}" />
 
-                <Button Content="Save"
+                <Button 
                         Grid.Column="1"
                         Command="{Binding Save}"
-                        Template="{StaticResource ButtonTemplate}" />
+                        Template="{StaticResource ButtonTemplate}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ManagerViewModel.Id, Converter={StaticResource IsIdExists}}"
+                                             Value="false">
+                                    <Setter Property="Content"
+                                            Value="Save"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ManagerViewModel.Id, Converter={StaticResource IsIdExists}}"
+                                             Value="true">
+                                    <Setter Property="Content"
+                                            Value="Continue" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
 
 

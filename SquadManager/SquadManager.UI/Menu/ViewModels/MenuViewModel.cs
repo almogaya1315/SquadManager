@@ -18,7 +18,7 @@ namespace SquadManager.UI.Menu.ViewModels
 
         private void CreateNewSquad()
         {
-            Manager.Browse(new BrowseArgs(ArgsType.ManagerDetailsArgs));
+            Browser.Browse(new BrowseArgs(ArgsType.ManagerDetailsArgs));
         }
     }
 }

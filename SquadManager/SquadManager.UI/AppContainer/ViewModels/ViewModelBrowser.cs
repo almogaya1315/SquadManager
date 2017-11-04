@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace SquadManager.UI.AppContainer.ViewModels
 {
-    public class ViewModelManager
+    public class ViewModelBrowser
     {
         private ContainerViewModel _container { get; set; }
 
@@ -16,7 +16,7 @@ namespace SquadManager.UI.AppContainer.ViewModels
         public ManagerDetailsViewModel ManagerDetails { get; set; }
         public TeamDetailsViewModel TeamDetails { get; set; }
 
-        public ViewModelManager(Injector injector, ContainerViewModel container)
+        public ViewModelBrowser(Injector injector, ContainerViewModel container)
         {
             _container = container;
 

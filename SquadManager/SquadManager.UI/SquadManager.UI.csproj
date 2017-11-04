@@ -90,6 +90,7 @@
     <Compile Include="Base\IBrowseable.cs" />
     <Compile Include="Base\Injector.cs" />
     <Compile Include="Base\ViewModel.cs" />
+    <Compile Include="Converters\IsIdExists.cs" />
     <Compile Include="ManagerDetails\ViewModels\ManagerDetailsViewModel.cs" />
     <Compile Include="ManagerDetails\ViewModels\ManagerViewModel.cs" />
     <Compile Include="ManagerDetails\Views\ManagerDetailsView.xaml.cs">
@@ -111,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContainer\ViewModels\ContainerViewModel.cs" />
-    <Compile Include="AppContainer\ViewModels\ViewModelManager.cs" />
+    <Compile Include="AppContainer\ViewModels\ViewModelBrowser.cs" />
     <Compile Include="AppContainer\Views\Container.xaml.cs">
       <DependentUpon>Container.xaml</DependentUpon>
     </Compile>

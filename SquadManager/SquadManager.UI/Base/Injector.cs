@@ -9,7 +9,7 @@ namespace SquadManager.UI.Base
     public class Injector
     {
         private Application _app;
-        private ViewModelManager _manager;
+        private ViewModelBrowser _browser;
         private ISquadRepository _squadRepository;
         private CollectionFactory _collections;
 
@@ -22,17 +22,16 @@ namespace SquadManager.UI.Base
             _app.Managers = _squadRepository.GetManagers();
         }
 
-        public ViewModelManager GetManager(ContainerViewModel container)
+        public ViewModelBrowser GetBrowser(ContainerViewModel container)
         {
-            return _manager = new ViewModelManager(this, container);
+            return _browser = new ViewModelBrowser(this, container);
         }
 
         public T New<T>() where T : ViewModel, new()
         {
             if (typeof(T) == typeof(ManagerDetailsViewModel))
             {
-                var managerViewModel = new ManagerDetailsViewModel(_collections);
-                managerViewModel.App = _app;
+                var managerViewModel = new ManagerDetailsViewModel(_app, _collections);
                 managerViewModel.SquadRepository = _squadRepository;
                 return managerViewModel as T;
             }
