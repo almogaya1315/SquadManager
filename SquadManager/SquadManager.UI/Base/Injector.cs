@@ -10,9 +10,12 @@ namespace SquadManager.UI.Base
 
         private ISquadRepository _squadRepository;
 
+        private CollectionFactory _collections;
+
         public Injector()
         {
             _squadRepository = new SquadRepository();
+            _collections = new CollectionFactory(_squadRepository);
         }
 
         public ViewModelManager GetManager(ContainerViewModel container)
@@ -25,6 +28,7 @@ namespace SquadManager.UI.Base
             var instance = new T();
             //instance.Manager = _manager;
             instance.SquadRepository = _squadRepository;
+            instance.Collections = _collections;
             return instance;
         }
     }

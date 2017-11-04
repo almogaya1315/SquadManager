@@ -14,5 +14,7 @@ namespace SquadManager.UI.Base
         public ViewModelManager Manager { get; set; }
 
         public ISquadRepository SquadRepository { get; set; }
+
+        public CollectionFactory Collections { get; set; }
     }
 }

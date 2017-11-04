@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SquadManager.UI.SquadDetails.Views
+namespace SquadManager.UI.ManagerDetails.Views
 {
-    public partial class SquadDetailsView : UserControl
+    /// <summary>
+    /// Interaction logic for ManagerDetailsView.xaml
+    /// </summary>
+    public partial class ManagerDetailsView : UserControl
     {
-        public SquadDetailsView()
+        public ManagerDetailsView()
         {
             InitializeComponent();
         }

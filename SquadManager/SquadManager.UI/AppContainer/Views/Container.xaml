@@ -21,7 +21,7 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type squadDetailsViewModels:SquadDetailsViewModel}">
-            <squadDetailsViews:SquadDetailsView />
+            <squadDetailsViews:TeamDetailsView />
         </DataTemplate>
            
     </Window.Resources>

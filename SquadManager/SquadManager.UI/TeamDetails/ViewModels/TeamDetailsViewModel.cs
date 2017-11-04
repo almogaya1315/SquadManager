@@ -6,25 +6,20 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using SquadManager.UI.Repositories;
 
-namespace SquadManager.UI.SquadDetails.ViewModels
+namespace SquadManager.UI.TeamDetails.ViewModels
 {
-    public class SquadDetailsViewModel : ViewModel, IBrowseable
+    public class SquadDetailsViewModel : ViewModel
     {
         public ICommand NewTeam { get; set; }
 
         public SquadDetailsViewModel()
-        {
-            
-        }
-
-        public void Browsed(BrowseArgs args)
         {
             NewTeam = new RelayCommand(GetTeam);
         }
 
         private void GetTeam()
         {
-            var team = SquadRepository.GetTeam(1);
+            SquadRepository.CreateNewTeam();
             if (team == null)
             {
 

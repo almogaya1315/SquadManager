@@ -28,7 +28,7 @@ namespace SquadManager.UI.Container.ViewModels
 
             _viewModelManager = _injector.GetManager(this);
             _viewModelManager.Menu.Manager = _viewModelManager;
-            _viewModelManager.SquadDetails.Manager = _viewModelManager;
+            _viewModelManager.TeamDetails.Manager = _viewModelManager;
 
             ContainerContent = _viewModelManager.Menu;
         }
@@ -37,7 +37,7 @@ namespace SquadManager.UI.Container.ViewModels
         {
             if (args.Type == ArgsType.SquadDetailsArgs)
             {
-                ContainerContent = _viewModelManager.SquadDetails;
+                ContainerContent = _viewModelManager.TeamDetails;
             }
         }
     }

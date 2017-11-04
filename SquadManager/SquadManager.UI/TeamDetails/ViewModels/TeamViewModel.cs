@@ -1,20 +1,19 @@
-﻿using SquadManager.UI.Enums;
+﻿using SquadManager.UI.Base;
+using SquadManager.UI.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquadManager.UI.Models
+namespace SquadManager.UI.TeamDetails.ViewModels
 {
-    public class Team
+    public class TeamViewModel : ViewModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-        public int CaptainId { get; set; }
         public int ManagerId { get; set; }
         public int NationId { get; set; }
         public int CityId { get; set; }
-        public int SportId { get; set; }
+        public int Sport { get; set; }
     }
 }

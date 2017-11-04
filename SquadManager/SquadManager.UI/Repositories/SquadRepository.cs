@@ -11,6 +11,19 @@ namespace SquadManager.UI.Repositories
 {
     public class SquadRepository : SquadRepositoryBase, ISquadRepository
     {
+        public List<string> GetNations()
+        {
+            using (var con = OpenConnection())
+            {
+                return con.Query<string>("stp_SquadManager_GetNations", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public void CreateNewTeam()
+        {
+            throw new NotImplementedException();
+        }
+
         public Team GetTeam(int teamId)
         {
             using (var con = OpenConnection())

@@ -85,16 +85,23 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Base\BrowseArgs.cs" />
+    <Compile Include="Base\CollectionFactory.cs" />
     <Compile Include="Base\IBrowseable.cs" />
     <Compile Include="Base\Injector.cs" />
     <Compile Include="Base\ViewModel.cs" />
+    <Compile Include="ManagerDetails\ViewModels\ManagerDetailsViewModel.cs" />
+    <Compile Include="ManagerDetails\Views\ManagerDetailsView.xaml.cs">
+      <DependentUpon>ManagerDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Repositories\ISquadRepository.cs" />
     <Compile Include="Repositories\SquadRepository.cs" />
     <Compile Include="Repositories\SquadRepositoryBase.cs" />
-    <Compile Include="SquadDetails\ViewModels\SquadDetailsViewModel.cs" />
-    <Compile Include="SquadDetails\Views\SquadDetailsView.xaml.cs">
-      <DependentUpon>SquadDetailsView.xaml</DependentUpon>
+    <Compile Include="TeamDetails\ViewModels\TeamDetailsViewModel.cs" />
+    <Compile Include="TeamDetails\ViewModels\TeamViewModel.cs" />
+    <Compile Include="TeamDetails\Views\TeamDetailsView.xaml.cs">
+      <DependentUpon>TeamDetailsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -140,11 +147,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ManagerDetails\Views\ManagerDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Menu\Views\MenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SquadDetails\Views\SquadDetailsView.xaml">
+    <Page Include="TeamDetails\Views\TeamDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
