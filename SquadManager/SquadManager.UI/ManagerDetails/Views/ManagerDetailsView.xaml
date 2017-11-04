@@ -8,6 +8,22 @@
              d:DesignHeight="960"
              d:DesignWidth="1240"
              Background="#e7f5f7">
+    <UserControl.Resources>
+
+        <Style x:Key="ManagerDetailsTextBlockTemplateStyle"
+               TargetType="TextBlock">
+            <Setter Property="Margin"
+                    Value="10" />
+            <Setter Property="Width"
+                    Value="170" />
+            <Setter Property="FontSize"
+                    Value="30" />
+            <Setter Property="TextAlignment"
+                    Value="Left" />
+        </Style>
+
+    </UserControl.Resources>
+    
     <Border Background="#bfe3e9"
             Height="700"
             Width="1000">
@@ -23,7 +39,18 @@
                        Foreground="#3c5458"
                        Text="MANAGER DETAILS"
                        Margin="20" />
-            
+
+            <Grid Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Full name"
+                           FontSize="30"
+                           Style="{StaticResource ManagerDetailsTextBlockTemplateStyle}" />
+            </Grid>
+
             
 
         </StackPanel>

@@ -9,6 +9,6 @@ namespace SquadManager.UI.Models
     public class Nation
     {
         public int Id { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
     }
 }
