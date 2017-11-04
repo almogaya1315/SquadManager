@@ -19,6 +19,7 @@ namespace SquadManager.UI.Base
     public enum ArgsType
     {
         MenuArgs,
-        SquadDetailsArgs,
+        ManagerDetailsArgs,
+        TeamDetailsArgs,
     }
 }

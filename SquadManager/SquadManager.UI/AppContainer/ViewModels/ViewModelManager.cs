@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using SquadManager.UI.Base;
 using SquadManager.UI.Container.ViewModels;
+using SquadManager.UI.ManagerDetails.ViewModels;
 using SquadManager.UI.Menu.ViewModels;
 using SquadManager.UI.TeamDetails.ViewModels;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace SquadManager.UI.AppContainer.ViewModels
         private ContainerViewModel _container { get; set; }
 
         public MenuViewModel Menu { get; set; }
+        public ManagerDetailsViewModel ManagerDetails { get; set; }
         public TeamDetailsViewModel TeamDetails { get; set; }
 
         public ViewModelManager(Injector injector, ContainerViewModel container)
@@ -19,6 +21,7 @@ namespace SquadManager.UI.AppContainer.ViewModels
             _container = container;
 
             Menu = injector.New<MenuViewModel>();
+            ManagerDetails = injector.New<ManagerDetailsViewModel>();
             TeamDetails = injector.New<TeamDetailsViewModel>();
         }
 

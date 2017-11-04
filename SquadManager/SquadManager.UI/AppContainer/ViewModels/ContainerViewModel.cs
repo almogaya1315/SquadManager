@@ -28,6 +28,7 @@ namespace SquadManager.UI.Container.ViewModels
 
             _viewModelManager = _injector.GetManager(this);
             _viewModelManager.Menu.Manager = _viewModelManager;
+            _viewModelManager.ManagerDetails.Manager = _viewModelManager;
             _viewModelManager.TeamDetails.Manager = _viewModelManager;
 
             ContainerContent = _viewModelManager.Menu;
@@ -35,9 +36,14 @@ namespace SquadManager.UI.Container.ViewModels
 
         public void Browsed(BrowseArgs args)
         {
-            if (args.Type == ArgsType.SquadDetailsArgs)
+            switch (args.Type)
             {
-                ContainerContent = _viewModelManager.TeamDetails;
+                case ArgsType.ManagerDetailsArgs:
+                    ContainerContent = _viewModelManager.ManagerDetails;
+                    break;
+                case ArgsType.MenuArgs:
+                    ContainerContent = _viewModelManager.Menu;
+                    break;
             }
         }
     }

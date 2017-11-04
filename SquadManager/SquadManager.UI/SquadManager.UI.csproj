@@ -55,6 +55,7 @@
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -90,6 +91,7 @@
     <Compile Include="Base\Injector.cs" />
     <Compile Include="Base\ViewModel.cs" />
     <Compile Include="ManagerDetails\ViewModels\ManagerDetailsViewModel.cs" />
+    <Compile Include="ManagerDetails\ViewModels\ManagerViewModel.cs" />
     <Compile Include="ManagerDetails\Views\ManagerDetailsView.xaml.cs">
       <DependentUpon>ManagerDetailsView.xaml</DependentUpon>
     </Compile>
@@ -100,6 +102,7 @@
     <Compile Include="Repositories\ISquadRepository.cs" />
     <Compile Include="Repositories\SquadRepository.cs" />
     <Compile Include="Repositories\SquadRepositoryBase.cs" />
+    <Compile Include="SharedViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="TeamDetails\ViewModels\TeamDetailsViewModel.cs" />
     <Compile Include="TeamDetails\ViewModels\TeamViewModel.cs" />
     <Compile Include="TeamDetails\Views\TeamDetailsView.xaml.cs">

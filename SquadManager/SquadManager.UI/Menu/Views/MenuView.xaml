@@ -9,46 +9,12 @@
              d:DesignWidth="1240"
              Background="#e7f5f7">
 
-    <UserControl.Resources>
-
-        <Style x:Key="MenuButtonTemplateStyle"
-               TargetType="TextBlock">
-            <Setter Property="Margin"
-                    Value="10" />
-            <Setter Property="Width"
-                    Value="170" />
-            <Setter Property="FontSize"
-                    Value="30" />
-            <Setter Property="TextAlignment"
-                    Value="Center" />
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Foreground"
-                            Value="#249eb4" />
-                </Trigger>
-                <Trigger Property="IsMouseOver"
-                         Value="false">
-                    <Setter Property="Foreground"
-                            Value="#3c5458" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <ControlTemplate x:Key="MenuButtonTemplate">
-            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Content}"
-                       Style="{StaticResource MenuButtonTemplateStyle}" />
-        </ControlTemplate>
-
-    </UserControl.Resources>
-
     <Border Background="#bfe3e9"
             Height="500"
             Width="600">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="3"
-                              BlurRadius="1"
+                              BlurRadius="3"
                               Color="#a6d6df" />
         </Border.Effect>
 
@@ -60,13 +26,13 @@
                        Margin="20"/>
             <Button Content="New squad"
                     Command="{Binding NewSquad}"
-                    Template="{StaticResource MenuButtonTemplate}" />
+                    Template="{StaticResource ButtonTemplate}" />
             <Button Content="Load squad"
-                    Template="{StaticResource MenuButtonTemplate}" />
+                    Template="{StaticResource ButtonTemplate}" />
             <Button Content="Options"
-                    Template="{StaticResource MenuButtonTemplate}" />
+                    Template="{StaticResource ButtonTemplate}" />
             <Button Content="Exit"
-                    Template="{StaticResource MenuButtonTemplate}" />
+                    Template="{StaticResource ButtonTemplate}" />
 
         </StackPanel>
     </Border>

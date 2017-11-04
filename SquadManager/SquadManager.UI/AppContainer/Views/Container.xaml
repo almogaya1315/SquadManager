@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:menuViewModels="clr-namespace:SquadManager.UI.Menu.ViewModels"
         xmlns:menuViews="clr-namespace:SquadManager.UI.Menu.Views"
+        xmlns:managerDetailsViewModels="clr-namespace:SquadManager.UI.ManagerDetails.ViewModels"
+        xmlns:managerDetailsViews="clr-namespace:SquadManager.UI.ManagerDetails.Views"
         xmlns:teamDetailsViewModels="clr-namespace:SquadManager.UI.TeamDetails.ViewModels"
         xmlns:teamDetailsViews="clr-namespace:SquadManager.UI.TeamDetails.Views"
         mc:Ignorable="d"
@@ -23,7 +25,11 @@
         <DataTemplate DataType="{x:Type teamDetailsViewModels:TeamDetailsViewModel}">
             <teamDetailsViews:TeamDetailsView />
         </DataTemplate>
-           
+
+        <DataTemplate DataType="{x:Type managerDetailsViewModels:ManagerDetailsViewModel}">
+            <managerDetailsViews:ManagerDetailsView />
+        </DataTemplate>
+        
     </Window.Resources>
 
     <ContentPresenter Content="{Binding ContainerContent}"/>

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using System.Data;
+using SquadManager.UI.ManagerDetails.ViewModels;
 
 namespace SquadManager.UI.Repositories
 {
@@ -16,6 +17,19 @@ namespace SquadManager.UI.Repositories
             using (var con = OpenConnection())
             {
                 return con.Query<Nation>("stp_SquadManager_GetNations", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public void AddManager(ManagerViewModel manager)
+        {
+            using (var con = OpenConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Name", manager.Name, DbType.String, ParameterDirection.Input);
+                parameters.Add("@Nation", manager.Nationality.Id, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Age", manager.Age, DbType.Int32, ParameterDirection.Input);
+
+                con.Query("stp_SquadManager_AddManager", parameters, commandType: CommandType.StoredProcedure);
             }
         }
 

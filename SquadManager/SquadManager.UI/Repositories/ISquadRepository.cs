@@ -1,4 +1,5 @@
-﻿using SquadManager.UI.Models;
+﻿using SquadManager.UI.ManagerDetails.ViewModels;
+using SquadManager.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace SquadManager.UI.Repositories
     {
         List<Nation> GetNations();
 
+        void AddManager(ManagerViewModel manager);
         List<Manager> GetManagers();
 
         void CreateNewTeam();
