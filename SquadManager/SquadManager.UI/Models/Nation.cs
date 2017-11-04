@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace SquadManager.UI.Models
 {
-    public class Manager
+    public class Nation
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public Nation Nationality { get; set; }
-        public int Age { get; set; }
+        public int Name { get; set; }
     }
 }

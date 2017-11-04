@@ -9,7 +9,9 @@ namespace SquadManager.UI.Repositories
 {
     public interface ISquadRepository
     {
-        List<string> GetNations();
+        List<Nation> GetNations();
+
+        List<Manager> GetManagers();
 
         void CreateNewTeam();
         Team GetTeam(int teamId);

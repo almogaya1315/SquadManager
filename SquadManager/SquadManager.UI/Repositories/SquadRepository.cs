@@ -11,11 +11,19 @@ namespace SquadManager.UI.Repositories
 {
     public class SquadRepository : SquadRepositoryBase, ISquadRepository
     {
-        public List<string> GetNations()
+        public List<Nation> GetNations()
         {
             using (var con = OpenConnection())
             {
-                return con.Query<string>("stp_SquadManager_GetNations", commandType: CommandType.StoredProcedure).ToList();
+                return con.Query<Nation>("stp_SquadManager_GetNations", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public List<Manager> GetManagers()
+        {
+            using (var con = OpenConnection())
+            {
+                return con.Query<Manager>("stp_SquadManager_GetManagers", commandType: CommandType.StoredProcedure).ToList();
             }
         }
 

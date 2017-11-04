@@ -93,7 +93,9 @@
     <Compile Include="ManagerDetails\Views\ManagerDetailsView.xaml.cs">
       <DependentUpon>ManagerDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Application.cs" />
     <Compile Include="Models\Manager.cs" />
+    <Compile Include="Models\Nation.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Repositories\ISquadRepository.cs" />
     <Compile Include="Repositories\SquadRepository.cs" />

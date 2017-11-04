@@ -1,11 +1,14 @@
 ﻿using SquadManager.UI.AppContainer.ViewModels;
 using SquadManager.UI.Container.ViewModels;
+using SquadManager.UI.Models;
 using SquadManager.UI.Repositories;
 
 namespace SquadManager.UI.Base
 {
     public class Injector
     {
+        private Application _app;
+
         private ViewModelManager _manager;
 
         private ISquadRepository _squadRepository;
@@ -14,8 +17,13 @@ namespace SquadManager.UI.Base
 
         public Injector()
         {
+            _app = new Application();
             _squadRepository = new SquadRepository();
             _collections = new CollectionFactory(_squadRepository);
+
+            _app.Nations = _collections.Nations;
+
+            _app.Managers = _squadRepository.GetManagers();
         }
 
         public ViewModelManager GetManager(ContainerViewModel container)
