@@ -8,11 +8,11 @@ using SquadManager.UI.Repositories;
 
 namespace SquadManager.UI.TeamDetails.ViewModels
 {
-    public class SquadDetailsViewModel : ViewModel
+    public class TeamDetailsViewModel : ViewModel
     {
         public ICommand NewTeam { get; set; }
 
-        public SquadDetailsViewModel()
+        public TeamDetailsViewModel()
         {
             NewTeam = new RelayCommand(GetTeam);
         }
@@ -20,10 +20,7 @@ namespace SquadManager.UI.TeamDetails.ViewModels
         private void GetTeam()
         {
             SquadRepository.CreateNewTeam();
-            if (team == null)
-            {
-
-            }
+            
         }
     }
 }
