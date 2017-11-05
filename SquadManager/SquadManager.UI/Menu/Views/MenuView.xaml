@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:SquadManager.UI.Menu.Views"
              mc:Ignorable="d"
              d:DesignHeight="960"
-             d:DesignWidth="1240"
-             Background="#e7f5f7">
+             d:DesignWidth="1240">
 
     <Border Background="#bfe3e9"
             Height="500"

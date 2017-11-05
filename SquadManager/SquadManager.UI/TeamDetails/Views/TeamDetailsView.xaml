@@ -6,14 +6,14 @@
              xmlns:tb="clr-namespace:SquadManager.UI.Controls.TextBox"
              mc:Ignorable="d"
              d:DesignHeight="960"
-             d:DesignWidth="1240"
-             Background="#e7f5f7">
+             d:DesignWidth="1240">
+
     <Border Background="#bfe3e9"
             Height="700"
             Width="1000">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="3"
-                              BlurRadius="1"
+                              BlurRadius="3"
                               Color="#a6d6df" />
         </Border.Effect>
 
@@ -22,29 +22,40 @@
             <TextBlock FontSize="40"
                        Foreground="#3c5458"
                        Text="TEAM DETAILS"
-                       TextAlignment="Center"
-                       Margin="20" />
-
-            <Grid Visibility="{Binding ChooseManagerVisibility, Converter={StaticResource boolToVis}}">
+                       Margin="20"
+                       TextAlignment="Center" />
+            
+            <Grid Margin="20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="320" />
+                    <ColumnDefinition Width="320" />
                 </Grid.ColumnDefinitions>
+
                 <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Choose manager"
-                           Style="{StaticResource TextBlockStyle}"
-                           Width="230" />
+                <TextBlock Text="Name"
+                           Style="{StaticResource TextBlockStyle}" />
+                <TextBox Grid.Column="1"
+                         Style="{StaticResource TextBoxStyle}"
+                         Text="{Binding ManagerViewModel.Name, UpdateSourceTrigger=PropertyChanged}" />
+                
+                <TextBlock Text="Manager"
+                           Grid.Row="1"
+                           Style="{StaticResource TextBlockStyle}" />
                 <ComboBox Grid.Column="1"
-                          SelectedItem="{Binding ManagerViewModel}"
-                          ItemsSource="{Binding Managers}"
+                          Grid.Row="1"
+                          SelectedItem="{Binding Team.Nationality}"
+                          ItemsSource="{Binding App.Managers}"
                           FontSize="18"
                           DisplayMemberPath="Name"
                           Width="200"
-                          Margin="10,21,0,7"
+                          Margin="10,0"
                           Height="32"
                           HorizontalAlignment="Left">
                     <ComboBox.Effect>
@@ -54,83 +65,85 @@
                     </ComboBox.Effect>
                 </ComboBox>
 
-                <TextBlock Text="or type in new details"
-                           Grid.ColumnSpan="2"
-                           Grid.Row="1"
-                           Style="{StaticResource TextBlockStyle}"
-                           Width="210"
-                           FontSize="22" />
-            </Grid>
+                <TextBlock Text="Nation"
+                           Grid.Row="2"
+                           Style="{StaticResource TextBlockStyle}" />
+                <ComboBox Grid.Column="1"
+                          Grid.Row="2"
+                          SelectedItem="{Binding Team.Nation}"
+                          ItemsSource="{Binding Collections.NationViewModels}"
+                          FontSize="18"
+                          DisplayMemberPath="Name"
+                          Width="200"
+                          Margin="10,0"
+                          Height="32"
+                          HorizontalAlignment="Left">
+                    <ComboBox.Effect>
+                        <DropShadowEffect ShadowDepth="3"
+                                          BlurRadius="3"
+                                          Color="#a6d6df" />
+                    </ComboBox.Effect>
+                </ComboBox>
+                
+                <TextBlock Text="Nation"
+                           Grid.Row="2"
+                           Style="{StaticResource TextBlockStyle}" />
+                <ComboBox Grid.Column="1"
+                          Grid.Row="2"
+                          SelectedItem="{Binding Team.Nation}"
+                          ItemsSource="{Binding Collections.NationViewModels}"
+                          FontSize="18"
+                          DisplayMemberPath="Name"
+                          Width="200"
+                          Margin="10,0"
+                          Height="32"
+                          HorizontalAlignment="Left">
+                    <ComboBox.Effect>
+                        <DropShadowEffect ShadowDepth="3"
+                                          BlurRadius="3"
+                                          Color="#a6d6df" />
+                    </ComboBox.Effect>
+                </ComboBox>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+                <TextBlock Text="City"
+                           Grid.Row="3"
+                           Style="{StaticResource TextBlockStyle}" />
+                <ComboBox Grid.Column="1"
+                          Grid.Row="3"
+                          SelectedItem="{Binding Team.City}"
+                          ItemsSource="{Binding Collections.Cities}"
+                          FontSize="18"
+                          DisplayMemberPath="Name"
+                          Width="200"
+                          Margin="10,0"
+                          Height="32"
+                          HorizontalAlignment="Left">
+                    <ComboBox.Effect>
+                        <DropShadowEffect ShadowDepth="3"
+                                          BlurRadius="3"
+                                          Color="#a6d6df" />
+                    </ComboBox.Effect>
+                </ComboBox>
 
-                <Grid Margin="20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="320" />
-                        <ColumnDefinition Width="320" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="Full name"
-                               Style="{StaticResource TextBlockStyle}" />
-                    <TextBox Grid.Column="1"
-                             Style="{StaticResource TextBoxStyle}"
-                             Text="{Binding ManagerViewModel.Name, UpdateSourceTrigger=PropertyChanged}" />
-
-                    <TextBlock Text="Age"
-                               Grid.Row="1"
-                               Style="{StaticResource TextBlockStyle}" />
-                    <StackPanel Grid.Column="1"
-                                Grid.Row="1"
-                                Orientation="Horizontal">
-                        <tb:MyTextBox Input="Numeric"
-                                      Style="{StaticResource TextBoxStyle}"
-                                      Text="{Binding ManagerViewModel.Age, UpdateSourceTrigger=PropertyChanged}"
-                                      Width="100"
-                                      HorizontalAlignment="Left"
-                                      Margin="10,14" />
-                        <TextBlock Text="Min input: 18"
-                                   FontSize="14"
-                                   Foreground="#3c5458"
-                                   Margin="0 30 0 0"
-                                   Visibility="{Binding AgeValidationVisible, Converter={StaticResource ResourceKey=boolToVis}}" />
-                    </StackPanel>
-                    <TextBlock Text="Nationality"
-                               Grid.Row="2"
-                               Style="{StaticResource TextBlockStyle}" />
-                    <ComboBox Grid.Column="1"
-                              Grid.Row="2"
-                              SelectedItem="{Binding ManagerViewModel.Nationality}"
-                              ItemsSource="{Binding Collections.NationViewModels}"
-                              FontSize="18"
-                              DisplayMemberPath="Name"
-                              Width="200"
-                              Margin="10,21,0,7"
-                              Height="32"
-                              HorizontalAlignment="Left">
-                        <ComboBox.Effect>
-                            <DropShadowEffect ShadowDepth="3"
-                                              BlurRadius="3"
-                                              Color="#a6d6df" />
-                        </ComboBox.Effect>
-                    </ComboBox>
-                </Grid>
+                <TextBlock Text="Sport"
+                           Grid.Row="4"
+                           Style="{StaticResource TextBlockStyle}" />
+                <ComboBox Grid.Column="1"
+                          Grid.Row="4"
+                          SelectedItem="{Binding Team.Sport}"
+                          ItemsSource="{Binding Collections.Sports}"
+                          FontSize="18"
+                          DisplayMemberPath="Name"
+                          Width="200"
+                          Margin="10,0"
+                          Height="32"
+                          HorizontalAlignment="Left">
+                    <ComboBox.Effect>
+                        <DropShadowEffect ShadowDepth="3"
+                                          BlurRadius="3"
+                                          Color="#a6d6df" />
+                    </ComboBox.Effect>
+                </ComboBox>
             </Grid>
 
             <Grid Margin="10">
@@ -164,8 +177,8 @@
                     </Button.Style>
                 </Button>
             </Grid>
+
+
         </StackPanel>
-
     </Border>
-
 </UserControl>

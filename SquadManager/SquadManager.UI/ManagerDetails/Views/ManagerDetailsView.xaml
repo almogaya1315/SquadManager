@@ -8,13 +8,7 @@
              x:Class="SquadManager.UI.ManagerDetails.Views.ManagerDetailsView"
              mc:Ignorable="d"
              d:DesignHeight="960"
-             d:DesignWidth="1240"
-             Background="#e7f5f7">
-    <UserControl.Resources>
-
-        
-
-    </UserControl.Resources>
+             d:DesignWidth="1240">
 
     <Border Background="#bfe3e9"
             Height="700"
@@ -115,7 +109,7 @@
                           FontSize="18"
                           DisplayMemberPath="Name"
                           Width="200"
-                          Margin="10,21,0,7"
+                          Margin="10,0"
                           Height="32"
                           HorizontalAlignment="Left">
                     <ComboBox.Effect>

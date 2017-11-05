@@ -62,8 +62,6 @@
                            Style="{StaticResource ButtonTemplateStyle}" />
             </ControlTemplate>
 
-            
-
             <Style x:Key="TextBlockStyle"
                    TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin"
