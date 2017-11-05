@@ -47,11 +47,11 @@
                             <Condition Property="IsMouseOver"
                                        Value="true" />
                             <Condition Property="Text"
-                                       Value="Cancel"/>
+                                       Value="Back"/>
                         </MultiTrigger.Conditions>
                         <MultiTrigger.Setters>
                             <Setter Property="Foreground"
-                                    Value="#b8564f"/>
+                                    Value="Red"/>
                         </MultiTrigger.Setters>
                     </MultiTrigger>
                 </Style.Triggers>

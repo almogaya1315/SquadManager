@@ -2,6 +2,9 @@
 using GalaSoft.MvvmLight;
 using SquadManager.UI.AppContainer.ViewModels;
 using SquadManager.UI.Base;
+using SquadManager.UI.SharedViewModels;
+using SquadManager.UI.ManagerDetails.ViewModels;
+using SquadManager.UI.TeamDetails.ViewModels;
 
 namespace SquadManager.UI.Container.ViewModels
 {
@@ -39,6 +42,8 @@ namespace SquadManager.UI.Container.ViewModels
             switch (args.Type)
             {
                 case ArgsType.TeamDetailsArgs:
+                    var teamDetailsArgs = (TeamDetailsArgs)args;
+                    _viewModelBrowser.TeamDetails = new TeamDetailsViewModel(teamDetailsArgs.Manager);
                     ContainerContent = _viewModelBrowser.TeamDetails;
                     break;
                 case ArgsType.ManagerDetailsArgs:

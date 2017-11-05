@@ -126,7 +126,7 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Button Content="Cancel"
+                <Button Content="Back"
                         Command="{Binding Cancel}"
                         Template="{StaticResource ButtonTemplate}" />
 

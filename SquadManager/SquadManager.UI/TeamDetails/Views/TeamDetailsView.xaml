@@ -43,15 +43,15 @@
                            Style="{StaticResource TextBlockStyle}" />
                 <TextBox Grid.Column="1"
                          Style="{StaticResource TextBoxStyle}"
-                         Text="{Binding ManagerViewModel.Name, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding Team.Name, UpdateSourceTrigger=PropertyChanged}" />
                 
                 <TextBlock Text="Manager"
                            Grid.Row="1"
                            Style="{StaticResource TextBlockStyle}" />
                 <ComboBox Grid.Column="1"
                           Grid.Row="1"
-                          SelectedItem="{Binding Team.Nationality}"
-                          ItemsSource="{Binding App.Managers}"
+                          SelectedItem="{Binding Team.Manager}"
+                          ItemsSource="{Binding Managers}"
                           FontSize="18"
                           DisplayMemberPath="Name"
                           Width="200"
@@ -111,7 +111,7 @@
                 <ComboBox Grid.Column="1"
                           Grid.Row="3"
                           SelectedItem="{Binding Team.City}"
-                          ItemsSource="{Binding Collections.Cities}"
+                          ItemsSource="{Binding Collections.CityViewModels}"
                           FontSize="18"
                           DisplayMemberPath="Name"
                           Width="200"
@@ -131,7 +131,7 @@
                 <ComboBox Grid.Column="1"
                           Grid.Row="4"
                           SelectedItem="{Binding Team.Sport}"
-                          ItemsSource="{Binding Collections.Sports}"
+                          ItemsSource="{Binding Collections.SportViewModels}"
                           FontSize="18"
                           DisplayMemberPath="Name"
                           Width="200"
@@ -156,29 +156,11 @@
                         Command="{Binding Back}"
                         Template="{StaticResource ButtonTemplate}" />
 
-                <Button Grid.Column="1"
+                <Button Content="Save"
+                        Grid.Column="1"
                         Command="{Binding Save}"
-                        Template="{StaticResource ButtonTemplate}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ManagerViewModel.Id, Converter={StaticResource IsIdExists}}"
-                                             Value="false">
-                                    <Setter Property="Content"
-                                            Value="Save" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ManagerViewModel.Id, Converter={StaticResource IsIdExists}}"
-                                             Value="true">
-                                    <Setter Property="Content"
-                                            Value="Continue" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                        Template="{StaticResource ButtonTemplate}" />
             </Grid>
-
-
         </StackPanel>
     </Border>
 </UserControl>

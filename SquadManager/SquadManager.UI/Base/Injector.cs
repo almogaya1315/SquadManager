@@ -3,6 +3,7 @@ using SquadManager.UI.Container.ViewModels;
 using SquadManager.UI.ManagerDetails.ViewModels;
 using SquadManager.UI.Models;
 using SquadManager.UI.Repositories;
+using SquadManager.UI.TeamDetails.ViewModels;
 
 namespace SquadManager.UI.Base
 {
@@ -17,7 +18,7 @@ namespace SquadManager.UI.Base
         {
             _app = new Application();
             _squadRepository = new SquadRepository();
-            _collections = new CollectionFactory(_squadRepository);
+            _collections = new CollectionFactory(_app, _squadRepository);
 
             _app.Managers = _squadRepository.GetManagers();
         }
@@ -35,12 +36,16 @@ namespace SquadManager.UI.Base
                 managerViewModel.SquadRepository = _squadRepository;
                 return managerViewModel as T;
             }
+            if (typeof(T) == typeof(TeamDetailsViewModel))
+            {
+                var teamViewModel = new TeamDetailsViewModel(_app, _collections);
+                teamViewModel.SquadRepository = _squadRepository;
+                return teamViewModel as T;
+            }
 
             var instance = new T();
-            //instance.Manager = _manager;
             instance.App = _app;
             instance.SquadRepository = _squadRepository;
-            //instance.Collections = _collections;
             return instance as T;
         }
     }

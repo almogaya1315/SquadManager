@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquadManager.UI.ManagerDetails.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,16 @@ namespace SquadManager.UI.Base
         public BrowseArgs(ArgsType type)
         {
             Type = type;
+        }
+    }
+
+    public class TeamDetailsArgs : BrowseArgs
+    {
+        public ManagerViewModel Manager { get; set; }
+
+        public TeamDetailsArgs(ArgsType type, ManagerViewModel manager) : base(type)
+        {
+            Manager = manager;
         }
     }
 

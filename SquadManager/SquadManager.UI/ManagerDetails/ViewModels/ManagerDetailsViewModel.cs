@@ -61,7 +61,6 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
             }
         }
 
-
         public ManagerDetailsViewModel() { }
         public ManagerDetailsViewModel(Application app, CollectionFactory collections)
         {
@@ -78,7 +77,7 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
 
         private void SetManager()
         {
-            Managers = SetManagers();
+            Managers = Collections.ManagerViewModels;
 
             ManagerViewModel = Managers.FirstOrDefault();
 
@@ -87,23 +86,12 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
             else ManagerViewModel = new ManagerViewModel();
         }
 
-        private List<ManagerViewModel> SetManagers()
-        {
-            return App.Managers.Select(m => new ManagerViewModel()
-            {
-                Id = m.Id,
-                Name = m.Name,
-                Nationality = Collections.NationViewModels.Find(n => n.Id == m.Nationality.Id),
-                Age = m.Age
-            }).ToList();
-        }
-
         private void ManagerViewModel_PropertyChanged(object sender, EventArgs e)
         {
             ManagerViewModel = null; 
             ManagerViewModel = new ManagerViewModel();
 
-            Managers = SetManagers();
+            Managers = Collections.ManagerViewModels;
         }
 
         private bool CanSave()
@@ -144,7 +132,7 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
                 }
             }
 
-            Browser.Browse(new BrowseArgs(ArgsType.TeamDetailsArgs));
+            Browser.Browse(new TeamDetailsArgs(ArgsType.TeamDetailsArgs, ManagerViewModel));
         }
 
         private void NavigateToMenu()
