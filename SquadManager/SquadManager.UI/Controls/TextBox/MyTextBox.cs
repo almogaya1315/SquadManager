@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace SquadManager.UI.Controls.TextBox
 {
@@ -43,29 +44,10 @@ namespace SquadManager.UI.Controls.TextBox
                                 return;
                             }
                         }
-
-                        var minInput = (int)d.GetValue(MinInputProperty);
-                        var boxInput = int.Parse(box.Text);
-                        if (boxInput < minInput)
-                        {
-                            box.Text = string.Empty;
-                        }
                     };
                     break;
             }
         }
-
-
-        public int MinInput
-        {
-            get { return (int)GetValue(MinInputProperty); }
-            set { SetValue(MinInputProperty, value); }
-        }
-
-        public static readonly DependencyProperty MinInputProperty =
-            DependencyProperty.Register("MinInput", 
-                typeof(int), typeof(MyTextBox), 
-                new PropertyMetadata(0));
     }
 
     public enum InputType

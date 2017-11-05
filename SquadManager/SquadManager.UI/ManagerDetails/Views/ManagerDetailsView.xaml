@@ -12,6 +12,8 @@
              Background="#e7f5f7">
     <UserControl.Resources>
 
+        <BooleanToVisibilityConverter x:Key="boolToVis" />
+
         <Style x:Key="ManagerDetailsTextBlockStyle"
                TargetType="{x:Type TextBlock}">
             <Setter Property="Margin"
@@ -146,15 +148,21 @@
                 <TextBlock Text="Age"
                            Grid.Row="1"
                            Style="{StaticResource ManagerDetailsTextBlockStyle}" />
-                <tb:MyTextBox Grid.Column="1"
-                              Grid.Row="1"
-                              Input="Numeric"
-                              MinInput="18"
-                              Style="{StaticResource ManagerDetailsTextBoxStyle}"
-                              Text="{Binding ManagerViewModel.Age, UpdateSourceTrigger=PropertyChanged}"
-                              Width="100"
-                              HorizontalAlignment="Left" />
-
+                <StackPanel Grid.Column="1"
+                            Grid.Row="1"
+                            Orientation="Horizontal">
+                    <tb:MyTextBox Input="Numeric"
+                                  Style="{StaticResource ManagerDetailsTextBoxStyle}"
+                                  Text="{Binding ManagerViewModel.Age, UpdateSourceTrigger=PropertyChanged}"
+                                  Width="100"
+                                  HorizontalAlignment="Left"
+                                  Margin="10,14" />
+                    <TextBlock Text="Min input: 18"
+                               FontSize="14"
+                               Foreground="#3c5458"
+                               Margin="0 30 0 0"
+                               Visibility="{Binding AgeValidationVisible, Converter={StaticResource ResourceKey=boolToVis}}" />
+                </StackPanel>
                 <TextBlock Text="Nationality"
                            Grid.Row="2"
                            Style="{StaticResource ManagerDetailsTextBlockStyle}" />

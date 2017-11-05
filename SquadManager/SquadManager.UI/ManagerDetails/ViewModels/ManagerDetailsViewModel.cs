@@ -39,6 +39,18 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
         public ICommand Cancel { get; set; }
         public ICommand Save { get; set; }
 
+        private bool _ageValidationVisible;
+        public bool AgeValidationVisible
+        {
+            get { return _ageValidationVisible;; }
+            set
+            {
+                _ageValidationVisible = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
         public ManagerDetailsViewModel() { }
         public ManagerDetailsViewModel(Application app, CollectionFactory collections)
         {
@@ -81,6 +93,16 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
 
         private bool CanSave()
         {
+            if (ManagerViewModel.Age.HasValue)
+            {
+                if (ManagerViewModel.Age.Value < 18)
+                {
+                    AgeValidationVisible = true;
+                    return false;
+                }
+                else AgeValidationVisible = false;
+            }
+
             return ManagerViewModel != null && !string.IsNullOrWhiteSpace(ManagerViewModel.Name) && 
                    ManagerViewModel.Nationality != null && !string.IsNullOrWhiteSpace(ManagerViewModel.Nationality.Name) && 
                    ManagerViewModel.Age.HasValue;

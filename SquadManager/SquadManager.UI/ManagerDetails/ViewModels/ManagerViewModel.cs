@@ -42,6 +42,7 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
             {
                 _age = value;
                 if (Id > 0) PropertyChanged?.Invoke(this, null);
+                RaisePropertyChanged();
             }
         }
     }
