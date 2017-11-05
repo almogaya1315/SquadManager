@@ -50,6 +50,17 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
             }
         }
 
+        private bool _chooseManagerVisibility;
+        public bool ChooseManagerVisibility
+        {
+            get { return _chooseManagerVisibility; }
+            set
+            {
+                _chooseManagerVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         public ManagerDetailsViewModel() { }
         public ManagerDetailsViewModel(Application app, CollectionFactory collections)
@@ -59,6 +70,8 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
 
             SetManager();
 
+            ChooseManagerVisibility = Managers.Count > 0;
+
             Cancel = new RelayCommand(NavigateToMenu);
             Save = new RelayCommand(SaveManager, CanSave);
         }
@@ -67,9 +80,11 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
         {
             Managers = SetManagers();
 
-            ManagerViewModel = Managers.First();
+            ManagerViewModel = Managers.FirstOrDefault();
 
-            ManagerViewModel.PropertyChanged += ManagerViewModel_PropertyChanged;
+            if (ManagerViewModel != null)
+                ManagerViewModel.PropertyChanged += ManagerViewModel_PropertyChanged;
+            else ManagerViewModel = new ManagerViewModel();
         }
 
         private List<ManagerViewModel> SetManagers()

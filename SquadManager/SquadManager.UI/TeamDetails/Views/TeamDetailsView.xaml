@@ -23,11 +23,8 @@
                        Text="TEAM DETAILS"
                        Margin="20" />
 
-
-
-            <Button Content="Create team"
-                    Command="{Binding NewTeam}" />
-
+            
+            
         </StackPanel>
 
     </Border>
