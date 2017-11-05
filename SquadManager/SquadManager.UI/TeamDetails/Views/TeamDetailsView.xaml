@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:tb="clr-namespace:SquadManager.UI.Controls.TextBox"
              mc:Ignorable="d"
              d:DesignHeight="960"
              d:DesignWidth="1240"
@@ -21,10 +22,148 @@
             <TextBlock FontSize="40"
                        Foreground="#3c5458"
                        Text="TEAM DETAILS"
+                       TextAlignment="Center"
                        Margin="20" />
 
-            
-            
+            <Grid Visibility="{Binding ChooseManagerVisibility, Converter={StaticResource boolToVis}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Choose manager"
+                           Style="{StaticResource TextBlockStyle}"
+                           Width="230" />
+                <ComboBox Grid.Column="1"
+                          SelectedItem="{Binding ManagerViewModel}"
+                          ItemsSource="{Binding Managers}"
+                          FontSize="18"
+                          DisplayMemberPath="Name"
+                          Width="200"
+                          Margin="10,21,0,7"
+                          Height="32"
+                          HorizontalAlignment="Left">
+                    <ComboBox.Effect>
+                        <DropShadowEffect ShadowDepth="3"
+                                          BlurRadius="3"
+                                          Color="#a6d6df" />
+                    </ComboBox.Effect>
+                </ComboBox>
+
+                <TextBlock Text="or type in new details"
+                           Grid.ColumnSpan="2"
+                           Grid.Row="1"
+                           Style="{StaticResource TextBlockStyle}"
+                           Width="210"
+                           FontSize="22" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="320" />
+                        <ColumnDefinition Width="320" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Full name"
+                               Style="{StaticResource TextBlockStyle}" />
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource TextBoxStyle}"
+                             Text="{Binding ManagerViewModel.Name, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Text="Age"
+                               Grid.Row="1"
+                               Style="{StaticResource TextBlockStyle}" />
+                    <StackPanel Grid.Column="1"
+                                Grid.Row="1"
+                                Orientation="Horizontal">
+                        <tb:MyTextBox Input="Numeric"
+                                      Style="{StaticResource TextBoxStyle}"
+                                      Text="{Binding ManagerViewModel.Age, UpdateSourceTrigger=PropertyChanged}"
+                                      Width="100"
+                                      HorizontalAlignment="Left"
+                                      Margin="10,14" />
+                        <TextBlock Text="Min input: 18"
+                                   FontSize="14"
+                                   Foreground="#3c5458"
+                                   Margin="0 30 0 0"
+                                   Visibility="{Binding AgeValidationVisible, Converter={StaticResource ResourceKey=boolToVis}}" />
+                    </StackPanel>
+                    <TextBlock Text="Nationality"
+                               Grid.Row="2"
+                               Style="{StaticResource TextBlockStyle}" />
+                    <ComboBox Grid.Column="1"
+                              Grid.Row="2"
+                              SelectedItem="{Binding ManagerViewModel.Nationality}"
+                              ItemsSource="{Binding Collections.NationViewModels}"
+                              FontSize="18"
+                              DisplayMemberPath="Name"
+                              Width="200"
+                              Margin="10,21,0,7"
+                              Height="32"
+                              HorizontalAlignment="Left">
+                        <ComboBox.Effect>
+                            <DropShadowEffect ShadowDepth="3"
+                                              BlurRadius="3"
+                                              Color="#a6d6df" />
+                        </ComboBox.Effect>
+                    </ComboBox>
+                </Grid>
+            </Grid>
+
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Back"
+                        Command="{Binding Back}"
+                        Template="{StaticResource ButtonTemplate}" />
+
+                <Button Grid.Column="1"
+                        Command="{Binding Save}"
+                        Template="{StaticResource ButtonTemplate}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ManagerViewModel.Id, Converter={StaticResource IsIdExists}}"
+                                             Value="false">
+                                    <Setter Property="Content"
+                                            Value="Save" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ManagerViewModel.Id, Converter={StaticResource IsIdExists}}"
+                                             Value="true">
+                                    <Setter Property="Content"
+                                            Value="Continue" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
         </StackPanel>
 
     </Border>
