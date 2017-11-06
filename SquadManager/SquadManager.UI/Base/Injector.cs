@@ -28,7 +28,7 @@ namespace SquadManager.UI.Base
             return _browser = new ViewModelBrowser(this, container);
         }
 
-        public T New<T>() where T : ViewModel, new()
+        public T New<T>(ManagerViewModel manager = null) where T : ViewModel, new()
         {
             if (typeof(T) == typeof(ManagerDetailsViewModel))
             {
@@ -38,7 +38,8 @@ namespace SquadManager.UI.Base
             }
             if (typeof(T) == typeof(TeamDetailsViewModel))
             {
-                var teamViewModel = new TeamDetailsViewModel(_app, _collections);
+                var teamViewModel = new TeamDetailsViewModel(_app, manager, _collections);
+                teamViewModel.Browser = _browser;
                 teamViewModel.SquadRepository = _squadRepository;
                 return teamViewModel as T;
             }

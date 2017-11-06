@@ -55,9 +55,19 @@ namespace SquadManager.UI.Repositories
             }
         }
 
-        public void CreateNewTeam()
+        public void AddTeam(Team team)
         {
-            throw new NotImplementedException();
+            using (var con = OpenConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
+
+                con.Query("stp_SquadManager_AddTeam", parameters, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public Team GetTeam(int teamId)

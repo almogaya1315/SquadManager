@@ -43,7 +43,7 @@ namespace SquadManager.UI.Container.ViewModels
             {
                 case ArgsType.TeamDetailsArgs:
                     var teamDetailsArgs = (TeamDetailsArgs)args;
-                    _viewModelBrowser.TeamDetails = new TeamDetailsViewModel(teamDetailsArgs.Manager);
+                    _viewModelBrowser.TeamDetails = _injector.New<TeamDetailsViewModel>(teamDetailsArgs.Manager);
                     ContainerContent = _viewModelBrowser.TeamDetails;
                     break;
                 case ArgsType.ManagerDetailsArgs:

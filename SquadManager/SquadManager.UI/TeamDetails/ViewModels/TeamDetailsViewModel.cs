@@ -18,12 +18,11 @@ namespace SquadManager.UI.TeamDetails.ViewModels
 
         public List<ManagerViewModel> Managers { get; set; }
 
+        public ICommand Back { get; set; }
+        public ICommand Save { get; set; }
+
         public TeamDetailsViewModel() { }
-        public TeamDetailsViewModel(ManagerViewModel manager) 
-        {
-            Team.Manager = Collections.ManagerViewModels.Find(m => m.Id == manager.Id);
-        }
-        public TeamDetailsViewModel(Application app, CollectionFactory collections)
+        public TeamDetailsViewModel(Application app, ManagerViewModel manager, CollectionFactory collections)
         {
             App = app;
             Collections = collections;
@@ -31,6 +30,29 @@ namespace SquadManager.UI.TeamDetails.ViewModels
             Managers = Collections.ManagerViewModels;
 
             Team = new TeamViewModel();
+            if (manager != null) Team.Manager = Managers.Find(m => m.Id == manager.Id);
+
+            Back = new RelayCommand(BackToManagerDetails);
+            Save = new RelayCommand(SaveTeam);
+        }
+
+        private void SaveTeam()
+        {
+            var team = new Team()
+            {
+                ManagerId = Team.Manager.Id,
+                Name = Team.Name,
+                NationId = Team.Nation.Id,
+                CityId = Team.City.Id,
+                SportId = Team.Sport.Id,
+            };
+
+            SquadRepository.AddTeam(team);
+        }
+
+        private void BackToManagerDetails()
+        {
+            Browser.Browse(new BrowseArgs(ArgsType.ManagerDetailsArgs));
         }
     }
 }

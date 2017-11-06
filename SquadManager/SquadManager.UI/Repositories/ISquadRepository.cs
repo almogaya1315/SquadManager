@@ -15,7 +15,7 @@ namespace SquadManager.UI.Repositories
         void AddManager(ManagerViewModel manager);
         List<Manager> GetManagers();
 
-        void CreateNewTeam();
+        void AddTeam(Team team);
         Team GetTeam(int teamId);
     }
 }
