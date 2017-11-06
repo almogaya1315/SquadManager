@@ -20,6 +20,22 @@ namespace SquadManager.UI.Repositories
             }
         }
 
+        public List<City> GetCities()
+        {
+            using (var con = OpenConnection())
+            {
+                return con.Query<City>("stp_SquadManager_GetCities", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public List<Sport> GetSports()
+        {
+            using (var con = OpenConnection())
+            {
+                return con.Query<Sport>("stp_SquadManager_GetSports", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
         public void AddManager(ManagerViewModel manager)
         {
             using (var con = OpenConnection())
@@ -55,18 +71,18 @@ namespace SquadManager.UI.Repositories
             }
         }
 
-        public void AddTeam(Team team)
+        public int AddTeam(Team team)
         {
             using (var con = OpenConnection())
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@ManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@TeamName", team.Name, DbType.String, ParameterDirection.Input);
+                parameters.Add("@TeamManagerId", team.ManagerId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@TeamNationId", team.NationId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@TeamCityId", team.CityId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@TeamSportId", team.SportId, DbType.Int32, ParameterDirection.Input);
 
-                con.Query("stp_SquadManager_AddTeam", parameters, commandType: CommandType.StoredProcedure);
+                return con.Query<int>("stp_SquadManager_AddTeam", parameters, commandType: CommandType.StoredProcedure).Single();
             }
         }
 

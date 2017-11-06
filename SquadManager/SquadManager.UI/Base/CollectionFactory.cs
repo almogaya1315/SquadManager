@@ -15,6 +15,9 @@ namespace SquadManager.UI.Base
         private Application _app;
 
         public List<ComboBoxItemViewModel> NationViewModels { get; set; }
+        public List<ComboBoxItemViewModel> CityViewModels { get; set; }
+        public List<ComboBoxItemViewModel> SportViewModels { get; set; }
+
         public List<ManagerViewModel> ManagerViewModels
         {
             get
@@ -34,6 +37,8 @@ namespace SquadManager.UI.Base
             _app = app;
 
             NationViewModels = squadRepository.GetNations().Select(n => new ComboBoxItemViewModel(n.Id, n.Name)).ToList();
+            CityViewModels = squadRepository.GetCities().Select(n => new ComboBoxItemViewModel(n.Id, n.Name)).ToList();
+            SportViewModels = squadRepository.GetSports().Select(n => new ComboBoxItemViewModel(n.Id, n.Name)).ToList();
         }
     }
 }

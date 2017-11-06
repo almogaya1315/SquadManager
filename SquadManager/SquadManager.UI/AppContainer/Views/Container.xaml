@@ -9,6 +9,10 @@
         xmlns:managerDetailsViews="clr-namespace:SquadManager.UI.ManagerDetails.Views"
         xmlns:teamDetailsViewModels="clr-namespace:SquadManager.UI.TeamDetails.ViewModels"
         xmlns:teamDetailsViews="clr-namespace:SquadManager.UI.TeamDetails.Views"
+        xmlns:soccerViewModels="clr-namespace:SquadManager.UI.Soccer.ViewModels"
+        xmlns:soccerViews="clr-namespace:SquadManager.UI.Soccer.Views"
+        xmlns:loadTeamViewModels="clr-namespace:SquadManager.UI.LoadTeam.ViewModels"
+        xmlns:loadTeamViews="clr-namespace:SquadManager.UI.LoadTeam.Views"
         mc:Ignorable="d"
         Title="SQUAD MANAGER"
         ResizeMode="CanResizeWithGrip"
@@ -29,6 +33,14 @@
 
         <DataTemplate DataType="{x:Type managerDetailsViewModels:ManagerDetailsViewModel}">
             <managerDetailsViews:ManagerDetailsView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type soccerViewModels:SoccerViewModel}">
+            <soccerViews:SoccerView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type loadTeamViewModels:LoadTeamViewModel}">
+            <loadTeamViews:LoadTeamView />
         </DataTemplate>
         
     </Window.Resources>

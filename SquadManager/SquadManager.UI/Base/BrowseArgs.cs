@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.ManagerDetails.ViewModels;
+using SquadManager.UI.TeamDetails.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace SquadManager.UI.Base
 {
     public class BrowseArgs
     {
-        public ArgsType Type { get; set; }
+        public BrowseArgsType Type { get; set; }
 
-        public BrowseArgs(ArgsType type)
+        public BrowseArgs(BrowseArgsType type)
         {
             Type = type;
         }
@@ -21,16 +22,28 @@ namespace SquadManager.UI.Base
     {
         public ManagerViewModel Manager { get; set; }
 
-        public TeamDetailsArgs(ArgsType type, ManagerViewModel manager) : base(type)
+        public TeamDetailsArgs(BrowseArgsType type, ManagerViewModel manager) : base(type)
         {
             Manager = manager;
         }
     }
 
-    public enum ArgsType
+    public class SoccerSquadDetailsArgs : BrowseArgs
+    {
+        public TeamViewModel Team { get; set; }
+
+        public SoccerSquadDetailsArgs(BrowseArgsType type, TeamViewModel team) : base(type)
+        {
+            Team = team;
+        }
+    }
+
+    public enum BrowseArgsType
     {
         MenuArgs,
         ManagerDetailsArgs,
         TeamDetailsArgs,
+        SoccerSquadArgs,
+        LoadTeamArgs,
     }
 }

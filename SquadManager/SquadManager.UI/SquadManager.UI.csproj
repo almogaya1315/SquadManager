@@ -92,19 +92,42 @@
     <Compile Include="Base\ViewModel.cs" />
     <Compile Include="Controls\TextBox\MyTextBox.cs" />
     <Compile Include="Converters\IsIdExists.cs" />
+    <Compile Include="Enums\SportType.cs" />
+    <Compile Include="LoadTeam\ViewModels\LoadTeamViewModel.cs" />
+    <Compile Include="LoadTeam\Views\LoadTeamView.xaml.cs">
+      <DependentUpon>LoadTeamView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerDetails\ViewModels\ManagerDetailsViewModel.cs" />
     <Compile Include="ManagerDetails\ViewModels\ManagerViewModel.cs" />
     <Compile Include="ManagerDetails\Views\ManagerDetailsView.xaml.cs">
       <DependentUpon>ManagerDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\Nation.cs" />
+    <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Repositories\ISquadRepository.cs" />
     <Compile Include="Repositories\SquadRepository.cs" />
     <Compile Include="Repositories\SquadRepositoryBase.cs" />
     <Compile Include="SharedViewModels\ComboBoxItemViewModel.cs" />
+    <Compile Include="Soccer\SoccerPlayerDetails\ViewModels\SoccerPlayerDetailsViewModel.cs" />
+    <Compile Include="Soccer\SoccerPlayerDetails\Views\SoccerPlayerDetailsView.xaml.cs">
+      <DependentUpon>SoccerPlayerDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Soccer\SoccerSquadDetails\ViewModels\SoccerSquadDetailsViewModel.cs" />
+    <Compile Include="Soccer\SoccerSquadDetails\Views\SoccerSquadDetailsView.xaml.cs">
+      <DependentUpon>SoccerSquadDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Soccer\SoccerTeamDetails\ViewModels\SoccerTeamDetailsViewModel.cs" />
+    <Compile Include="Soccer\SoccerTeamDetails\Views\SoccerTeamDetailsView.xaml.cs">
+      <DependentUpon>SoccerTeamDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Soccer\ViewModels\SoccerViewModel.cs" />
+    <Compile Include="Soccer\Views\SoccerView.xaml.cs">
+      <DependentUpon>SoccerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TeamDetails\ViewModels\TeamDetailsViewModel.cs" />
     <Compile Include="TeamDetails\ViewModels\TeamViewModel.cs" />
     <Compile Include="TeamDetails\Views\TeamDetailsView.xaml.cs">
@@ -154,11 +177,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoadTeam\Views\LoadTeamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagerDetails\Views\ManagerDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menu\Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Soccer\SoccerPlayerDetails\Views\SoccerPlayerDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Soccer\SoccerSquadDetails\Views\SoccerSquadDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Soccer\SoccerTeamDetails\Views\SoccerTeamDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Soccer\Views\SoccerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

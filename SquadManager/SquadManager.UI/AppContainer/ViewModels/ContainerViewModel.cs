@@ -5,14 +5,15 @@ using SquadManager.UI.Base;
 using SquadManager.UI.SharedViewModels;
 using SquadManager.UI.ManagerDetails.ViewModels;
 using SquadManager.UI.TeamDetails.ViewModels;
+using SquadManager.UI.Soccer.ViewModels;
+using SquadManager.UI.Menu.ViewModels;
+using SquadManager.UI.LoadTeam.ViewModels;
 
 namespace SquadManager.UI.Container.ViewModels
 {
-    public class ContainerViewModel : ViewModel, IBrowseable
+    public class ContainerViewModel : ViewModel
     {
         private Injector _injector;
-
-        private ViewModelBrowser _viewModelBrowser;
 
         private ViewModelBase _containerContent;
         public ViewModelBase ContainerContent
@@ -27,30 +28,31 @@ namespace SquadManager.UI.Container.ViewModels
 
         public ContainerViewModel()
         {
-            _injector = new Injector();
+            _injector = new Injector(this);
 
-            _viewModelBrowser = _injector.GetBrowser(this);
-            _viewModelBrowser.Menu.Browser = _viewModelBrowser;
-            _viewModelBrowser.ManagerDetails.Browser = _viewModelBrowser;
-            _viewModelBrowser.TeamDetails.Browser = _viewModelBrowser;
-
-            ContainerContent = _viewModelBrowser.Menu;
+            Browsed(new BrowseArgs(BrowseArgsType.MenuArgs));
         }
 
         public void Browsed(BrowseArgs args)
         {
             switch (args.Type)
             {
-                case ArgsType.TeamDetailsArgs:
+                case BrowseArgsType.SoccerSquadArgs:
+                    var soccerArgs = (SoccerSquadDetailsArgs)args;
+                    ContainerContent = _injector.New<SoccerViewModel>(team: soccerArgs.Team);
+                    break;
+                case BrowseArgsType.TeamDetailsArgs:
                     var teamDetailsArgs = (TeamDetailsArgs)args;
-                    _viewModelBrowser.TeamDetails = _injector.New<TeamDetailsViewModel>(teamDetailsArgs.Manager);
-                    ContainerContent = _viewModelBrowser.TeamDetails;
+                    ContainerContent = _injector.New<TeamDetailsViewModel>(manager: teamDetailsArgs.Manager);
                     break;
-                case ArgsType.ManagerDetailsArgs:
-                    ContainerContent = _viewModelBrowser.ManagerDetails;
+                case BrowseArgsType.ManagerDetailsArgs:
+                    ContainerContent = _injector.New<ManagerDetailsViewModel>(); 
                     break;
-                case ArgsType.MenuArgs:
-                    ContainerContent = _viewModelBrowser.Menu;
+                case BrowseArgsType.MenuArgs:
+                    ContainerContent = _injector.New<MenuViewModel>(); 
+                    break;
+                case BrowseArgsType.LoadTeamArgs:
+                    ContainerContent = _injector.New<LoadTeamViewModel>();
                     break;
             }
         }

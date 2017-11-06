@@ -27,6 +27,7 @@
                     Command="{Binding NewSquad}"
                     Template="{StaticResource ButtonTemplate}" />
             <Button Content="Load squad"
+                    Command="{Binding Load}"
                     Template="{StaticResource ButtonTemplate}" />
             <Button Content="Options"
                     Template="{StaticResource ButtonTemplate}" />

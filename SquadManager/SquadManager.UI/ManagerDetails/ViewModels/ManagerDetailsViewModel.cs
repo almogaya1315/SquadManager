@@ -61,12 +61,8 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
             }
         }
 
-        public ManagerDetailsViewModel() { }
-        public ManagerDetailsViewModel(Application app, CollectionFactory collections)
+        public ManagerDetailsViewModel()
         {
-            App = app;
-            Collections = collections;
-
             SetManager();
 
             ChooseManagerVisibility = Managers.Count > 0;
@@ -132,12 +128,12 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
                 }
             }
 
-            Browser.Browse(new TeamDetailsArgs(ArgsType.TeamDetailsArgs, ManagerViewModel));
+            Browser.Browse(new TeamDetailsArgs(BrowseArgsType.TeamDetailsArgs, ManagerViewModel));
         }
 
         private void NavigateToMenu()
         {
-            Browser.Browse(new BrowseArgs(ArgsType.MenuArgs));
+            Browser.Browse(new BrowseArgs(BrowseArgsType.MenuArgs));
         }
     }
 }

@@ -11,11 +11,13 @@ namespace SquadManager.UI.Repositories
     public interface ISquadRepository
     {
         List<Nation> GetNations();
+        List<City> GetCities();
+        List<Sport> GetSports();
 
         void AddManager(ManagerViewModel manager);
         List<Manager> GetManagers();
 
-        void AddTeam(Team team);
+        int AddTeam(Team team);
         Team GetTeam(int teamId);
     }
 }

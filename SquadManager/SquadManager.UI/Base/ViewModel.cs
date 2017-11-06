@@ -19,10 +19,5 @@ namespace SquadManager.UI.Base
         public ISquadRepository SquadRepository { get; set; }
 
         public CollectionFactory Collections { get; set; }
-
-        public ViewModel(CollectionFactory collections = null)
-        {
-            Collections = collections;
-        }
     }
 }
