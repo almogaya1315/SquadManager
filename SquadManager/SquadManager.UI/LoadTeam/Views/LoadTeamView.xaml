@@ -57,7 +57,7 @@
 
                             <radioButton:TeamRadioButton GroupName="teamsGroup"
                                                          x:Name="SelectedTeam"
-                                                         SelectedTeam="{Binding Converter={StaticResource CheckedToNotNull}}">
+                                                         SelectedTeam="{Binding SelectedTeam, Converter={StaticResource CheckedToNotNull}, ConverterParameter={Binding RelativeSource={RelativeSource Self}, Path=IsChecked}}">
                                 <radioButton:TeamRadioButton.Style>
                                     <Style BasedOn="{StaticResource TeamRadioButtonStyle}"
                                            TargetType="radioButton:TeamRadioButton" />
