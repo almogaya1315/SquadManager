@@ -19,5 +19,6 @@ namespace SquadManager.UI.Repositories
 
         int AddTeam(Team team);
         Team GetTeam(int teamId);
+        List<Team> GetTeams();
     }
 }

@@ -11,6 +11,7 @@ namespace SquadManager.UI.TeamDetails.ViewModels
 {
     public class TeamViewModel : ViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         private ManagerViewModel _manager;

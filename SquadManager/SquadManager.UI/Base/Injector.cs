@@ -26,6 +26,7 @@ namespace SquadManager.UI.Base
             _collections = new CollectionFactory(_app, _squadRepository);
 
             _app.Managers = _squadRepository.GetManagers();
+            _app.Teams = _squadRepository.GetTeams();
         }
 
         public ViewModelBrowser GetBrowser(ContainerViewModel container)
@@ -37,7 +38,7 @@ namespace SquadManager.UI.Base
         {
             if (typeof(T) == typeof(LoadTeamViewModel))
             {
-                var loadTeamViewModel = new LoadTeamViewModel();
+                var loadTeamViewModel = new LoadTeamViewModel(_app, _squadRepository, _collections);
                 loadTeamViewModel.Browser = _browser;
                 return loadTeamViewModel as T;
             }

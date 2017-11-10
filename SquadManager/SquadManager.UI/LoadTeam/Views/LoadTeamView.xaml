@@ -24,37 +24,38 @@
                        Margin="20"
                        TextAlignment="Center" />
 
+
             <ScrollViewer Margin="20"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto"
                           Height="300"
                           MaxHeight="300"
                           MinHeight="300">
-                <ItemsControl ItemsSource="{Binding Teams}"
-                              
-                              Style="{StaticResource ItemsControlStyle}">
+                <Border>
+                    <ItemsControl ItemsSource="{Binding Teams}">
 
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Style="{StaticResource StackPanellStyle}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                
-                                <TextBlock Text="{Binding Name}"/>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
 
-                                <TextBlock Text="{Binding Manager.Name}"/>
+                                    <TextBlock Text="{Binding Name}" />
 
-                                <TextBlock Text="{Binding LastSave}"/>
+                                    <TextBlock Text="{Binding Manager.Name}" />
 
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
+                                    <TextBlock Text="{Binding LastSave}" />
 
-                </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+                </Border>
             </ScrollViewer>
 
             <Grid Margin="10">

@@ -2,6 +2,7 @@
 using SquadManager.UI.Models;
 using SquadManager.UI.Repositories;
 using SquadManager.UI.SharedViewModels;
+using SquadManager.UI.TeamDetails.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,22 @@ namespace SquadManager.UI.Base
                     Name = m.Name,
                     Nationality = NationViewModels.Find(n => n.Id == m.Nationality.Id),
                     Age = m.Age
+                }).ToList();
+            }
+        }
+
+        public List<TeamViewModel> TeamViewModels
+        {
+            get
+            {
+                return _app.Teams.Select(t => new TeamViewModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Manager = ManagerViewModels.Find(m => m.Id == t.ManagerId),
+                    Nation = NationViewModels.Find(n => n.Id == t.NationId),
+                    City = CityViewModels.Find(c => c.Id == t.CityId),
+                    Sport = SportViewModels.Find(s => s.Id == t.SportId),
                 }).ToList();
             }
         }

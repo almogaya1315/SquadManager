@@ -96,5 +96,13 @@ namespace SquadManager.UI.Repositories
                 return con.Query<Team>("stp_SquadManager_GetTeam", parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
+
+        public List<Team> GetTeams()
+        {
+            using (var con = OpenConnection())
+            {
+                return con.Query<Team>("stp_SquadManager_GetTeams", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }
