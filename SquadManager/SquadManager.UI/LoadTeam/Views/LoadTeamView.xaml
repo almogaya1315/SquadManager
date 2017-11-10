@@ -4,53 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SquadManager.UI.LoadTeam.Views"
+             xmlns:radioButton="clr-namespace:SquadManager.UI.Controls.RadioButton"
              mc:Ignorable="d"
              d:DesignHeight="960"
              d:DesignWidth="1240">
-    <UserControl.Resources>
-        <Style TargetType="TextBlock"
-               x:Key="LoadMenuTextBlockStyle"
-               BasedOn="{StaticResource TextBlockStyle}">
-            <Setter Property="FontSize"
-                    Value="15" />
-            <Setter Property="Margin"
-                    Value="10 3" />
-        </Style>
-
-        <DataTemplate x:Key="MouseNotOverRadioButton">
-            <StackPanel Orientation="Horizontal"
-                        Margin="5"
-                        Background="#e7f5f7">
-
-                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
-                           Style="{StaticResource LoadMenuTextBlockStyle}" />
-
-                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
-                           Style="{StaticResource LoadMenuTextBlockStyle}" />
-
-                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
-                           Style="{StaticResource LoadMenuTextBlockStyle}" />
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate x:Key="MouseOverRadioButton">
-            <StackPanel Orientation="Horizontal"
-                        Margin="5"
-                        Background="#a6d6df">
-
-                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
-                           Style="{StaticResource LoadMenuTextBlockStyle}" />
-
-                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
-                           Style="{StaticResource LoadMenuTextBlockStyle}" />
-
-                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
-                           Style="{StaticResource LoadMenuTextBlockStyle}" />
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate x:Key="StackPanelContent">
-            
-        </DataTemplate>
-    </UserControl.Resources>
 
     <Border Background="#bfe3e9"
             Height="700"
@@ -98,42 +55,16 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
 
-                            <RadioButton GroupName="teamsGroup">
-                                <RadioButton.Style>
-                                    <Style BasedOn="{StaticResource RadioButtonStyle}" 
-                                           TargetType="RadioButton">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="true">
-                                                <Setter Property="ContentTemplate"
-                                                        Value="{StaticResource MouseOverRadioButton}" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="false">
-                                                <Setter Property="ContentTemplate"
-                                                        Value="{StaticResource MouseNotOverRadioButton}" />
-                                            </Trigger>
-
-                                            <Trigger Property="IsChecked"
-                                                     Value="true">
-                                                <Setter Property="ContentTemplate"
-                                                        Value="{StaticResource MouseOverRadioButton}" />
-                                            </Trigger>
-                                            <Trigger Property="IsChecked"
-                                                     Value="false">
-                                                <Setter Property="ContentTemplate"
-                                                        Value="{StaticResource MouseNotOverRadioButton}" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </RadioButton.Style>
-
-                                
-                            </RadioButton>
-
+                            <radioButton:TeamRadioButton GroupName="teamsGroup"
+                                                         x:Name="SelectedTeam"
+                                                         SelectedTeam="{Binding Converter={StaticResource CheckedToNotNull}}">
+                                <radioButton:TeamRadioButton.Style>
+                                    <Style BasedOn="{StaticResource TeamRadioButtonStyle}"
+                                           TargetType="radioButton:TeamRadioButton" />
+                                </radioButton:TeamRadioButton.Style>
+                            </radioButton:TeamRadioButton>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-
                 </ItemsControl>
             </ScrollViewer>
 
@@ -145,6 +76,7 @@
 
                 <Button Content="Back"
                         Command="{Binding Cancel}"
+                        CommandParameter="{Binding ElementName=}"
                         Template="{StaticResource ButtonTemplate}" />
 
                 <Button Grid.Column="1"

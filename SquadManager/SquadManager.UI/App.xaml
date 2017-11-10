@@ -5,6 +5,7 @@
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:SquadManager.UI.Converters"
+             xmlns:radioButton="clr-namespace:SquadManager.UI.Controls.RadioButton"
              StartupUri="AppContainer\Views\Container.xaml"
              d1p1:Ignorable="d">
     <Application.Resources>
@@ -119,8 +120,49 @@
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="RadioButtonStyle"
-                   TargetType="RadioButton">
+
+            <Style TargetType="TextBlock"
+                   x:Key="LoadMenuTextBlockStyle"
+                   BasedOn="{StaticResource TextBlockStyle}">
+                <Setter Property="FontSize"
+                        Value="15" />
+                <Setter Property="Margin"
+                        Value="10 3" />
+            </Style>
+
+            <DataTemplate x:Key="MouseNotOverRadioButton">
+                <StackPanel Orientation="Horizontal"
+                            Margin="5"
+                            Background="#e7f5f7">
+
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
+                               Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
+                               Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
+                               Style="{StaticResource LoadMenuTextBlockStyle}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="MouseOverRadioButton">
+                <StackPanel Orientation="Horizontal"
+                            Margin="5"
+                            Background="#a6d6df">
+
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
+                               Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
+                               Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
+                               Style="{StaticResource LoadMenuTextBlockStyle}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <Style x:Key="TeamRadioButtonStyle"
+                   TargetType="radioButton:TeamRadioButton">
                 <Setter Property="Effect">
                     <Setter.Value>
                         <DropShadowEffect ShadowDepth="3"
@@ -128,8 +170,31 @@
                                           Color="#a6d6df"/>
                     </Setter.Value>
                 </Setter>
-            </Style>
 
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="BorderBrush"
+                        Value="Transparent" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver"
+                             Value="true">
+                        <Setter Property="ContentTemplate"
+                                Value="{StaticResource MouseOverRadioButton}" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver"
+                             Value="false">
+                        <Setter Property="ContentTemplate"
+                                Value="{StaticResource MouseNotOverRadioButton}" />
+                    </Trigger>
+
+                    <Trigger Property="IsChecked"
+                             Value="true">
+                        <Setter Property="ContentTemplate"
+                                Value="{StaticResource MouseOverRadioButton}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

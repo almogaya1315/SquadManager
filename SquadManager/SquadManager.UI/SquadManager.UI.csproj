@@ -90,6 +90,7 @@
     <Compile Include="Base\IBrowseable.cs" />
     <Compile Include="Base\Injector.cs" />
     <Compile Include="Base\ViewModel.cs" />
+    <Compile Include="Controls\RadioButton\TeamRadioButton.cs" />
     <Compile Include="Controls\TextBox\MyTextBox.cs" />
     <Compile Include="Converters\IsIdExists.cs" />
     <Compile Include="Enums\SportType.cs" />
