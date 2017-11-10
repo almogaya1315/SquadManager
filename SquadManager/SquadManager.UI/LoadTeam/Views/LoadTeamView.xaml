@@ -8,6 +8,9 @@
              mc:Ignorable="d"
              d:DesignHeight="960"
              d:DesignWidth="1240">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
 
     <Border Background="#bfe3e9"
             Height="700"
@@ -29,7 +32,7 @@
             <StackPanel Orientation="Horizontal"
                         Margin="5">
                 <TextBlock Text="Team"
-                           Margin="30 0 0 0"
+                           Margin="45 0 0 0"
                            Style="{StaticResource LoadMenuTextBlockStyle}" />
                 <TextBlock Text="Manager"
                            Margin="20 0 0 0"
@@ -56,8 +59,8 @@
                         <DataTemplate>
 
                             <radioButton:TeamRadioButton GroupName="teamsGroup"
-                                                         x:Name="SelectedTeam"
-                                                         SelectedTeam="{Binding SelectedTeam, Converter={StaticResource CheckedToNotNull}, ConverterParameter={Binding RelativeSource={RelativeSource Self}, Path=IsChecked}}">
+                                                         SelectedTeam="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.SelectedTeam, Mode=TwoWay}">
+
                                 <radioButton:TeamRadioButton.Style>
                                     <Style BasedOn="{StaticResource TeamRadioButtonStyle}"
                                            TargetType="radioButton:TeamRadioButton" />
@@ -75,8 +78,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Content="Back"
-                        Command="{Binding Cancel}"
-                        CommandParameter="{Binding ElementName=}"
+                        Command="{Binding Back}"
                         Template="{StaticResource ButtonTemplate}" />
 
                 <Button Grid.Column="1"
@@ -86,6 +88,8 @@
 
             </Grid>
 
+            <RadioButton Height="50"
+                         Style="{DynamicResource RadioButtonStyle}"></RadioButton>
 
         </StackPanel>
     </Border>

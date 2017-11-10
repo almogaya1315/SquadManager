@@ -19,8 +19,23 @@ namespace SquadManager.UI.Controls.RadioButton
         public static readonly DependencyProperty SelectedTeamProperty =
             DependencyProperty.Register("SelectedTeam", 
                 typeof(TeamViewModel), typeof(TeamRadioButton), 
-                new PropertyMetadata(null));
+                new PropertyMetadata(null, SelectedTeamPropertyChanged));
 
+        private static void SelectedTeamPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
+        {
+            var teamButton = (TeamRadioButton)d;
+            if (teamButton == null) return;
 
+            teamButton.Checked += (s, e) =>
+            {
+                if (teamButton.IsChecked.Value)
+                {
+                    var team = (TeamViewModel)teamButton.DataContext;
+                    if (team == null) return;
+
+                    d.SetValue(SelectedTeamProperty, team);
+                }
+            };
+        }
     }
 }
