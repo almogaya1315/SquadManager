@@ -7,7 +7,18 @@ using System.Threading.Tasks;
 
 namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
 {
-    public class SoccerPlayerDetailsViewModel : ViewModel
+    public class SoccerPlayerDetailsViewModel : ViewModel, IChangeable
     {
+        private readonly IChangeManager _changesManager;
+
+        public SoccerPlayerDetailsViewModel(IChangeManager changesManager)
+        {
+            _changesManager = changesManager;
+        }
+
+        public void Changed(ChangeArgs args)
+        {
+            
+        }
     }
 }

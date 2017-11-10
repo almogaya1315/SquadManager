@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="SquadManager.UI.Soccer.SoccerSquadDetails.Views.SoccerSquadDetailsView"
+﻿<UserControl x:Class="SquadManager.UI.Soccer.SoccerNavigationBar.Views.SoccerNavigationBarView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SquadManager.UI.Soccer.SoccerSquadDetails.Views"
+             xmlns:local="clr-namespace:SquadManager.UI.Soccer.SoccerNavigationBar.Views"
              mc:Ignorable="d"
-             d:DesignHeight="550"
-             d:DesignWidth="650">
+             d:DesignHeight="70"
+             d:DesignWidth="1090">
     <Border Style="{StaticResource BorderStyle}">
 
     </Border>

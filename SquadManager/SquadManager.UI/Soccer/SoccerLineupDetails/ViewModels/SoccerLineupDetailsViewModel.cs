@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
+namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 {
-    public class SoccerTeamDetailsViewModel : ViewModel, IChangeable
+    public class SoccerLineupDetailsViewModel : ViewModel, IChangeable
     {
         private readonly IChangeManager _changesManager;
 
-        public SoccerTeamDetailsViewModel(IChangeManager changesManager)
+        public SoccerLineupDetailsViewModel(IChangeManager changesManager)
         {
             _changesManager = changesManager;
         }

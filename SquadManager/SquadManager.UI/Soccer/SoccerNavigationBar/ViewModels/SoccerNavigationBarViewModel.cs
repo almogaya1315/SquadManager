@@ -5,20 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
+namespace SquadManager.UI.Soccer.SoccerNavigationBar.ViewModels
 {
-    public class SoccerTeamDetailsViewModel : ViewModel, IChangeable
+    public class SoccerNavigationBarViewModel : ViewModel, IChangeable
     {
         private readonly IChangeManager _changesManager;
 
-        public SoccerTeamDetailsViewModel(IChangeManager changesManager)
+        public SoccerNavigationBarViewModel(IChangeManager changesManager)
         {
             _changesManager = changesManager;
         }
 
         public void Changed(ChangeArgs args)
         {
-            
+         
         }
     }
 }

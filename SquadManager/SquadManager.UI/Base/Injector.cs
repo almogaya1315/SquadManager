@@ -17,6 +17,7 @@ namespace SquadManager.UI.Base
         private ViewModelBrowser _browser;
         private ISquadRepository _squadRepository;
         private CollectionFactory _collections;
+        private IChangeManager _changeManager;
 
         public Injector(ContainerViewModel container)
         {
@@ -24,6 +25,7 @@ namespace SquadManager.UI.Base
             _browser = new ViewModelBrowser(container);
             _squadRepository = new SquadRepository();
             _collections = new CollectionFactory(_app, _squadRepository);
+            _changeManager = new ChangeManager();
 
             _app.Managers = _squadRepository.GetManagers();
             _app.Teams = _squadRepository.GetTeams();
@@ -67,7 +69,7 @@ namespace SquadManager.UI.Base
             }
             if (typeof(T) == typeof(SoccerViewModel))
             {
-                var soccerViewModel = new SoccerViewModel(team);
+                var soccerViewModel = new SoccerViewModel(team, _changeManager);
                 soccerViewModel.App = _app;
                 soccerViewModel.Browser = _browser;
                 soccerViewModel.Collections = _collections;

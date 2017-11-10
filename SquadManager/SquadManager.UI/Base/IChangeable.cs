@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SquadManager.UI.Base
 {
-    public interface IBrowseable
+    public interface IChangeable
     {
-        void Browsed(BrowseArgs args);
+        void Changed(ChangeArgs args);
     }
 }

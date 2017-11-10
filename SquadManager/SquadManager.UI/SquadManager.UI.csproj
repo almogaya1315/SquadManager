@@ -86,8 +86,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Base\BrowseArgs.cs" />
+    <Compile Include="Base\ChangeArgs.cs" />
+    <Compile Include="Base\ChangeManager.cs" />
     <Compile Include="Base\CollectionFactory.cs" />
-    <Compile Include="Base\IBrowseable.cs" />
+    <Compile Include="Base\IChangeable.cs" />
+    <Compile Include="Base\IChangeManager.cs" />
     <Compile Include="Base\Injector.cs" />
     <Compile Include="Base\ViewModel.cs" />
     <Compile Include="Controls\RadioButton\TeamRadioButton.cs" />
@@ -114,6 +117,14 @@
     <Compile Include="Repositories\SquadRepository.cs" />
     <Compile Include="Repositories\SquadRepositoryBase.cs" />
     <Compile Include="SharedViewModels\ComboBoxItemViewModel.cs" />
+    <Compile Include="Soccer\SoccerLineupDetails\ViewModels\SoccerLineupDetailsViewModel.cs" />
+    <Compile Include="Soccer\SoccerLineupDetails\Views\SoccerLineupDetailsView.xaml.cs">
+      <DependentUpon>SoccerLineupDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Soccer\SoccerNavigationBar\ViewModels\SoccerNavigationBarViewModel.cs" />
+    <Compile Include="Soccer\SoccerNavigationBar\Views\SoccerNavigationBarView.xaml.cs">
+      <DependentUpon>SoccerNavigationBarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Soccer\SoccerPlayerDetails\ViewModels\SoccerPlayerDetailsViewModel.cs" />
     <Compile Include="Soccer\SoccerPlayerDetails\Views\SoccerPlayerDetailsView.xaml.cs">
       <DependentUpon>SoccerPlayerDetailsView.xaml</DependentUpon>
@@ -127,6 +138,7 @@
       <DependentUpon>SoccerTeamDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Soccer\ViewModels\SoccerViewModel.cs" />
+    <Compile Include="Soccer\ViewModels\SoccerViewModelSource.cs" />
     <Compile Include="Soccer\Views\SoccerView.xaml.cs">
       <DependentUpon>SoccerView.xaml</DependentUpon>
     </Compile>
@@ -188,6 +200,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menu\Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Soccer\SoccerLineupDetails\Views\SoccerLineupDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Soccer\SoccerNavigationBar\Views\SoccerNavigationBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
