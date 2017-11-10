@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using SquadManager.UI.Base;
+using SquadManager.UI.Enums;
 using SquadManager.UI.Models;
 using SquadManager.UI.Repositories;
 using SquadManager.UI.TeamDetails.ViewModels;
@@ -51,7 +52,14 @@ namespace SquadManager.UI.LoadTeam.ViewModels
 
         private void LoadTeam()
         {
-            var team =  SquadRepository.GetTeam(SelectedTeam.Id);
+            var sport = Enum.GetValues(typeof(SportType)).Cast<SportType>().First(s => s.ToString() == SelectedTeam.Sport.Name);
+
+            switch (sport)
+            {
+                case SportType.Soccer:
+                    Browser.Browse(new SoccerSquadDetailsArgs(BrowseArgsType.SoccerSquadArgs, SelectedTeam));
+                    break;
+            }
         }
     }
 }

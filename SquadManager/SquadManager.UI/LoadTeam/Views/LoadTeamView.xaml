@@ -8,10 +8,6 @@
              mc:Ignorable="d"
              d:DesignHeight="960"
              d:DesignWidth="1240">
-    <UserControl.Resources>
-        
-    </UserControl.Resources>
-
     <Border Background="#bfe3e9"
             Height="700"
             Width="1000">
@@ -87,9 +83,6 @@
                         Template="{StaticResource ButtonTemplate}" />
 
             </Grid>
-
-            <RadioButton Height="50"
-                         Style="{DynamicResource RadioButtonStyle}"></RadioButton>
 
         </StackPanel>
     </Border>
