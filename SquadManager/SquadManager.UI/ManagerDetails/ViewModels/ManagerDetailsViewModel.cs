@@ -61,8 +61,11 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
             }
         }
 
-        public ManagerDetailsViewModel()
+        public ManagerDetailsViewModel() { }
+        public ManagerDetailsViewModel(CollectionFactory collection)
         {
+            Collections = collection;
+
             SetManager();
 
             ChooseManagerVisibility = Managers.Count > 0;

@@ -7,6 +7,51 @@
              mc:Ignorable="d"
              d:DesignHeight="960"
              d:DesignWidth="1240">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock"
+               x:Key="LoadMenuTextBlockStyle"
+               BasedOn="{StaticResource TextBlockStyle}">
+            <Setter Property="FontSize"
+                    Value="15" />
+            <Setter Property="Margin"
+                    Value="10 3" />
+        </Style>
+
+        <DataTemplate x:Key="MouseNotOverRadioButton">
+            <StackPanel Orientation="Horizontal"
+                        Margin="5"
+                        Background="#e7f5f7">
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="MouseOverRadioButton">
+            <StackPanel Orientation="Horizontal"
+                        Margin="5"
+                        Background="#a6d6df">
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="StackPanelContent">
+            
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Border Background="#bfe3e9"
             Height="700"
             Width="1000">
@@ -24,38 +69,72 @@
                        Margin="20"
                        TextAlignment="Center" />
 
+            <StackPanel Orientation="Horizontal"
+                        Margin="5">
+                <TextBlock Text="Team"
+                           Margin="30 0 0 0"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+                <TextBlock Text="Manager"
+                           Margin="20 0 0 0"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+                <TextBlock Text="Last save"
+                           Margin="20 0 0 0"
+                           Style="{StaticResource LoadMenuTextBlockStyle}" />
+            </StackPanel>
 
-            <ScrollViewer Margin="20"
+            <ScrollViewer Margin="20 3"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto"
                           Height="300"
                           MaxHeight="300"
                           MinHeight="300">
-                <Border>
-                    <ItemsControl ItemsSource="{Binding Teams}">
+                <ItemsControl ItemsSource="{Binding Teams}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Style="{StaticResource StackPanellStyle}" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
+                            <RadioButton GroupName="teamsGroup">
+                                <RadioButton.Style>
+                                    <Style BasedOn="{StaticResource RadioButtonStyle}" 
+                                           TargetType="RadioButton">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="true">
+                                                <Setter Property="ContentTemplate"
+                                                        Value="{StaticResource MouseOverRadioButton}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="false">
+                                                <Setter Property="ContentTemplate"
+                                                        Value="{StaticResource MouseNotOverRadioButton}" />
+                                            </Trigger>
 
-                                    <TextBlock Text="{Binding Name}" />
+                                            <Trigger Property="IsChecked"
+                                                     Value="true">
+                                                <Setter Property="ContentTemplate"
+                                                        Value="{StaticResource MouseOverRadioButton}" />
+                                            </Trigger>
+                                            <Trigger Property="IsChecked"
+                                                     Value="false">
+                                                <Setter Property="ContentTemplate"
+                                                        Value="{StaticResource MouseNotOverRadioButton}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </RadioButton.Style>
 
-                                    <TextBlock Text="{Binding Manager.Name}" />
+                                
+                            </RadioButton>
 
-                                    <TextBlock Text="{Binding LastSave}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-
-                    </ItemsControl>
-                </Border>
+                </ItemsControl>
             </ScrollViewer>
 
             <Grid Margin="10">

@@ -15,5 +15,8 @@ namespace SquadManager.UI.Models
         public int NationId { get; set; }
         public int CityId { get; set; }
         public int SportId { get; set; }
+
+        public DateTime LastSave { get; set; }
+        public List<Player> Squad { get; set; }
     }
 }

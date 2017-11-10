@@ -50,10 +50,9 @@ namespace SquadManager.UI.Base
             }
             if (typeof(T) == typeof(ManagerDetailsViewModel))
             {
-                var managerViewModel = new ManagerDetailsViewModel();
+                var managerViewModel = new ManagerDetailsViewModel(_collections);
                 managerViewModel.App = _app;
                 managerViewModel.Browser = _browser;
-                managerViewModel.Collections = _collections;
                 managerViewModel.SquadRepository = _squadRepository;
                 return managerViewModel as T;
             }
