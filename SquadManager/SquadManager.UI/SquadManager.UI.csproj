@@ -110,7 +110,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\Nation.cs" />
-    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\SoccerPlayer.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Repositories\ISquadRepository.cs" />
@@ -126,6 +126,7 @@
       <DependentUpon>SoccerNavigationBarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Soccer\SoccerPlayerDetails\ViewModels\SoccerPlayerDetailsViewModel.cs" />
+    <Compile Include="Soccer\SoccerPlayerDetails\ViewModels\SoccerPlayerViewModel.cs" />
     <Compile Include="Soccer\SoccerPlayerDetails\Views\SoccerPlayerDetailsView.xaml.cs">
       <DependentUpon>SoccerPlayerDetailsView.xaml</DependentUpon>
     </Compile>

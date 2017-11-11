@@ -8,6 +8,7 @@ using SquadManager.UI.TeamDetails.ViewModels;
 using SquadManager.UI.Soccer.ViewModels;
 using SquadManager.UI.Menu.ViewModels;
 using SquadManager.UI.LoadTeam.ViewModels;
+using SquadManager.UI.Models;
 
 namespace SquadManager.UI.Container.ViewModels
 {
@@ -38,7 +39,7 @@ namespace SquadManager.UI.Container.ViewModels
             switch (args.Type)
             {
                 case BrowseArgsType.SoccerSquadArgs:
-                    var soccerArgs = (SoccerSquadDetailsArgs)args;
+                    var soccerArgs = (SoccerArgs)args;
                     ContainerContent = _injector.New<SoccerViewModel>(team: soccerArgs.Team);
                     break;
                 case BrowseArgsType.TeamDetailsArgs:

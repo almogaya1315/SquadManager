@@ -5,6 +5,7 @@ using SquadManager.UI.ManagerDetails.ViewModels;
 using SquadManager.UI.Menu.ViewModels;
 using SquadManager.UI.Models;
 using SquadManager.UI.Repositories;
+using SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels;
 using SquadManager.UI.Soccer.ViewModels;
 using SquadManager.UI.TeamDetails.ViewModels;
 using System;
@@ -36,7 +37,7 @@ namespace SquadManager.UI.Base
             return _browser = new ViewModelBrowser(container);
         }
 
-        public T New<T>(ManagerViewModel manager = null, TeamViewModel team = null) where T : ViewModel, new()
+        public T New<T>(ManagerViewModel manager = null, Team team = null) where T : ViewModel, new()
         {
             if (typeof(T) == typeof(LoadTeamViewModel))
             {
@@ -57,6 +58,10 @@ namespace SquadManager.UI.Base
             if (typeof(T) == typeof(SoccerViewModel))
             {
                 return new SoccerViewModel(team, _app, _collections, _squadRepository, _browser, _changeManager, this) as T;
+            }
+            if (typeof(T) == typeof(SoccerTeamDetailsViewModel))
+            {
+                return new SoccerTeamDetailsViewModel(team, _changeManager, _collections) as T;
             }
 
             throw new InvalidOperationException();

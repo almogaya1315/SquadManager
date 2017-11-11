@@ -8,14 +8,9 @@
              d:DesignHeight="960"
              d:DesignWidth="1240">
 
-    <Border Background="#bfe3e9"
-            Height="700"
-            Width="1000">
-        <Border.Effect>
-            <DropShadowEffect ShadowDepth="3"
-                              BlurRadius="3"
-                              Color="#a6d6df" />
-        </Border.Effect>
+    <Border Height="700"
+            Width="1000"
+            Style="{StaticResource BorderStyle}">
 
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center">
@@ -24,7 +19,7 @@
                        Text="TEAM DETAILS"
                        Margin="20"
                        TextAlignment="Center" />
-            
+
             <Grid Margin="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="320" />
@@ -44,7 +39,7 @@
                 <TextBox Grid.Column="1"
                          Style="{StaticResource TextBoxStyle}"
                          Text="{Binding Team.Name, UpdateSourceTrigger=PropertyChanged}" />
-                
+
                 <TextBlock Text="Manager"
                            Grid.Row="1"
                            Style="{StaticResource TextBlockStyle}" />
@@ -84,7 +79,7 @@
                                           Color="#a6d6df" />
                     </ComboBox.Effect>
                 </ComboBox>
-                
+
                 <TextBlock Text="Nation"
                            Grid.Row="2"
                            Style="{StaticResource TextBlockStyle}" />

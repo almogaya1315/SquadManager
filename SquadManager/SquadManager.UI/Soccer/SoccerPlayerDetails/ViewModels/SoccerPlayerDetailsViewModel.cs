@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.Base;
+using SquadManager.UI.Models;
 using SquadManager.UI.TeamDetails.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
     {
         private readonly IChangeManager _changesManager;
 
-        public SoccerPlayerDetailsViewModel(TeamViewModel team, IChangeManager changesManager)
+        public SoccerPlayerDetailsViewModel(Team team, IChangeManager changesManager)
         {
             _changesManager = changesManager;
         }

@@ -1,6 +1,7 @@
 ﻿using SquadManager.UI.Base;
 using SquadManager.UI.ManagerDetails.ViewModels;
 using SquadManager.UI.SharedViewModels;
+using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace SquadManager.UI.TeamDetails.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public SoccerPlayerViewModel Captain { get; set; }
+
         public ComboBoxItemViewModel Nation { get; set; }
         public ComboBoxItemViewModel City { get; set; }
         public ComboBoxItemViewModel Sport { get; set; }

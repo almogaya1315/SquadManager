@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.ManagerDetails.ViewModels;
+using SquadManager.UI.Models;
 using SquadManager.UI.TeamDetails.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -28,11 +29,11 @@ namespace SquadManager.UI.Base
         }
     }
 
-    public class SoccerSquadDetailsArgs : BrowseArgs
+    public class SoccerArgs : BrowseArgs
     {
-        public TeamViewModel Team { get; set; }
+        public Team Team { get; set; }
 
-        public SoccerSquadDetailsArgs(BrowseArgsType type, TeamViewModel team) : base(type)
+        public SoccerArgs(BrowseArgsType type, Team team) : base(type)
         {
             Team = team;
         }

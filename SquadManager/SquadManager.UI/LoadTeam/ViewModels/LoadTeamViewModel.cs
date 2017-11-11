@@ -55,11 +55,12 @@ namespace SquadManager.UI.LoadTeam.ViewModels
         private void LoadTeam()
         {
             var sport = Enum.GetValues(typeof(SportType)).Cast<SportType>().First(s => s.ToString() == SelectedTeam.Sport.Name);
+            var team = App.Teams.Find(t => t.Id == SelectedTeam.Id);
 
             switch (sport)
             {
                 case SportType.Soccer:
-                    Browser.Browse(new SoccerSquadDetailsArgs(BrowseArgsType.SoccerSquadArgs, SelectedTeam));
+                    Browser.Browse(new SoccerArgs(BrowseArgsType.SoccerSquadArgs, team));
                     break;
             }
         }

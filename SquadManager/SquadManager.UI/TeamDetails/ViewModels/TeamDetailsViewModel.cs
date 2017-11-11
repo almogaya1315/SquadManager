@@ -62,7 +62,7 @@ namespace SquadManager.UI.TeamDetails.ViewModels
             switch (Enum.GetValues(typeof(SportType)).Cast<SportType>().First(t => t.ToString() == Team.Sport.Name))
             {
                 case SportType.Soccer:
-                    Browser.Browse(new SoccerSquadDetailsArgs(BrowseArgsType.SoccerSquadArgs, Team));
+                    Browser.Browse(new SoccerArgs(BrowseArgsType.SoccerSquadArgs, team));
                     break;
             }   
         }

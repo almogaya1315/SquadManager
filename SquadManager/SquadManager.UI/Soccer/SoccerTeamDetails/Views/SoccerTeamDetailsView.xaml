@@ -8,6 +8,68 @@
              d:DesignHeight="655"
              d:DesignWidth="320">
     <Border Style="{StaticResource BorderStyle}">
-        
+
+        <StackPanel>
+            <TextBlock FontSize="20"
+                       Foreground="#3c5458"
+                       Text="{Binding Team.Name}"
+                       Margin="10 20 10 0"
+                       Width="auto"
+                       Style="{StaticResource TextBlockStyle}" />
+
+            <TextBlock Margin="10 0 10 30"
+                       FontSize="14"
+                       Text="{Binding Team.Sport.Name}"
+                       Width="auto"
+                       Style="{StaticResource TextBlockStyle}" />
+
+            <TextBlock Margin="10 0"
+                       FontSize="14"
+                       Text="Lacation:"
+                       Width="auto"
+                       Style="{StaticResource TextBlockStyle}" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="10 0 10 30">
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Width="auto"
+                           Margin="0"
+                           FontSize="14">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}, ">
+                            <Binding Path="Team.City.Name" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Width="auto"
+                           Margin="0"
+                           FontSize="14"
+                           Text="{Binding Team.Nation.Name}" />
+            </StackPanel>
+
+            <TextBlock Margin="10 0"
+                       FontSize="14"
+                       Text="Manager:"
+                       Width="auto"
+                       Style="{StaticResource TextBlockStyle}" />
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Width="auto"
+                       Margin="10 0 10 30"
+                       FontSize="14"
+                       Text="{Binding Team.Manager.Name}" />
+
+            <TextBlock Margin="10 0"
+                       FontSize="14"
+                       Text="Captain:"
+                       Width="auto"
+                       Style="{StaticResource TextBlockStyle}" />
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Width="auto"
+                       Margin="10 0 10 30"
+                       FontSize="14"
+                       Text="{Binding Team.Captain.Name}" />
+        </StackPanel>
+
     </Border>
 </UserControl>

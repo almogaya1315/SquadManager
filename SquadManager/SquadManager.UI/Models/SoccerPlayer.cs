@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SquadManager.UI.Models
 {
-    public class Player
+    public class SoccerPlayer
     {
+        public bool IsCaptain { get; set; }
     }
 }

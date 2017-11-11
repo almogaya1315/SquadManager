@@ -21,7 +21,7 @@ namespace SquadManager.UI.Soccer.ViewModels
         public SoccerViewModelSource Source { get; set; }
 
         public SoccerViewModel() { }
-        public SoccerViewModel(TeamViewModel team, Application app, CollectionFactory collections, ISquadRepository squadRepository, ViewModelBrowser browser, IChangeManager changeManager, Injector injector)
+        public SoccerViewModel(Team team, Application app, CollectionFactory collections, ISquadRepository squadRepository, ViewModelBrowser browser, IChangeManager changeManager, Injector injector)
         {
             App = app;
             SquadRepository = squadRepository;

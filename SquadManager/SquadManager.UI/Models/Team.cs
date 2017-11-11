@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquadManager.UI.TeamDetails.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,11 @@ namespace SquadManager.UI.Models
         public int SportId { get; set; }
 
         public DateTime LastSave { get; set; }
-        public List<Player> Squad { get; set; }
+        public List<SoccerPlayer> Squad { get; set; }
+
+        public Team()
+        {
+            Squad = new List<SoccerPlayer>();
+        }
     }
 }
