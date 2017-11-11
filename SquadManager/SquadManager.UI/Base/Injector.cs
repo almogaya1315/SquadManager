@@ -40,41 +40,23 @@ namespace SquadManager.UI.Base
         {
             if (typeof(T) == typeof(LoadTeamViewModel))
             {
-                var loadTeamViewModel = new LoadTeamViewModel(_app, _squadRepository, _collections);
-                loadTeamViewModel.Browser = _browser;
-                return loadTeamViewModel as T;
+                return new LoadTeamViewModel(_app, _squadRepository, _collections, _browser) as T;
             }
             if (typeof(T) == typeof(MenuViewModel))
             {
-                var menuViewModel = new MenuViewModel();
-                menuViewModel.Browser = _browser;
-                return menuViewModel as T;
+                return new MenuViewModel(_browser) as T;
             }
             if (typeof(T) == typeof(ManagerDetailsViewModel))
             {
-                var managerViewModel = new ManagerDetailsViewModel(_collections);
-                managerViewModel.App = _app;
-                managerViewModel.Browser = _browser;
-                managerViewModel.SquadRepository = _squadRepository;
-                return managerViewModel as T;
+                return new ManagerDetailsViewModel(_app, _collections, _browser, _squadRepository) as T;
             }
             if (typeof(T) == typeof(TeamDetailsViewModel))
             {
-                var teamViewModel = new TeamDetailsViewModel(manager);
-                teamViewModel.App = _app;
-                teamViewModel.Browser = _browser;
-                teamViewModel.Collections = _collections;
-                teamViewModel.SquadRepository = _squadRepository;
-                return teamViewModel as T;
+                return new TeamDetailsViewModel(manager, _app, _squadRepository, _collections, _browser) as T;
             }
             if (typeof(T) == typeof(SoccerViewModel))
             {
-                var soccerViewModel = new SoccerViewModel(team, _changeManager);
-                soccerViewModel.App = _app;
-                soccerViewModel.Browser = _browser;
-                soccerViewModel.Collections = _collections;
-                soccerViewModel.SquadRepository = _squadRepository;
-                return soccerViewModel as T;
+                return new SoccerViewModel(team, _app, _collections, _squadRepository, _browser, _changeManager, this) as T;
             }
 
             throw new InvalidOperationException();

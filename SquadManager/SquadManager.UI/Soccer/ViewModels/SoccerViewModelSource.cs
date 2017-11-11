@@ -4,6 +4,7 @@ using SquadManager.UI.Soccer.SoccerNavigationBar.ViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels;
 using SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels;
+using SquadManager.UI.TeamDetails.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,13 @@ namespace SquadManager.UI.Soccer.ViewModels
         public SoccerPlayerDetailsViewModel SoccerPlayerDetails { get; set; }
         public SoccerLineupDetailsViewModel SoccerLineupDetails { get; set; }
 
-        public SoccerViewModelSource(IChangeManager changeManager)
+        public SoccerViewModelSource(TeamViewModel team, Injector injector, IChangeManager changeManager)
         {
-            SoccerTeamDetails = new SoccerTeamDetailsViewModel(changeManager);
-            SoccerNavigationBar = new SoccerNavigationBarViewModel(changeManager);
-            SoccerSquadDetails = new SoccerSquadDetailsViewModel(changeManager);
-            SoccerPlayerDetails = new SoccerPlayerDetailsViewModel(changeManager);
-            SoccerLineupDetails = new SoccerLineupDetailsViewModel(changeManager);
+            SoccerTeamDetails = new SoccerTeamDetailsViewModel(team, changeManager);
+            SoccerNavigationBar = new SoccerNavigationBarViewModel(team, changeManager);
+            SoccerSquadDetails = new SoccerSquadDetailsViewModel(team, changeManager);
+            SoccerPlayerDetails = new SoccerPlayerDetailsViewModel(team, changeManager);
+            SoccerLineupDetails = new SoccerLineupDetailsViewModel(team, changeManager);
         }
     }
 }

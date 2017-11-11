@@ -24,8 +24,13 @@ namespace SquadManager.UI.TeamDetails.ViewModels
         public ICommand Save { get; set; }
 
         public TeamDetailsViewModel() { }
-        public TeamDetailsViewModel(ManagerViewModel manager)
+        public TeamDetailsViewModel(ManagerViewModel manager, Application app, ISquadRepository squadRepository, CollectionFactory collections, ViewModelBrowser browser)
         {
+            App = app;
+            SquadRepository = squadRepository;
+            Collections = collections;
+            Browser = browser;
+
             Managers = Collections.ManagerViewModels;
 
             Team = new TeamViewModel();
@@ -52,6 +57,7 @@ namespace SquadManager.UI.TeamDetails.ViewModels
             };
 
             team.Id = SquadRepository.AddTeam(team);
+            App.Teams.Add(team);
 
             switch (Enum.GetValues(typeof(SportType)).Cast<SportType>().First(t => t.ToString() == Team.Sport.Name))
             {

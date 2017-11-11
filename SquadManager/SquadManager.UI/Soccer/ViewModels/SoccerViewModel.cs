@@ -1,5 +1,7 @@
-﻿using SquadManager.UI.Base;
+﻿using SquadManager.UI.AppContainer.ViewModels;
+using SquadManager.UI.Base;
 using SquadManager.UI.Models;
+using SquadManager.UI.Repositories;
 using SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels;
 using SquadManager.UI.Soccer.SoccerNavigationBar.ViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
@@ -16,18 +18,19 @@ namespace SquadManager.UI.Soccer.ViewModels
 {
     public class SoccerViewModel : ViewModel, IChangeable
     {
-        public readonly IChangeManager _changesManager;
-
         public SoccerViewModelSource Source { get; set; }
 
         public SoccerViewModel() { }
-        public SoccerViewModel(TeamViewModel team, IChangeManager changeManager)
+        public SoccerViewModel(TeamViewModel team, Application app, CollectionFactory collections, ISquadRepository squadRepository, ViewModelBrowser browser, IChangeManager changeManager, Injector injector)
         {
-            _changesManager = changeManager;
+            App = app;
+            SquadRepository = squadRepository;
+            Collections = collections;
+            Browser = browser;
 
-            Source = new SoccerViewModelSource(_changesManager);
+            Source = new SoccerViewModelSource(team, injector, changeManager);
 
-            _changesManager.Changeables = new List<IChangeable>()
+            changeManager.Changeables = new List<IChangeable>()
             {
                 this, 
                 Source.SoccerNavigationBar,

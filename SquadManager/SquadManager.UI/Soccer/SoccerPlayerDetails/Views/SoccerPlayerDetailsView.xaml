@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SquadManager.UI.Soccer.SoccerPlayerDetails.Views"
              mc:Ignorable="d"
-             d:DesignHeight="710"
-             d:DesignWidth="210">
+             d:DesignHeight="845"
+             d:DesignWidth="320">
     <Border Style="{StaticResource BorderStyle}">
 
     </Border>

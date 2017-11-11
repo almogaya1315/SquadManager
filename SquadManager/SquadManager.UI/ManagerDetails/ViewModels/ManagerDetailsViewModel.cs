@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
+using SquadManager.UI.AppContainer.ViewModels;
 using SquadManager.UI.Base;
 using SquadManager.UI.Models;
+using SquadManager.UI.Repositories;
 using SquadManager.UI.SharedViewModels;
 using System;
 using System.Collections.Generic;
@@ -62,9 +64,12 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
         }
 
         public ManagerDetailsViewModel() { }
-        public ManagerDetailsViewModel(CollectionFactory collection)
+        public ManagerDetailsViewModel(Application app, CollectionFactory collection, ViewModelBrowser browser, ISquadRepository squadRepository)
         {
+            App = app;
+            Browser = browser;
             Collections = collection;
+            SquadRepository = squadRepository;
 
             SetManager();
 

@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
+using SquadManager.UI.AppContainer.ViewModels;
 using SquadManager.UI.Base;
 using SquadManager.UI.Enums;
 using SquadManager.UI.Models;
@@ -32,9 +33,10 @@ namespace SquadManager.UI.LoadTeam.ViewModels
         public ICommand Back { get; set; }
 
         public LoadTeamViewModel() { }
-        public LoadTeamViewModel(Application app, ISquadRepository squadRepository, CollectionFactory collection)
+        public LoadTeamViewModel(Application app, ISquadRepository squadRepository, CollectionFactory collection, ViewModelBrowser browser)
         {
             App = app;
+            Browser = browser;
             SquadRepository = squadRepository;
             Collections = collection;
 
