@@ -1,12 +1,44 @@
-﻿<UserControl x:Class="SquadManager.UI.Soccer.SoccerTeamDetails.Views.SoccerTeamDetailsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SquadManager.UI.Soccer.SoccerTeamDetails.Views"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+             x:Class="SquadManager.UI.Soccer.SoccerTeamDetails.Views.SoccerTeamDetailsView"
              mc:Ignorable="d"
              d:DesignHeight="655"
              d:DesignWidth="320">
+    <UserControl.Resources>
+        <ControlTemplate TargetType="ComboBox"
+                         x:Key="NotFocusedComboBoxTemplate">
+            <TextBlock Width="auto"
+                       Margin="10 0 10 30"
+                       FontSize="14"
+                       Text="{Binding Team.Manager.Name}"
+                       Style="{StaticResource TextBlockStyle}"/>
+        </ControlTemplate>
+        <ControlTemplate TargetType="ComboBox"
+                         x:Key="FocusedComboBoxTemplate">
+            <ComboBox  Width="auto"
+                       HorizontalAlignment="Left"
+                       Margin="10 0 10 30"
+                       FontSize="14"
+                       SelectedItem="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.Team.Manager}"
+                       DisplayMemberPath="Name"
+                       MinHeight="15"
+                       Height="19"
+                       ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.Collections.ManagerViewModels}">
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Template"
+                                Value="{StaticResource ComboBoxControlTemplate}"/>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
+        </ControlTemplate>
+        
+    </UserControl.Resources>
+
     <Border Style="{StaticResource BorderStyle}">
 
         <StackPanel>
@@ -28,36 +60,41 @@
                        Text="Lacation:"
                        Width="auto"
                        Style="{StaticResource TextBlockStyle}" />
-            <StackPanel Orientation="Horizontal"
-                        Margin="10 0 10 30">
-                <TextBlock Style="{StaticResource TextBlockStyle}"
-                           Width="auto"
-                           Margin="0"
-                           FontSize="14">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0}, ">
-                            <Binding Path="Team.City.Name" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-
-                <TextBlock Style="{StaticResource TextBlockStyle}"
-                           Width="auto"
-                           Margin="0"
-                           FontSize="14"
-                           Text="{Binding Team.Nation.Name}" />
-            </StackPanel>
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Width="auto"
+                       Margin="10 0 10 30"
+                       FontSize="14">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}, {1}">
+                        <Binding Path="Team.City.Name" />
+                        <Binding Path="Team.Nation.Name" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
 
             <TextBlock Margin="10 0"
                        FontSize="14"
                        Text="Manager:"
                        Width="auto"
                        Style="{StaticResource TextBlockStyle}" />
-            <TextBlock Style="{StaticResource TextBlockStyle}"
-                       Width="auto"
-                       Margin="10 0 10 30"
-                       FontSize="14"
-                       Text="{Binding Team.Manager.Name}" />
+            <ComboBox SelectedItem="{Binding Team.Manager}">
+                <ComboBox.Style>
+                    <Style TargetType="{x:Type ComboBox}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="false">
+                                <Setter Property="Template"
+                                        Value="{StaticResource NotFocusedComboBoxTemplate}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                     Value="true">
+                                <Setter Property="Template"
+                                        Value="{StaticResource FocusedComboBoxTemplate}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
 
             <TextBlock Margin="10 0"
                        FontSize="14"
