@@ -23,14 +23,7 @@
                        SelectedItem="{Binding TeamDetails.Manager}"
                        DisplayMemberPath="Name"
                        Padding="0"
-                       ItemsSource="{Binding Managers}">
-                <!--<ComboBox.Style>
-                    <Style TargetType="ComboBox">
-                        <Setter Property="Template"
-                                Value="{StaticResource ComboBoxControlTemplate}" />
-                    </Style>
-                </ComboBox.Style>-->
-            </ComboBox>
+                       ItemsSource="{Binding Managers}" />
         </ControlTemplate>
 
     </UserControl.Resources>
@@ -38,20 +31,32 @@
     <Border Style="{StaticResource BorderStyle}">
 
         <StackPanel>
+
+            <Image Source="{Binding TeamDetails.Crest.Value}"
+                   Width="80"
+                   Height="80"
+                   Margin="20 20 20 10"
+                   HorizontalAlignment="Left"/>
+
             <TextBlock FontSize="20"
                        Foreground="#3c5458"
                        Text="{Binding TeamDetails.Name}"
-                       Margin="10 20 10 0"
+                       Margin="10 0 10 0"
                        Width="auto"
                        Style="{StaticResource TextBlockStyle}" />
 
-            <TextBlock Margin="10 0 10 30"
+            <TextBlock Margin="10 0 10 10"
                        FontSize="14"
                        Text="{Binding TeamDetails.Sport.Name}"
                        Width="auto"
                        Style="{StaticResource TextBlockStyle}" />
 
-            <TextBlock Margin="10 0"
+            <Border BorderThickness=".6"
+                    Opacity=".3"
+                    BorderBrush="#3c5458"
+                    Margin="10 0" />
+
+            <TextBlock Margin="10 20 0 0"
                        FontSize="14"
                        Text="Lacation:"
                        Width="auto"
@@ -108,18 +113,107 @@
                        FontSize="14"
                        Text="{Binding TeamDetails.Captain.Name}" />
 
+            <Border BorderThickness=".6"
+                    Opacity=".3"
+                    BorderBrush="#3c5458"
+                    Margin="10 0"/>
+
             <StackPanel Margin="10">
+                <!--Total playres-->
                 <TextBlock Style="{StaticResource TextBlockStyle}"
                            FontSize="14"
-                           Margin="0"
+                           Margin="0 15 0 0"
                            HorizontalAlignment="Left"
+                           FontWeight="UltraLight"
                            Width="auto">
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} players">
-                            <Binding Path="TeamDetails.Squad.Count()" />
+                        <MultiBinding StringFormat="{}{0} Players">
+                            <Binding Path="PlayerCount" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
+
+                <!--Reserves-->
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           FontSize="14"
+                           Margin="0 5"
+                           HorizontalAlignment="Left"
+                           FontWeight="UltraLight"
+                           Width="auto">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} Reserves">
+                            <Binding Path="ReservesCount" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <Border BorderThickness=".6"
+                        Opacity=".3"
+                        Width="120"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#3c5458" />
+
+                <!--Goalkeepers-->
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           FontSize="14"
+                           Margin="0 5"
+                           HorizontalAlignment="Left"
+                           FontWeight="UltraLight"
+                           Width="auto">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} GoalKeepers">
+                            <Binding Path="GoalKeeperCount" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <!--Defenders-->
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           FontSize="14"
+                           Margin="0 5"
+                           HorizontalAlignment="Left"
+                           FontWeight="UltraLight"
+                           Width="auto">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} Defenders">
+                            <Binding Path="DefendersCount" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <!--Midfielders-->
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           FontSize="14"
+                           Margin="0 5"
+                           HorizontalAlignment="Left"
+                           FontWeight="UltraLight"
+                           Width="auto">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} Midfielders">
+                            <Binding Path="MidfieldersCount" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <!--Attackers-->
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           FontSize="14"
+                           Margin="0 5"
+                           HorizontalAlignment="Left"
+                           FontWeight="UltraLight"
+                           Width="auto">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} Attackers">
+                            <Binding Path="AttackersCount" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <Border BorderThickness=".6"
+                        Opacity=".3"
+                        Width="120"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#3c5458" />
             </StackPanel>
         </StackPanel>
 

@@ -26,7 +26,7 @@ namespace SquadManager.UI.Soccer.ViewModels
 
         public SoccerViewModelSource(Team team, Injector injector, IChangeManager changeManager)
         {
-            SoccerTeamDetails = injector.New<SoccerTeamDetailsViewModel>(team: team); //new SoccerTeamDetailsViewModel(team, changeManager);
+            SoccerTeamDetails = injector.New<SoccerTeamDetailsViewModel>(team: team); 
             SoccerNavigationBar = new SoccerNavigationBarViewModel(team, changeManager);
             SoccerSquadDetails = new SoccerSquadDetailsViewModel(team, changeManager);
             SoccerPlayerDetails = new SoccerPlayerDetailsViewModel(team, changeManager);

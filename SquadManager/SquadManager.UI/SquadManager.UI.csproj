@@ -110,13 +110,16 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\Nation.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\SoccerPlayer.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Repositories\ISquadRepository.cs" />
     <Compile Include="Repositories\SquadRepository.cs" />
     <Compile Include="Repositories\SquadRepositoryBase.cs" />
+    <Compile Include="SharedViewModels\CellViewModel.cs" />
     <Compile Include="SharedViewModels\ComboBoxItemViewModel.cs" />
+    <Compile Include="SharedViewModels\EditableCellViewModel.cs" />
     <Compile Include="Soccer\SoccerLineupDetails\ViewModels\SoccerLineupDetailsViewModel.cs" />
     <Compile Include="Soccer\SoccerLineupDetails\Views\SoccerLineupDetailsView.xaml.cs">
       <DependentUpon>SoccerLineupDetailsView.xaml</DependentUpon>
@@ -186,7 +189,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\huddersfield_town_afc.png" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="AppContainer\Views\Container.xaml">
       <SubType>Designer</SubType>
@@ -232,6 +237,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\barcelona_fc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\no_crest.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

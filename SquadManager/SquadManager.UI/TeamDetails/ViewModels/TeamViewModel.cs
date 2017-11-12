@@ -33,13 +33,18 @@ namespace SquadManager.UI.TeamDetails.ViewModels
 
         public SoccerPlayerViewModel Captain { get; set; }
 
+        public List<SoccerPlayerViewModel> Squad { get; set; }
+
         public ComboBoxItemViewModel Nation { get; set; }
         public ComboBoxItemViewModel City { get; set; }
         public ComboBoxItemViewModel Sport { get; set; }
+        public EditableCellViewModel Crest { get; set; }
 
         public TeamViewModel(IChangeManager changeManager = null)
         {
             _changeManager = changeManager;
+
+            //Squad = new List<SoccerPlayerViewModel>();
         }
     }
 }
