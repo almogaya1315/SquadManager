@@ -11,32 +11,28 @@
     <UserControl.Resources>
         <ControlTemplate TargetType="ComboBox"
                          x:Key="NotFocusedComboBoxTemplate">
-            <TextBlock Width="auto"
-                       Margin="10 0 10 30"
+            <TextBlock Margin="0"
                        FontSize="14"
-                       Text="{Binding Team.Manager.Name}"
-                       Style="{StaticResource TextBlockStyle}"/>
+                       Text="{Binding TeamDetails.Manager.Name}"
+                       Style="{StaticResource TextBlockStyle}" />
         </ControlTemplate>
         <ControlTemplate TargetType="ComboBox"
                          x:Key="FocusedComboBoxTemplate">
-            <ComboBox  Width="auto"
-                       HorizontalAlignment="Left"
-                       Margin="10 0 10 30"
+            <ComboBox  Margin="0"
                        FontSize="14"
-                       SelectedItem="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.Team.Manager}"
+                       SelectedItem="{Binding TeamDetails.Manager}"
                        DisplayMemberPath="Name"
-                       MinHeight="15"
-                       Height="19"
-                       ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.Collections.ManagerViewModels}">
-                <ComboBox.Style>
+                       Padding="0"
+                       ItemsSource="{Binding Managers}">
+                <!--<ComboBox.Style>
                     <Style TargetType="ComboBox">
                         <Setter Property="Template"
-                                Value="{StaticResource ComboBoxControlTemplate}"/>
+                                Value="{StaticResource ComboBoxControlTemplate}" />
                     </Style>
-                </ComboBox.Style>
+                </ComboBox.Style>-->
             </ComboBox>
         </ControlTemplate>
-        
+
     </UserControl.Resources>
 
     <Border Style="{StaticResource BorderStyle}">
@@ -44,14 +40,14 @@
         <StackPanel>
             <TextBlock FontSize="20"
                        Foreground="#3c5458"
-                       Text="{Binding Team.Name}"
+                       Text="{Binding TeamDetails.Name}"
                        Margin="10 20 10 0"
                        Width="auto"
                        Style="{StaticResource TextBlockStyle}" />
 
             <TextBlock Margin="10 0 10 30"
                        FontSize="14"
-                       Text="{Binding Team.Sport.Name}"
+                       Text="{Binding TeamDetails.Sport.Name}"
                        Width="auto"
                        Style="{StaticResource TextBlockStyle}" />
 
@@ -66,8 +62,8 @@
                        FontSize="14">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0}, {1}">
-                        <Binding Path="Team.City.Name" />
-                        <Binding Path="Team.Nation.Name" />
+                        <Binding Path="TeamDetails.City.Name" />
+                        <Binding Path="TeamDetails.Nation.Name" />
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
@@ -77,7 +73,12 @@
                        Text="Manager:"
                        Width="auto"
                        Style="{StaticResource TextBlockStyle}" />
-            <ComboBox SelectedItem="{Binding Team.Manager}">
+
+            <ComboBox Width="125"
+                      HorizontalAlignment="Left"
+                      Margin="10 0 10 30"
+                      Height="19"
+                      MinHeight="15">
                 <ComboBox.Style>
                     <Style TargetType="{x:Type ComboBox}">
                         <Style.Triggers>
@@ -105,7 +106,7 @@
                        Width="auto"
                        Margin="10 0 10 30"
                        FontSize="14"
-                       Text="{Binding Team.Captain.Name}" />
+                       Text="{Binding TeamDetails.Captain.Name}" />
         </StackPanel>
 
     </Border>

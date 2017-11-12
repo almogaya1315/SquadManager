@@ -33,8 +33,7 @@ namespace SquadManager.UI.TeamDetails.ViewModels
 
             Managers = Collections.ManagerViewModels;
 
-            Team = new TeamViewModel();
-            if (manager != null) Team.Manager = Managers.Find(m => m.Id == manager.Id);
+            Team = new TeamViewModel() { Manager = Managers.Find(m => m.Id == manager.Id) };
 
             Back = new RelayCommand(BackToManagerDetails);
             Save = new RelayCommand(SaveTeam, CanSave);

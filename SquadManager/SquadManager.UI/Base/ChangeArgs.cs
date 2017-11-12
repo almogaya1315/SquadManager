@@ -9,16 +9,22 @@ namespace SquadManager.UI.Base
     public class ChangeArgs
     {
         public ChangeType Type { get; set; }
+
+        public ChangeArgs(ChangeType type)
+        {
+            Type = type;
+        }
     }
 
-    public class PlayerSelectedChangeArgs : ChangeArgs
+    public class TeamChangedArgs : ChangeArgs
     {
-        public int TeamId { get; set; }
-        public int PlayerId { get; set; }
+        //public PropertyName Property { get; set; }
+
+        public TeamChangedArgs(ChangeType type) : base(type) { } 
     }
 
     public enum ChangeType
     {
-        PlayerSelected,
+        TeamChanged,
     }
 }

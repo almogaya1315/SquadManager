@@ -12,6 +12,8 @@ namespace SquadManager.UI.TeamDetails.ViewModels
 {
     public class TeamViewModel : ViewModel
     {
+        IChangeManager _changeManager;
+
         public int Id { get; set; }
         public string Name { get; set; }
 
@@ -23,6 +25,9 @@ namespace SquadManager.UI.TeamDetails.ViewModels
             {
                 _manager = value;
                 RaisePropertyChanged();
+
+                if (_changeManager != null)
+                    _changeManager.Change(new ChangeArgs(ChangeType.TeamChanged));
             }
         }
 
@@ -31,5 +36,10 @@ namespace SquadManager.UI.TeamDetails.ViewModels
         public ComboBoxItemViewModel Nation { get; set; }
         public ComboBoxItemViewModel City { get; set; }
         public ComboBoxItemViewModel Sport { get; set; }
+
+        public TeamViewModel(IChangeManager changeManager = null)
+        {
+            _changeManager = changeManager;
+        }
     }
 }

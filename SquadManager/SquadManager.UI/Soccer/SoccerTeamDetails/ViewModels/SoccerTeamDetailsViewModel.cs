@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.Base;
+using SquadManager.UI.ManagerDetails.ViewModels;
 using SquadManager.UI.Models;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using SquadManager.UI.TeamDetails.ViewModels;
@@ -16,22 +17,24 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
 
         private Team _team;
 
-        public TeamViewModel Team { get; set; }
+        public TeamViewModel TeamDetails { get; set; }
+        public List<ManagerViewModel> Managers { get; set; }
 
         public SoccerTeamDetailsViewModel() { }
         public SoccerTeamDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections)
         {
-            Collections = collections;
-
             _changesManager = changesManager;
-
             _team = team;
 
-            Team = new TeamViewModel()
+            Collections = collections;
+
+            Managers = Collections.ManagerViewModels;
+
+            TeamDetails = new TeamViewModel(_changesManager)
             {
                 Id = _team.Id,
                 Name = _team.Name,
-                Manager = Collections.ManagerViewModels.Find(m => m.Id == _team.ManagerId),
+                Manager = Managers.Find(m => m.Id == _team.ManagerId),
                 Captain = new SoccerPlayerViewModel(_team.Squad.Find(p => p.IsCaptain)),
                 Nation = Collections.NationViewModels.Find(n => n.Id == _team.NationId),
                 City = Collections.CityViewModels.Find(c => c.Id == _team.CityId),
