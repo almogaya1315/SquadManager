@@ -93,6 +93,8 @@
     <Compile Include="Base\IChangeManager.cs" />
     <Compile Include="Base\Injector.cs" />
     <Compile Include="Base\ViewModel.cs" />
+    <Compile Include="Controls\DataGrid\SquadDataGrid.cs" />
+    <Compile Include="Controls\DataGrid\SquadDataGridColumn.cs" />
     <Compile Include="Controls\RadioButton\TeamRadioButton.cs" />
     <Compile Include="Controls\TextBox\MyTextBox.cs" />
     <Compile Include="Converters\IsIdExists.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Repositories\SquadRepository.cs" />
     <Compile Include="Repositories\SquadRepositoryBase.cs" />
     <Compile Include="SharedViewModels\CellViewModel.cs" />
+    <Compile Include="SharedViewModels\ColumnViewModel.cs" />
     <Compile Include="SharedViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="SharedViewModels\EditableCellViewModel.cs" />
     <Compile Include="Soccer\SoccerLineupDetails\ViewModels\SoccerLineupDetailsViewModel.cs" />

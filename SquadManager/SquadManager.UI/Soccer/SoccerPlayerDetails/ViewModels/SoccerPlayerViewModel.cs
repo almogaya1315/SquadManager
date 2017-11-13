@@ -18,6 +18,9 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public EditableCellViewModel IsCaptain { get; set; }
         public EditableCellViewModel Position { get; set; }
         public bool IsLineup { get; set; }
+        public bool IsInjured { get; set; }
+        public bool IsOnLoan { get; set; }
+        public bool IsLoaned { get; set; }
 
         public SoccerPlayerViewModel() { }
         public SoccerPlayerViewModel(SoccerPlayer model)

@@ -43,8 +43,6 @@ namespace SquadManager.UI.TeamDetails.ViewModels
         public TeamViewModel(IChangeManager changeManager = null)
         {
             _changeManager = changeManager;
-
-            //Squad = new List<SoccerPlayerViewModel>();
         }
     }
 }

@@ -4,10 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SquadManager.UI.Soccer.SoccerSquadDetails.Views"
+             xmlns:dataGrid="clr-namespace:SquadManager.UI.Controls.DataGrid"
              mc:Ignorable="d"
              d:DesignHeight="655"
              d:DesignWidth="980">
     <Border Style="{StaticResource BorderStyle}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="5"
+                        Content="All players"
+                        Padding="5">
+                    
+                </Button>
+            </StackPanel>
 
+            <dataGrid:SquadDataGrid ColumnBindings="{Binding Columns}"
+                                    ItemsSource="{Binding Players}"
+                                    Background="Transparent"
+                                    Margin="5">
+                <!--<dataGrid:SquadDataGrid.ItemContainerStyle>
+                    <
+                </dataGrid:SquadDataGrid.ItemContainerStyle>-->
+            </dataGrid:SquadDataGrid>
+        </StackPanel>
     </Border>
 </UserControl>

@@ -26,6 +26,9 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
         public int DefendersCount { get; set; }
         public int MidfieldersCount { get; set; }
         public int AttackersCount { get; set; }
+        public int InjuredCount { get; set; }
+        public int OnLoanCount { get; set; }
+        public int LoanedCount { get; set; }
 
         public SoccerTeamDetailsViewModel() { }
         public SoccerTeamDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections)
@@ -56,6 +59,9 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
             DefendersCount = TeamDetails.Squad.Count(p => (p.Position.Value as Position).Group == PositionGroup.Defenders);
             MidfieldersCount = TeamDetails.Squad.Count(p => (p.Position.Value as Position).Group == PositionGroup.Midfielders);
             AttackersCount = TeamDetails.Squad.Count(p => (p.Position.Value as Position).Group == PositionGroup.Attackers);
+            InjuredCount = TeamDetails.Squad.Count(p => p.IsInjured);
+            OnLoanCount = TeamDetails.Squad.Count(p => p.IsOnLoan);
+            LoanedCount = TeamDetails.Squad.Count(p => p.IsLoaned);
         }
 
         public void Changed(ChangeArgs args)
