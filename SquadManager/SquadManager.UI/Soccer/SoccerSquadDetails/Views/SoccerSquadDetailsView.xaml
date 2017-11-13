@@ -8,6 +8,10 @@
              mc:Ignorable="d"
              d:DesignHeight="655"
              d:DesignWidth="980">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Resources/Templates/SquadDataGridColumnTemplates.xaml"/>
+    </UserControl.Resources>
+    
     <Border Style="{StaticResource BorderStyle}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -19,12 +23,15 @@
             </StackPanel>
 
             <dataGrid:SquadDataGrid ColumnBindings="{Binding Columns}"
-                                    ItemsSource="{Binding Players}"
+                                    ItemsSource="{Binding Team.Squad}"
                                     Background="Transparent"
                                     Margin="5">
-                <!--<dataGrid:SquadDataGrid.ItemContainerStyle>
-                    <
-                </dataGrid:SquadDataGrid.ItemContainerStyle>-->
+                <dataGrid:SquadDataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background"
+                                Value="Transparent"/>
+                    </Style>
+                </dataGrid:SquadDataGrid.ItemContainerStyle>
             </dataGrid:SquadDataGrid>
         </StackPanel>
     </Border>

@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:SquadManager.UI.Resources.Templates">
+    <DataTemplate x:Key="ReadOnlyCellTemplate">
+        <TextBlock Text="{Binding Value}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="ComboBoxEditingTemplate">
+        <ComboBox ItemsSource="{Binding Items}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="TextEditingTemplate">
+        <TextBox Text="{Binding Value}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="ImageReadOnlyCellTemplate">
+        <Image Source="{Binding Value}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="RadioButtonEditingTemplate">
+        <RadioButton IsChecked="{Binding Value}"/>
+    </DataTemplate>
+</ResourceDictionary>

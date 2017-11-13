@@ -24,11 +24,11 @@ namespace SquadManager.UI.Soccer.ViewModels
         public SoccerPlayerDetailsViewModel SoccerPlayerDetails { get; set; }
         public SoccerLineupDetailsViewModel SoccerLineupDetails { get; set; }
 
-        public SoccerViewModelSource(Team team, Injector injector, IChangeManager changeManager)
+        public SoccerViewModelSource(Team team, Injector injector, IChangeManager changeManager, CollectionFactory collections)
         {
             SoccerTeamDetails = injector.New<SoccerTeamDetailsViewModel>(team: team); 
             SoccerNavigationBar = new SoccerNavigationBarViewModel(team, changeManager);
-            SoccerSquadDetails = new SoccerSquadDetailsViewModel(team, changeManager);
+            SoccerSquadDetails = new SoccerSquadDetailsViewModel(team, changeManager, collections);
             SoccerPlayerDetails = new SoccerPlayerDetailsViewModel(team, changeManager);
             SoccerLineupDetails = new SoccerLineupDetailsViewModel(team, changeManager);
         }

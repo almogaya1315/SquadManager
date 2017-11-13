@@ -1,5 +1,6 @@
 ﻿using SquadManager.UI.Base;
 using SquadManager.UI.ManagerDetails.ViewModels;
+using SquadManager.UI.Models;
 using SquadManager.UI.SharedViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using System;
@@ -40,9 +41,22 @@ namespace SquadManager.UI.TeamDetails.ViewModels
         public ComboBoxItemViewModel Sport { get; set; }
         public EditableCellViewModel Crest { get; set; }
 
-        public TeamViewModel(IChangeManager changeManager = null)
+        public TeamViewModel() { }
+        public TeamViewModel(Team team, IChangeManager changeManager, CollectionFactory collections)
         {
             _changeManager = changeManager;
+
+            Collections = collections;
+
+            Id = team.Id;
+            Name = team.Name;
+            Manager = Collections.ManagerViewModels.Find(m => m.Id == team.ManagerId);
+            Captain = team.Squad.Exists(p => p.IsCaptain) ? new SoccerPlayerViewModel(team.Squad.Find(p => p.IsCaptain)) : new SoccerPlayerViewModel();
+            Nation = Collections.NationViewModels.Find(n => n.Id == team.NationId);
+            City = Collections.CityViewModels.Find(c => c.Id == team.CityId);
+            Sport = Collections.SportViewModels.Find(s => s.Id == team.SportId);
+            Crest = new EditableCellViewModel(team.CrestImagePath);
+            Squad = team.Squad.Count > 0 ? team.Squad.Select(p => new SoccerPlayerViewModel(p)).ToList() : new List<SoccerPlayerViewModel>();
         }
     }
 }

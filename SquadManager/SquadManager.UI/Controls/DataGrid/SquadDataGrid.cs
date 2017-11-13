@@ -11,6 +11,11 @@ namespace SquadManager.UI.Controls.DataGrid
 {
     public class SquadDataGrid : System.Windows.Controls.DataGrid
     {
+        public SquadDataGrid()
+        {
+            AutoGenerateColumns = false;
+        }
+
         public List<ColumnViewModel> ColumnBindings
         {
             get { return (List<ColumnViewModel>)GetValue(ColumnBindingsProperty); }

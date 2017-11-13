@@ -15,5 +15,8 @@ namespace SquadManager.UI.Models
         public bool IsCaptain { get; set; }
         public Position Position { get; set; }
         public bool IsLineup { get; set; }
+        public bool IsInjured { get; set; }
+        public bool IsOnLoan { get; set; }
+        public bool IsLoaned { get; set; }
     }
 }

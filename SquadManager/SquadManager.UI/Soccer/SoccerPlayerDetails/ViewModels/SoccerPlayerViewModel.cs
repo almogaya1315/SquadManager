@@ -22,9 +22,9 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public bool IsOnLoan { get; set; }
         public bool IsLoaned { get; set; }
 
-        public SoccerPlayerViewModel() { }
-        public SoccerPlayerViewModel(SoccerPlayer model)
+        public SoccerPlayerViewModel(SoccerPlayer model = null)
         {
+            if (model == null) return;
             Id = model.Id;
             Name = new EditableCellViewModel(model.Name);
             Age = new CellViewModel(model.Age);

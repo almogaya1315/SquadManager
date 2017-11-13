@@ -16,7 +16,7 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
     {
         private readonly IChangeManager _changesManager;
 
-        private Team _team;
+        private Team _teamModel;
 
         public TeamViewModel TeamDetails { get; set; }
         public List<ManagerViewModel> Managers { get; set; }
@@ -34,24 +34,13 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
         public SoccerTeamDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections)
         {
             _changesManager = changesManager;
-            _team = team;
+            _teamModel = team;
 
             Collections = collections;
 
             Managers = Collections.ManagerViewModels;
 
-            TeamDetails = new TeamViewModel(_changesManager)
-            {
-                Id = _team.Id,
-                Name = _team.Name,
-                Manager = Managers.Find(m => m.Id == _team.ManagerId),
-                Captain = _team.Squad.Exists(p => p.IsCaptain) ? new SoccerPlayerViewModel(_team.Squad.Find(p => p.IsCaptain)) : new SoccerPlayerViewModel(),
-                Nation = Collections.NationViewModels.Find(n => n.Id == _team.NationId),
-                City = Collections.CityViewModels.Find(c => c.Id == _team.CityId),
-                Sport = Collections.SportViewModels.Find(s => s.Id == _team.SportId),
-                Crest = new EditableCellViewModel(_team.CrestImagePath),
-                Squad = _team.Squad.Count > 0 ? _team.Squad.Select(p => new SoccerPlayerViewModel(p)).ToList() : new List<SoccerPlayerViewModel>(),
-            };
+            TeamDetails = new TeamViewModel(_teamModel, _changesManager, Collections);
 
             PlayerCount = TeamDetails.Squad.Count;
             ReservesCount = TeamDetails.Squad.Count(p => !p.IsLineup);
