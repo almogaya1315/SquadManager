@@ -39,6 +39,7 @@ namespace SquadManager.UI.Controls.DataGrid
             {
                 var gridColumn = new SquadDataGridColumn()
                 {
+                    Header = column.Header,
                     CellTemplate = (DataTemplate)grid.FindResource(column.Template),
                     DataContext = column.DataContextPath,
                 };

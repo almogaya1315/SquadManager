@@ -15,7 +15,7 @@
     <Border Style="{StaticResource BorderStyle}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Margin="5"
+                <Button Margin="10"
                         Content="All players"
                         Padding="5">
                     
@@ -25,7 +25,7 @@
             <dataGrid:SquadDataGrid ColumnBindings="{Binding Columns}"
                                     ItemsSource="{Binding Team.Squad}"
                                     Background="Transparent"
-                                    Margin="5">
+                                    Margin="10">
                 <dataGrid:SquadDataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">
                         <Setter Property="Background"

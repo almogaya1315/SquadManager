@@ -10,10 +10,16 @@
     <DataTemplate x:Key="TextEditingTemplate">
         <TextBox Text="{Binding Value}"/>
     </DataTemplate>
+    <DataTemplate x:Key="NumericEditingTemplate">
+        <TextBox Text="{Binding Value}" />
+    </DataTemplate>
     <DataTemplate x:Key="ImageReadOnlyCellTemplate">
         <Image Source="{Binding Value}"/>
     </DataTemplate>
     <DataTemplate x:Key="RadioButtonEditingTemplate">
         <RadioButton IsChecked="{Binding Value}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="CalendarEditingTemplate">
+        <Calendar DisplayDate="{Binding Value}"/>
     </DataTemplate>
 </ResourceDictionary>

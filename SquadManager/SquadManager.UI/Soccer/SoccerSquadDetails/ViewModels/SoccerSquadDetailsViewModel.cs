@@ -35,7 +35,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
             Team = new TeamViewModel(_teamModel, _changesManager, Collections);
 
-            NewPlayer = new SoccerPlayerViewModel();
+            NewPlayer = new SoccerPlayerViewModel() { Name = new EditableCellViewModel("New player") };
             Players = new List<SoccerPlayerViewModel>() { NewPlayer };
             Players.AddRange(Team.Squad);
         }
@@ -44,6 +44,12 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
         {
             Columns = new List<ColumnViewModel>()
             {
+                new ColumnViewModel()
+                {
+                    DataContextPath = "IsCaptain",
+                    Template = "ImageReadOnlyCellTemplate",
+                    EditingTemplate = "RadioButtonEditingTemplate",
+                },
                 new ColumnViewModel()
                 {
                     Header = "Position",
@@ -60,16 +66,23 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 },
                 new ColumnViewModel()
                 {
-                    Header = "Age",
-                    DataContextPath = "Age",
+                    Header = "Rating",
+                    DataContextPath = "Rating",
                     Template = "ReadOnlyCellTemplate",
+                    EditingTemplate = "NumericEditingTemplate",
                 },
                 new ColumnViewModel()
                 {
-                    Header = "Captain",
-                    DataContextPath = "IsCaptain",
-                    Template = "ImageReadOnlyCellTemplate",
-                    EditingTemplate = "RadioButtonEditingTemplate",
+                    Header = "Birth date",
+                    DataContextPath = "BirthDate",
+                    Template = "ReadOnlyCellTemplate",
+                    EditingTemplate = "CalendarEditingTemplate",
+                },
+                new ColumnViewModel()
+                {
+                    Header = "Age",
+                    DataContextPath = "Age",
+                    Template = "ReadOnlyCellTemplate",
                 },
             };
         }
