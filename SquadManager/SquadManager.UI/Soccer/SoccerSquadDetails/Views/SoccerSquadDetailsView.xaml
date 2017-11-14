@@ -23,7 +23,7 @@
             </StackPanel>
 
             <dataGrid:SquadDataGrid ColumnBindings="{Binding Columns}"
-                                    ItemsSource="{Binding Team.Squad}"
+                                    ItemsSource="{Binding Players}"
                                     Background="Transparent"
                                     Margin="10">
                 <dataGrid:SquadDataGrid.ItemContainerStyle>

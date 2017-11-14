@@ -16,7 +16,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public CellViewModel Age { get; set; }
         public EditableCellViewModel BirthDate { get; set; }
         public EditableCellViewModel IsCaptain { get; set; }
-        public EditableCellViewModel Position { get; set; }
+        public ComboBoxCellViewModel Position { get; set; }
         public bool IsLineup { get; set; }
         public bool IsInjured { get; set; }
         public bool IsOnLoan { get; set; }
@@ -30,7 +30,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             Age = new CellViewModel(model.Age);
             BirthDate = new EditableCellViewModel(model.BirthDate);
             IsCaptain = new EditableCellViewModel(model.IsCaptain);
-            Position = new EditableCellViewModel(model.Position);
+            Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr.Id == (int)model.Position.Role), Collections.PositionRoles);
             IsLineup = model.IsLineup;
         }
     }
