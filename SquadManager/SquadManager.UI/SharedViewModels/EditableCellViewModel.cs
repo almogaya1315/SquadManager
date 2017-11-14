@@ -10,6 +10,19 @@ namespace SquadManager.UI.SharedViewModels
     {
         public bool IsEnabled { get; set; }
 
+        private object _value;
+        public override object Value
+        {
+            get { return _value; }
+            set
+            {
+                if (Equals(_value, value)) return;
+
+                _value = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public EditableCellViewModel(object value, bool isEnabled = true) : base(value)
         {
             IsEnabled = isEnabled;

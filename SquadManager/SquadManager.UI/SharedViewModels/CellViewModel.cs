@@ -9,7 +9,7 @@ namespace SquadManager.UI.SharedViewModels
 {
     public class CellViewModel : ViewModel
     {
-        public object Value { get; set; }
+        public virtual object Value { get; set; }
 
         public CellViewModel(object value)
         {

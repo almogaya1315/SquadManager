@@ -19,7 +19,7 @@ namespace SquadManager.UI.Base
         public List<ComboBoxItemViewModel> CityViewModels { get; set; }
         public List<ComboBoxItemViewModel> SportViewModels { get; set; }
 
-        public List<ComboBoxItemViewModel> PositionRoles { get; set; }
+        public List<PositionRole> PositionRoles { get; set; }
 
         public List<ManagerViewModel> ManagerViewModels
         {
@@ -59,7 +59,7 @@ namespace SquadManager.UI.Base
             CityViewModels = squadRepository.GetCities().Select(n => new ComboBoxItemViewModel(n.Id, n.Name)).ToList();
             SportViewModels = squadRepository.GetSports().Select(n => new ComboBoxItemViewModel(n.Id, n.Name)).ToList();
 
-            PositionRoles = Enum.GetValues(typeof(PositionRole)).Cast<PositionRole>().Select(pr => new ComboBoxItemViewModel((int)pr, pr.ToString())).ToList();
+            PositionRoles = Enum.GetValues(typeof(PositionRole)).Cast<PositionRole>().ToList(); //.Select(pr => new ComboBoxItemViewModel((int)pr, pr.ToString())).ToList();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             {
                 Name = new EditableCellViewModel("New player"),
                 BirthDate = new EditableCellViewModel(new DateTime(1985, 5, 23).ToShortDateString()),
-                Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr.Id == (int)position.Role), Collections.PositionRoles),
+                Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == position.Role), Collections.PositionRoles),
             };
             Players = new List<SoccerPlayerViewModel>() { NewPlayer };
             Players.AddRange(Team.Squad);

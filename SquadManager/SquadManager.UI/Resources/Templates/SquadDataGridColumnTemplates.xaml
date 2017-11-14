@@ -1,15 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:SquadManager.UI.Resources.Templates">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DataTemplate x:Key="ComboBoxReadOnlyCellTemplate">
-        <TextBlock Text="{Binding Value.Name}" />
+        <TextBlock Text="{Binding Value}" />
     </DataTemplate>
     <DataTemplate x:Key="ReadOnlyCellTemplate">
         <TextBlock Text="{Binding Value}" />
     </DataTemplate>
     <DataTemplate x:Key="ComboBoxEditingTemplate">
-        <ComboBox SelectedItem="{Binding Value.Name}"
-                  DisplayMemberPath="Name"
+        <ComboBox SelectedItem="{Binding Value}"
                   ItemsSource="{Binding Items}" />
     </DataTemplate>
     <DataTemplate x:Key="TextEditingTemplate">
