@@ -9,22 +9,7 @@
              d:DesignHeight="655"
              d:DesignWidth="320">
     <UserControl.Resources>
-        <ControlTemplate TargetType="ComboBox"
-                         x:Key="NotFocusedComboBoxTemplate">
-            <TextBlock Margin="0"
-                       FontSize="14"
-                       Text="{Binding TeamDetails.Manager.Name}"
-                       Style="{StaticResource TextBlockStyle}" />
-        </ControlTemplate>
-        <ControlTemplate TargetType="ComboBox"
-                         x:Key="FocusedComboBoxTemplate">
-            <ComboBox  Margin="0"
-                       FontSize="14"
-                       SelectedItem="{Binding TeamDetails.Manager}"
-                       DisplayMemberPath="Name"
-                       Padding="0"
-                       ItemsSource="{Binding Managers}" />
-        </ControlTemplate>
+        
 
     </UserControl.Resources>
 

@@ -6,429 +6,484 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:SquadManager.UI.Converters"
              xmlns:radioButton="clr-namespace:SquadManager.UI.Controls.RadioButton"
+             xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:dataGrid="clr-namespace:SquadManager.UI.Controls.DataGrid"
              StartupUri="AppContainer\Views\Container.xaml"
              d1p1:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
 
-            <converters:IsIdExists x:Key="IsIdExists"/>
-            <BooleanToVisibilityConverter x:Key="boolToVis" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
 
-            <!--RadioButton Template-->
-            <Style x:Key="FocusVisual">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Rectangle Margin="2"
-                                       SnapsToDevicePixels="true"
-                                       Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                                       StrokeThickness="1"
-                                       StrokeDashArray="1 2" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <SolidColorBrush x:Key="RadioButton.Static.Background"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.Static.Border"
-                             Color="Transparent" />
-            <Style x:Key="OptionMarkFocusVisual">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Rectangle Margin="14,0,0,0"
-                                       SnapsToDevicePixels="true"
-                                       Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                                       StrokeThickness="1"
-                                       StrokeDashArray="1 2" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <SolidColorBrush x:Key="RadioButton.MouseOver.Background"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.MouseOver.Border"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.Disabled.Background"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.Disabled.Border"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.Disabled.Glyph"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.Pressed.Background"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.Pressed.Border"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.Pressed.Glyph"
-                             Color="Transparent" />
-            <SolidColorBrush x:Key="RadioButton.Static.Glyph"
-                             Color="Transparent" />
-            <Style x:Key="RadioButtonStyle"
-                   TargetType="{x:Type radioButton:TeamRadioButton}">
-                <Setter Property="FocusVisualStyle"
-                        Value="{StaticResource FocusVisual}" />
-                <Setter Property="Background"
-                        Value="{StaticResource RadioButton.Static.Background}" />
-                <Setter Property="BorderBrush"
-                        Value="{StaticResource RadioButton.Static.Border}" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-                <Setter Property="BorderThickness"
-                        Value="1" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type radioButton:TeamRadioButton}">
-                            <Grid x:Name="templateRoot"
-                                  Background="Transparent"
-                                  SnapsToDevicePixels="True">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Border x:Name="radioButtonBorder"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        Background="{TemplateBinding Background}"
-                                        CornerRadius="100"
-                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        Margin="1,1,2,1"
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                    <Grid x:Name="markGrid"
-                                          Margin="2">
-                                        <Ellipse x:Name="optionMark"
-                                                 Fill="{StaticResource RadioButton.Static.Glyph}"
-                                                 MinWidth="6"
-                                                 MinHeight="6"
-                                                 Opacity="0" />
-                                    </Grid>
-                                </Border>
-                                <ContentPresenter x:Name="contentPresenter"
-                                                  Grid.Column="1"
-                                                  Focusable="False"
-                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  Margin="{TemplateBinding Padding}"
-                                                  RecognizesAccessKey="True"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="HasContent"
-                                         Value="true">
-                                    <Setter Property="FocusVisualStyle"
-                                            Value="{StaticResource OptionMarkFocusVisual}" />
-                                    <Setter Property="Padding"
-                                            Value="4,-1,0,0" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver"
-                                         Value="true">
-                                    <Setter Property="Background"
-                                            TargetName="radioButtonBorder"
-                                            Value="{StaticResource RadioButton.MouseOver.Background}" />
-                                    <Setter Property="BorderBrush"
-                                            TargetName="radioButtonBorder"
-                                            Value="{StaticResource RadioButton.MouseOver.Border}" />
-                                    <Setter Property="Fill"
-                                            TargetName="optionMark"
-                                            Value="{StaticResource RadioButton.MouseOver.Glyph}" />
-                                </Trigger>
-                                <Trigger Property="IsEnabled"
-                                         Value="false">
-                                    <Setter Property="Background"
-                                            TargetName="radioButtonBorder"
-                                            Value="{StaticResource RadioButton.Disabled.Background}" />
-                                    <Setter Property="BorderBrush"
-                                            TargetName="radioButtonBorder"
-                                            Value="{StaticResource RadioButton.Disabled.Border}" />
-                                    <Setter Property="Fill"
-                                            TargetName="optionMark"
-                                            Value="{StaticResource RadioButton.Disabled.Glyph}" />
-                                </Trigger>
-                                <Trigger Property="IsPressed"
-                                         Value="true">
-                                    <Setter Property="Background"
-                                            TargetName="radioButtonBorder"
-                                            Value="{StaticResource RadioButton.Pressed.Background}" />
-                                    <Setter Property="BorderBrush"
-                                            TargetName="radioButtonBorder"
-                                            Value="{StaticResource RadioButton.Pressed.Border}" />
-                                    <Setter Property="Fill"
-                                            TargetName="optionMark"
-                                            Value="{StaticResource RadioButton.Pressed.Glyph}" />
-                                </Trigger>
-                                <Trigger Property="IsChecked"
-                                         Value="true">
-                                    <Setter Property="Opacity"
-                                            TargetName="optionMark"
-                                            Value="1" />
-                                </Trigger>
-                                <Trigger Property="IsChecked"
-                                         Value="{x:Null}">
-                                    <Setter Property="Opacity"
-                                            TargetName="optionMark"
-                                            Value="0.56" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <!--RadioButton Template-->
-            
-            <!--ScrollViewer Template-->
-            <ControlTemplate x:Key="ScrollViewerControlTemplate"
-                             TargetType="{x:Type ScrollViewer}">
-                <Grid x:Name="Grid"
-                      Background="{TemplateBinding Background}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Rectangle x:Name="Corner"
-                               Grid.Column="1"
-                               Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                               Grid.Row="1" />
-                    <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
-                                            CanContentScroll="{TemplateBinding CanContentScroll}"
-                                            CanHorizontallyScroll="False"
-                                            CanVerticallyScroll="False"
-                                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                                            Content="{TemplateBinding Content}"
-                                            Grid.Column="0"
-                                            Margin="{TemplateBinding Padding}"
-                                            Grid.Row="0" />
-                    <ScrollBar x:Name="PART_VerticalScrollBar"
-                               AutomationProperties.AutomationId="VerticalScrollBar"
-                               Cursor="Arrow"
-                               Grid.Column="1"
-                               Maximum="{TemplateBinding ScrollableHeight}"
-                               Minimum="0"
-                               Grid.Row="0"
-                               Width="7"
-                               MinWidth="7"
-                               Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                               Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                               ViewportSize="{TemplateBinding ViewportHeight}" />
-                    <ScrollBar x:Name="PART_HorizontalScrollBar"
-                               AutomationProperties.AutomationId="HorizontalScrollBar"
-                               Cursor="Arrow"
-                               Grid.Column="0"
-                               Maximum="{TemplateBinding ScrollableWidth}"
-                               Minimum="0"
-                               Height="7"
-                               MinHeight="7"
-                               Orientation="Horizontal"
-                               Grid.Row="1"
-                               Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
-                               Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                               ViewportSize="{TemplateBinding ViewportWidth}" />
-                </Grid>
-            </ControlTemplate>
-            <!--ScrollViewer Template-->
+                <ResourceDictionary>
 
-            <Style x:Key="ButtonTemplateStyle"
-                   TargetType="TextBlock">
-                <Setter Property="Margin"
-                        Value="10" />
-                <Setter Property="Width"
-                        Value="170" />
-                <Setter Property="FontSize"
-                        Value="30" />
-                <Setter Property="TextAlignment"
-                        Value="Center" />
+                    <converters:IsIdExists x:Key="IsIdExists" />
+                    <BooleanToVisibilityConverter x:Key="boolToVis" />
 
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver"
-                             Value="true">
+                    <Style TargetType="dataGrid:SquadDataGrid"
+                           x:Key="MetroDataGridStyle"
+                           BasedOn="{StaticResource ResourceKey=AzureDataGrid}">
+
+                    </Style>
+
+                    <!--RadioButton Template-->
+                    <Style x:Key="FocusVisual">
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="2"
+                                               SnapsToDevicePixels="true"
+                                               Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                                               StrokeThickness="1"
+                                               StrokeDashArray="1 2" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <SolidColorBrush x:Key="RadioButton.Static.Background"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.Static.Border"
+                                     Color="Transparent" />
+                    <Style x:Key="OptionMarkFocusVisual">
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="14,0,0,0"
+                                               SnapsToDevicePixels="true"
+                                               Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                                               StrokeThickness="1"
+                                               StrokeDashArray="1 2" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <SolidColorBrush x:Key="RadioButton.MouseOver.Background"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.MouseOver.Border"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.Disabled.Background"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.Disabled.Border"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.Pressed.Background"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.Pressed.Border"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.Pressed.Glyph"
+                                     Color="Transparent" />
+                    <SolidColorBrush x:Key="RadioButton.Static.Glyph"
+                                     Color="Transparent" />
+                    <Style x:Key="RadioButtonStyle"
+                           TargetType="{x:Type radioButton:TeamRadioButton}">
+                        <Setter Property="FocusVisualStyle"
+                                Value="{StaticResource FocusVisual}" />
+                        <Setter Property="Background"
+                                Value="{StaticResource RadioButton.Static.Background}" />
+                        <Setter Property="BorderBrush"
+                                Value="{StaticResource RadioButton.Static.Border}" />
                         <Setter Property="Foreground"
-                                Value="#249eb4" />
-                    </Trigger>
-                    <Trigger Property="IsMouseOver"
-                             Value="false">
+                                Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+                        <Setter Property="BorderThickness"
+                                Value="1" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type radioButton:TeamRadioButton}">
+                                    <Grid x:Name="templateRoot"
+                                          Background="Transparent"
+                                          SnapsToDevicePixels="True">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border x:Name="radioButtonBorder"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                Background="{TemplateBinding Background}"
+                                                CornerRadius="100"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                Margin="1,1,2,1"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                            <Grid x:Name="markGrid"
+                                                  Margin="2">
+                                                <Ellipse x:Name="optionMark"
+                                                         Fill="{StaticResource RadioButton.Static.Glyph}"
+                                                         MinWidth="6"
+                                                         MinHeight="6"
+                                                         Opacity="0" />
+                                            </Grid>
+                                        </Border>
+                                        <ContentPresenter x:Name="contentPresenter"
+                                                          Grid.Column="1"
+                                                          Focusable="False"
+                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                          Margin="{TemplateBinding Padding}"
+                                                          RecognizesAccessKey="True"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="HasContent"
+                                                 Value="true">
+                                            <Setter Property="FocusVisualStyle"
+                                                    Value="{StaticResource OptionMarkFocusVisual}" />
+                                            <Setter Property="Padding"
+                                                    Value="4,-1,0,0" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="true">
+                                            <Setter Property="Background"
+                                                    TargetName="radioButtonBorder"
+                                                    Value="{StaticResource RadioButton.MouseOver.Background}" />
+                                            <Setter Property="BorderBrush"
+                                                    TargetName="radioButtonBorder"
+                                                    Value="{StaticResource RadioButton.MouseOver.Border}" />
+                                            <Setter Property="Fill"
+                                                    TargetName="optionMark"
+                                                    Value="{StaticResource RadioButton.MouseOver.Glyph}" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled"
+                                                 Value="false">
+                                            <Setter Property="Background"
+                                                    TargetName="radioButtonBorder"
+                                                    Value="{StaticResource RadioButton.Disabled.Background}" />
+                                            <Setter Property="BorderBrush"
+                                                    TargetName="radioButtonBorder"
+                                                    Value="{StaticResource RadioButton.Disabled.Border}" />
+                                            <Setter Property="Fill"
+                                                    TargetName="optionMark"
+                                                    Value="{StaticResource RadioButton.Disabled.Glyph}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed"
+                                                 Value="true">
+                                            <Setter Property="Background"
+                                                    TargetName="radioButtonBorder"
+                                                    Value="{StaticResource RadioButton.Pressed.Background}" />
+                                            <Setter Property="BorderBrush"
+                                                    TargetName="radioButtonBorder"
+                                                    Value="{StaticResource RadioButton.Pressed.Border}" />
+                                            <Setter Property="Fill"
+                                                    TargetName="optionMark"
+                                                    Value="{StaticResource RadioButton.Pressed.Glyph}" />
+                                        </Trigger>
+                                        <Trigger Property="IsChecked"
+                                                 Value="true">
+                                            <Setter Property="Opacity"
+                                                    TargetName="optionMark"
+                                                    Value="1" />
+                                        </Trigger>
+                                        <Trigger Property="IsChecked"
+                                                 Value="{x:Null}">
+                                            <Setter Property="Opacity"
+                                                    TargetName="optionMark"
+                                                    Value="0.56" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <!--RadioButton Template-->
+
+                    <!--ScrollViewer Template-->
+                    <ControlTemplate x:Key="ScrollViewerControlTemplate"
+                                     TargetType="{x:Type ScrollViewer}">
+                        <Grid x:Name="Grid"
+                              Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Rectangle x:Name="Corner"
+                                       Grid.Column="1"
+                                       Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                                       Grid.Row="1" />
+                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                                    CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                    CanHorizontallyScroll="False"
+                                                    CanVerticallyScroll="False"
+                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                    Content="{TemplateBinding Content}"
+                                                    Grid.Column="0"
+                                                    Margin="{TemplateBinding Padding}"
+                                                    Grid.Row="0" />
+                            <ScrollBar x:Name="PART_VerticalScrollBar"
+                                       AutomationProperties.AutomationId="VerticalScrollBar"
+                                       Cursor="Arrow"
+                                       Grid.Column="1"
+                                       Maximum="{TemplateBinding ScrollableHeight}"
+                                       Minimum="0"
+                                       Grid.Row="0"
+                                       Width="7"
+                                       MinWidth="7"
+                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                       ViewportSize="{TemplateBinding ViewportHeight}" />
+                            <ScrollBar x:Name="PART_HorizontalScrollBar"
+                                       AutomationProperties.AutomationId="HorizontalScrollBar"
+                                       Cursor="Arrow"
+                                       Grid.Column="0"
+                                       Maximum="{TemplateBinding ScrollableWidth}"
+                                       Minimum="0"
+                                       Height="7"
+                                       MinHeight="7"
+                                       Orientation="Horizontal"
+                                       Grid.Row="1"
+                                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                       ViewportSize="{TemplateBinding ViewportWidth}" />
+                        </Grid>
+                    </ControlTemplate>
+                    <!--ScrollViewer Template-->
+
+                    <Style x:Key="ButtonTemplateStyle"
+                           TargetType="TextBlock">
+                        <Setter Property="Margin"
+                                Value="10" />
+                        <Setter Property="Width"
+                                Value="170" />
+                        <Setter Property="FontSize"
+                                Value="30" />
+                        <Setter Property="TextAlignment"
+                                Value="Center" />
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="true">
+                                <Setter Property="Foreground"
+                                        Value="#249eb4" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                     Value="false">
+                                <Setter Property="Foreground"
+                                        Value="#3c5458" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled"
+                                     Value="false">
+                                <Setter Property="Foreground"
+                                        Value="#e7f5f7" />
+                            </Trigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver"
+                                               Value="true" />
+                                    <Condition Property="Text"
+                                               Value="Back" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Foreground"
+                                            Value="Red" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <ControlTemplate x:Key="ButtonTemplate">
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Content}"
+                                   Style="{StaticResource ButtonTemplateStyle}" />
+                    </ControlTemplate>
+
+                    <Style x:Key="TextBlockStyle"
+                           TargetType="{x:Type TextBlock}">
+                        <Setter Property="Margin"
+                                Value="10" />
+                        <Setter Property="Width"
+                                Value="170" />
+                        <Setter Property="FontSize"
+                                Value="30" />
+                        <Setter Property="TextAlignment"
+                                Value="Left" />
                         <Setter Property="Foreground"
                                 Value="#3c5458" />
-                    </Trigger>
-                    
-                    <Trigger Property="IsEnabled"
-                             Value="false">
+                    </Style>
+                    <Style x:Key="TextBoxStyle"
+                           TargetType="{x:Type TextBox}">
+                        <Setter Property="Margin"
+                                Value="10" />
+                        <Setter Property="Width"
+                                Value="170" />
+                        <Setter Property="FontSize"
+                                Value="20" />
+                        <Setter Property="Padding"
+                                Value="3" />
+                        <Setter Property="TextAlignment"
+                                Value="Left" />
                         <Setter Property="Foreground"
+                                Value="#3c5458" />
+                        <Setter Property="BorderBrush"
+                                Value="#3c5458" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
+                        <Setter Property="Height"
+                                Value="32" />
+                        <Setter Property="Width"
+                                Value="300" />
+                        <Setter Property="Background"
                                 Value="#e7f5f7" />
-                    </Trigger>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="3"
+                                                  BlurRadius="3"
+                                                  Color="#a6d6df" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
 
-                    <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                            <Condition Property="IsMouseOver"
-                                       Value="true" />
-                            <Condition Property="Text"
-                                       Value="Back"/>
-                        </MultiTrigger.Conditions>
-                        <MultiTrigger.Setters>
-                            <Setter Property="Foreground"
-                                    Value="Red"/>
-                        </MultiTrigger.Setters>
-                    </MultiTrigger>
-                </Style.Triggers>
-            </Style>
+                    <Style x:Key="confirmationButtonStyle"
+                           TargetType="Button">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="true">
+                                <Setter Property="Foreground"
+                                        Value="#b8564f" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
 
-            <ControlTemplate x:Key="ButtonTemplate">
-                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Content}"
-                           Style="{StaticResource ButtonTemplateStyle}" />
+
+                    <Style TargetType="TextBlock"
+                           x:Key="LoadMenuTextBlockStyle"
+                           BasedOn="{StaticResource TextBlockStyle}">
+                        <Setter Property="FontSize"
+                                Value="15" />
+                        <Setter Property="Margin"
+                                Value="10 3" />
+                    </Style>
+
+                    <DataTemplate x:Key="MouseNotOverRadioButton">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="5"
+                                    Background="#e7f5f7">
+
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
+                                       Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
+                                       Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
+                                       Style="{StaticResource LoadMenuTextBlockStyle}" />
+                        </StackPanel>
+                    </DataTemplate>
+                    <DataTemplate x:Key="MouseOverRadioButton">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="5"
+                                    Background="#a6d6df">
+
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
+                                       Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
+                                       Style="{StaticResource LoadMenuTextBlockStyle}" />
+
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
+                                       Style="{StaticResource LoadMenuTextBlockStyle}" />
+                        </StackPanel>
+                    </DataTemplate>
+
+                    <Style x:Key="TeamRadioButtonStyle"
+                           TargetType="radioButton:TeamRadioButton"
+                           BasedOn="{StaticResource RadioButtonStyle}">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="3"
+                                                  BlurRadius="3"
+                                                  Color="#a6d6df" />
+                            </Setter.Value>
+                        </Setter>
+
+                        <Setter Property="Background"
+                                Value="Transparent" />
+                        <Setter Property="BorderBrush"
+                                Value="Transparent" />
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="true">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource MouseOverRadioButton}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                     Value="false">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource MouseNotOverRadioButton}" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked"
+                                     Value="true">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource MouseOverRadioButton}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style x:Key="BorderStyle"
+                           TargetType="Border">
+                        <Setter Property="Background"
+                                Value="#bfe3e9" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="3"
+                                                  BlurRadius="3"
+                                                  Color="#a6d6df" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <ControlTemplate TargetType="ComboBox"
+                                     x:Key="NotFocusedComboBoxTemplate">
+                        <TextBlock Margin="0"
+                                   FontSize="14"
+                                   Text="{Binding TeamDetails.Manager.Name}"
+                                   Style="{StaticResource TextBlockStyle}" />
+                    </ControlTemplate>
+                    <ControlTemplate TargetType="ComboBox"
+                                     x:Key="FocusedComboBoxTemplate">
+                        <ComboBox  Margin="0"
+                                   FontSize="14"
+                                   SelectedItem="{Binding TeamDetails.Manager}"
+                                   DisplayMemberPath="Name"
+                                   Padding="0"
+                                   ItemsSource="{Binding Managers}" />
+                    </ControlTemplate>
+
+                    <!--<ControlTemplate TargetType="ItemsControl"
+                             x:Key="NotFocusedComboBoxCellTemplate">
+                <TextBlock Margin="0"
+                           FontSize="12"
+                           Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.TeamDetails.Manager.Name}"
+                           DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext}"
+                           Style="{StaticResource TextBlockStyle}" />
             </ControlTemplate>
+            <ControlTemplate TargetType="ItemsControl"
+                             x:Key="FocusedComboBoxCellTemplate">
+                <ComboBox  Margin="0"
+                           FontSize="12"
+                           SelectedItem="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.Value}"
+                           DisplayMemberPath="Name"
+                           Padding="0"
+                           DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext}"
+                           ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.Items}" />
+            </ControlTemplate>-->
 
-            <Style x:Key="TextBlockStyle"
-                   TargetType="{x:Type TextBlock}">
-                <Setter Property="Margin"
-                        Value="10" />
-                <Setter Property="Width"
-                        Value="170" />
-                <Setter Property="FontSize"
-                        Value="30" />
-                <Setter Property="TextAlignment"
-                        Value="Left" />
-                <Setter Property="Foreground"
-                        Value="#3c5458" />
-            </Style>
-            <Style x:Key="TextBoxStyle"
-                   TargetType="{x:Type TextBox}">
-                <Setter Property="Margin"
-                        Value="10" />
-                <Setter Property="Width"
-                        Value="170" />
-                <Setter Property="FontSize"
-                        Value="20" />
-                <Setter Property="Padding"
-                        Value="3" />
-                <Setter Property="TextAlignment"
-                        Value="Left" />
-                <Setter Property="Foreground"
-                        Value="#3c5458" />
-                <Setter Property="BorderBrush"
-                        Value="#3c5458" />
-                <Setter Property="BorderThickness"
-                        Value="0" />
-                <Setter Property="Height"
-                        Value="32" />
-                <Setter Property="Width"
-                        Value="300" />
-                <Setter Property="Background"
-                        Value="#e7f5f7" />
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect ShadowDepth="3"
-                                          BlurRadius="3"
-                                          Color="#a6d6df" />
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="confirmationButtonStyle"
-                   TargetType="Button">
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver"
-                             Value="true">
-                        <Setter Property="Foreground"
-                                Value="#b8564f" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-
-            <Style TargetType="TextBlock"
-                   x:Key="LoadMenuTextBlockStyle"
-                   BasedOn="{StaticResource TextBlockStyle}">
-                <Setter Property="FontSize"
-                        Value="15" />
-                <Setter Property="Margin"
-                        Value="10 3" />
-            </Style>
-
-            <DataTemplate x:Key="MouseNotOverRadioButton">
-                <StackPanel Orientation="Horizontal"
-                            Margin="5"
-                            Background="#e7f5f7">
-
-                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
-                               Style="{StaticResource LoadMenuTextBlockStyle}" />
-
-                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
-                               Style="{StaticResource LoadMenuTextBlockStyle}" />
-
-                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
-                               Style="{StaticResource LoadMenuTextBlockStyle}" />
-                </StackPanel>
-            </DataTemplate>
-            <DataTemplate x:Key="MouseOverRadioButton">
-                <StackPanel Orientation="Horizontal"
-                            Margin="5"
-                            Background="#a6d6df">
-
-                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Name}"
-                               Style="{StaticResource LoadMenuTextBlockStyle}" />
-
-                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
-                               Style="{StaticResource LoadMenuTextBlockStyle}" />
-
-                    <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
-                               Style="{StaticResource LoadMenuTextBlockStyle}" />
-                </StackPanel>
-            </DataTemplate>
-
-            <Style x:Key="TeamRadioButtonStyle"
-                   TargetType="radioButton:TeamRadioButton"
-                   BasedOn="{StaticResource RadioButtonStyle}">
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect ShadowDepth="3"
-                                          BlurRadius="3"
-                                          Color="#a6d6df"/>
-                    </Setter.Value>
-                </Setter>
-
-                <Setter Property="Background"
-                        Value="Transparent" />
-                <Setter Property="BorderBrush"
-                        Value="Transparent" />
-
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver"
-                             Value="true">
-                        <Setter Property="ContentTemplate"
-                                Value="{StaticResource MouseOverRadioButton}" />
-                    </Trigger>
-                    <Trigger Property="IsMouseOver"
-                             Value="false">
-                        <Setter Property="ContentTemplate"
-                                Value="{StaticResource MouseNotOverRadioButton}" />
-                    </Trigger>
-
-                    <Trigger Property="IsChecked"
-                             Value="true">
-                        <Setter Property="ContentTemplate"
-                                Value="{StaticResource MouseOverRadioButton}" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style x:Key="BorderStyle"
-                   TargetType="Border">
-                <Setter Property="Background"
-                        Value="#bfe3e9" />
-                <Setter Property="Margin"
-                        Value="5" />
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect ShadowDepth="3"
-                                          BlurRadius="3"
-                                          Color="#a6d6df" />
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

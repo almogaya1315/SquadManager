@@ -41,6 +41,7 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
             Managers = Collections.ManagerViewModels;
 
             TeamDetails = new TeamViewModel(_teamModel, _changesManager, Collections);
+            TeamDetails.Manager = Managers.Find(p => p.Id == TeamDetails.Manager.Id);
 
             PlayerCount = TeamDetails.Squad.Count;
             ReservesCount = TeamDetails.Squad.Count(p => !p.IsLineup);

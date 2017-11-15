@@ -60,7 +60,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 {
                     Header = "Position",
                     DataContextPath = "Position",
-                    Template = "ComboBoxReadOnlyCellTemplate",
+                    Template = "ComboBoxReadOnlyCellTemplate", // "ComboBoxEditingTemplate"
                     EditingTemplate = "ComboBoxEditingTemplate",
                 },
                 new ColumnViewModel()

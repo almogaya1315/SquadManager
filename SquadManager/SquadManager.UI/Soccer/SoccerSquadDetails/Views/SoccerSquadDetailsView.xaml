@@ -69,7 +69,13 @@
             <dataGrid:SquadDataGrid ColumnBindings="{Binding Columns}"
                                     ItemsSource="{Binding Players}"
                                     Background="Transparent"
-                                    Margin="10">
+                                    Margin="10"
+                                    Style="{StaticResource ResourceKey=MetroDataGridStyle}">
+
+                <!--<dataGrid:SquadDataGrid.RowBackground>
+                    <SolidColorBrush Color="#e7f5f7"/>
+                </dataGrid:SquadDataGrid.RowBackground>-->
+
                 <dataGrid:SquadDataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">
                         <Setter Property="Background"
