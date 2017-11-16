@@ -123,12 +123,14 @@
                                         </Border>
                                         <ContentPresenter x:Name="contentPresenter"
                                                           Grid.Column="1"
+                                                          Margin="-5 0 0 0"
                                                           Focusable="False"
                                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                          Margin="{TemplateBinding Padding}"
                                                           RecognizesAccessKey="True"
                                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        
+                                                          <!--Margin="{TemplateBinding Padding}"-->
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="HasContent"

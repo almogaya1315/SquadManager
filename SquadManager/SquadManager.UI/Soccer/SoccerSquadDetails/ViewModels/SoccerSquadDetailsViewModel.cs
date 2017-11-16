@@ -44,6 +44,14 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             };
             Players = new List<SoccerPlayerViewModel>() { NewPlayer };
             Players.AddRange(Team.Squad);
+
+            var NewPlayer1 = new SoccerPlayerViewModel()
+            {
+                Name = new EditableCellViewModel("New player"),
+                BirthDate = new EditableCellViewModel(new DateTime(1985, 5, 23).ToShortDateString()),
+                Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == position.Role), Collections.PositionRoles),
+            };
+            Players.Add(NewPlayer);
         }
 
         private void SetColumns()

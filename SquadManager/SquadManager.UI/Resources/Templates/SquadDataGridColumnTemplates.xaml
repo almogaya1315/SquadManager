@@ -49,14 +49,25 @@
         <TextBox Text="{Binding Value}" />
     </DataTemplate>
     <DataTemplate x:Key="ImageReadOnlyCellTemplate">
-        <Image Source="{Binding Value}" />
+        <Image Source="{Binding Value}"
+               Width="26.5"/>
     </DataTemplate>
     <DataTemplate x:Key="RadioButtonEditingTemplate">
-        <radioButton:TeamRadioButton IsChecked="{Binding Value}">
-            <!--<radioButton:TeamRadioButton.Style>
-                <Style BasedOn="{StaticResource TeamRadioButtonStyle}"
+        <radioButton:TeamRadioButton IsChecked="{Binding Value}"
+                                     GroupName="captain"
+                                     Content="C"
+                                     FontWeight="Bold">
+            <radioButton:TeamRadioButton.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin"
+                            Value="-10 0 0 0"/>
+                </Style>
+            </radioButton:TeamRadioButton.Resources>
+            
+            <radioButton:TeamRadioButton.Style>
+                <Style BasedOn="{StaticResource RadioButtonStyle}"
                        TargetType="radioButton:TeamRadioButton" />
-            </radioButton:TeamRadioButton.Style>-->
+            </radioButton:TeamRadioButton.Style>
         </radioButton:TeamRadioButton>
     </DataTemplate>
     <DataTemplate x:Key="CalendarEditingTemplate">
