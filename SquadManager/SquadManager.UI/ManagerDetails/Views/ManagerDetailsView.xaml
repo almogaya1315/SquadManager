@@ -132,8 +132,9 @@
 
                 <Button Grid.Column="1"
                         Command="{Binding Save}"
-                        Template="{StaticResource ButtonTemplate}">
-                    <Button.Style>
+                        Template="{StaticResource ButtonTemplate}"
+                        Content="Continue">
+                    <!--<Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ManagerViewModel.Id, Converter={StaticResource IsIdExists}}"
@@ -148,7 +149,7 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Button.Style>
+                    </Button.Style>-->
                 </Button>
             </Grid>
 

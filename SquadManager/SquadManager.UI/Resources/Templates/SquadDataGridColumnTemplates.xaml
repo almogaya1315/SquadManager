@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:radioButton="clr-namespace:SquadManager.UI.Controls.RadioButton">
     <DataTemplate x:Key="ComboBoxReadOnlyCellTemplate">
         <TextBlock Text="{Binding Value}"
                    FontSize="12"
@@ -51,7 +52,12 @@
         <Image Source="{Binding Value}" />
     </DataTemplate>
     <DataTemplate x:Key="RadioButtonEditingTemplate">
-        <RadioButton IsChecked="{Binding Value}" />
+        <radioButton:TeamRadioButton IsChecked="{Binding Value}">
+            <!--<radioButton:TeamRadioButton.Style>
+                <Style BasedOn="{StaticResource TeamRadioButtonStyle}"
+                       TargetType="radioButton:TeamRadioButton" />
+            </radioButton:TeamRadioButton.Style>-->
+        </radioButton:TeamRadioButton>
     </DataTemplate>
     <DataTemplate x:Key="CalendarEditingTemplate">
         <DatePicker DisplayDate="{Binding Value}" />

@@ -151,7 +151,7 @@
                         Command="{Binding Back}"
                         Template="{StaticResource ButtonTemplate}" />
 
-                <Button Content="Save"
+                <Button Content="Continue"
                         Grid.Column="1"
                         Command="{Binding Save}"
                         Template="{StaticResource ButtonTemplate}" />
