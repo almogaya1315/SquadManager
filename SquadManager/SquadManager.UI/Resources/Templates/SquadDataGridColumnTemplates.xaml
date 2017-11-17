@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:radioButton="clr-namespace:SquadManager.UI.Controls.RadioButton">
+                    xmlns:radioButton="clr-namespace:SquadManager.UI.Controls.RadioButton"
+                    xmlns:converters="clr-namespace:SquadManager.UI.Converters">
+    <converters:IsCaptainToChecked x:Key="IsCaptainToChecked"/>
+
     <DataTemplate x:Key="ComboBoxReadOnlyCellTemplate">
         <TextBlock Text="{Binding Value}"
                    FontSize="12"
@@ -55,7 +58,7 @@
     <DataTemplate x:Key="RadioButtonEditingTemplate">
         <radioButton:TeamRadioButton IsChecked="{Binding Value}"
                                      GroupName="captain"
-                                     Content="{Binding RelativeSource={RelativeSource Self}, Path=}"
+                                     Content="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource IsCaptainToChecked}}"
                                      FontWeight="Bold">
             <radioButton:TeamRadioButton.Resources>
                 <Style TargetType="TextBlock">
