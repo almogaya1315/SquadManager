@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
+using Mosaic.UI.Extensions;
 using SquadManager.UI.Base;
 using SquadManager.UI.Models;
 using SquadManager.UI.SharedViewModels;
@@ -23,7 +24,18 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
         public TeamViewModel Team { get; set; }
 
         public ObservableCollection<SoccerPlayerViewModel> Players { get; set; }
-        public SoccerPlayerViewModel NewPlayer { get; set; }
+
+        private SoccerPlayerViewModel _newPlayer;
+
+        public SoccerPlayerViewModel NewPlayer
+        {
+            get { return _newPlayer; }
+            set
+            {
+                _newPlayer = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public List<ColumnViewModel> Columns { get; set; }
 
@@ -44,7 +56,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             NewPlayer = new SoccerPlayerViewModel()
             {
                 Name = new EditableCellViewModel(null),
-                BirthDate = new EditableCellViewModel(null),
+                BirthDate = new EditableCellViewModel(new DateTime()),
                 Age = new CellViewModel(null),
                 Position = new ComboBoxCellViewModel(null, Collections.PositionRoles),
                 Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels),
@@ -52,7 +64,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 IsNewPlayer = new CellViewModel(true),
             };
             Players = new ObservableCollection<SoccerPlayerViewModel>() { NewPlayer };
-            Players.AddRange(Team.Squad);
+            Team.Squad.ForEach(p => Players.Add(p));
 
             AddNewPlayer = new RelayCommand(AddNewPlayerToSquad, CanAdd);
         }

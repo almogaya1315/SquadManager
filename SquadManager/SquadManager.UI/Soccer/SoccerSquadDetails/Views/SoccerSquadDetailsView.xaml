@@ -121,6 +121,13 @@
                                 <Setter Property="BorderThickness"
                                         Value="0 1 0 0" />
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding IsNewPlayer.Value}"
+                                         Value="false">
+                                <Setter Property="BorderBrush"
+                                        Value="Transparent" />
+                                <Setter Property="BorderThickness"
+                                        Value="0" />
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </dataGrid:SquadDataGrid.RowStyle>
