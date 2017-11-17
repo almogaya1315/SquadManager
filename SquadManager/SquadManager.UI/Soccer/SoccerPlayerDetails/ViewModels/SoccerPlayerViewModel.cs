@@ -44,7 +44,10 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             Name = new EditableCellViewModel(viewModel.Name.Value);
             Age = new CellViewModel(viewModel.Age.Value);
 
-            var birthDate = (DateTime)viewModel.BirthDate.Value;
+            DateTime birthDate = new DateTime();
+            if (viewModel.BirthDate.Value is DateTime)
+                birthDate = (DateTime)viewModel.BirthDate.Value;
+            else birthDate = DateTime.Parse((string)viewModel.BirthDate.Value);
             BirthDate = new EditableCellViewModel(birthDate.ToShortDateString());
             IsCaptain = new EditableCellViewModel(viewModel.IsCaptain.Value);
             Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == (PositionRole)viewModel.Position.Value), collections.PositionRoles);
