@@ -42,13 +42,13 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             if (viewModel == null) return;
             Id = viewModel.Id;
             Name = new EditableCellViewModel(viewModel.Name.Value);
-            Age = new CellViewModel(viewModel.Age.Value);
 
             DateTime birthDate = new DateTime();
-            if (viewModel.BirthDate.Value is DateTime)
-                birthDate = (DateTime)viewModel.BirthDate.Value;
+            if (viewModel.BirthDate.Value is DateTime) birthDate = (DateTime)viewModel.BirthDate.Value;
             else birthDate = DateTime.Parse((string)viewModel.BirthDate.Value);
             BirthDate = new EditableCellViewModel(birthDate.ToShortDateString());
+
+            Age = new CellViewModel(viewModel.Age.Value);
             IsCaptain = new EditableCellViewModel(viewModel.IsCaptain.Value);
             Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == (PositionRole)viewModel.Position.Value), collections.PositionRoles);
             Nationality = new ComboBoxCellViewModel(collections.NationViewModels.Find(n => n.Id == (viewModel.Nationality.Value as ComboBoxItemViewModel).Id), collections.NationViewModels);
