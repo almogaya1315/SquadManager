@@ -6,6 +6,7 @@ using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using SquadManager.UI.TeamDetails.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         public TeamViewModel Team { get; set; }
 
-        public List<SoccerPlayerViewModel> Players { get; set; }
+        public ObservableCollection<SoccerPlayerViewModel> Players { get; set; }
         public SoccerPlayerViewModel NewPlayer { get; set; }
 
         public List<ColumnViewModel> Columns { get; set; }
@@ -39,21 +40,21 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
             Team = new TeamViewModel(_teamModel, _changesManager, Collections);
 
-            var position = new Position() { Role = PositionRole.CAM };
+            //var position = new Position() { Role = PositionRole.GK };
             NewPlayer = new SoccerPlayerViewModel()
             {
-                Name = new EditableCellViewModel("New player"),
-                BirthDate = new EditableCellViewModel(new DateTime(1985, 5, 23).ToShortDateString()),
-                Age = new CellViewModel(18),
-                Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == position.Role), Collections.PositionRoles),
-                Nationality = new ComboBoxCellViewModel(Collections.NationViewModels.Find(n => n.Id == 1), Collections.NationViewModels),
-                IsCaptain = new EditableCellViewModel(true),
+                Name = new EditableCellViewModel(null),
+                BirthDate = new EditableCellViewModel(null),
+                Age = new CellViewModel(null),
+                Position = new ComboBoxCellViewModel(null, Collections.PositionRoles),
+                Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels),
+                IsCaptain = new EditableCellViewModel(false),
                 IsNewPlayer = new CellViewModel(true),
             };
-            Players = new List<SoccerPlayerViewModel>() { NewPlayer };
+            Players = new ObservableCollection<SoccerPlayerViewModel>() { NewPlayer };
             Players.AddRange(Team.Squad);
 
-            AddNewPlayer = new RelayCommand(AddNewPlayerToSquad);
+            AddNewPlayer = new RelayCommand(AddNewPlayerToSquad, CanAdd);
         }
 
         private void SetColumns()
@@ -117,7 +118,10 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 },
                 new ColumnViewModel()
                 {
-                    Header
+                    Header = "ROTATION",
+                    Width = 100.0,
+                    DataContextPath = "RotationTeam",
+                    Template = "ReadOnlyCellTemplate",
                 },
                 new ColumnViewModel()
                 {
@@ -127,9 +131,24 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             };
         }
 
+        private bool CanAdd()
+        {
+            return NewPlayer.Position.Value != null && NewPlayer.Name.Value != null && NewPlayer.BirthDate.Value != null;
+        }
+
         private void AddNewPlayerToSquad()
         {
-
+            Players.Add(NewPlayer);
+            NewPlayer = new SoccerPlayerViewModel()
+            {
+                Name = new EditableCellViewModel(null),
+                BirthDate = new EditableCellViewModel(new DateTime()),
+                Age = new CellViewModel(null),
+                Position = new ComboBoxCellViewModel(null, Collections.PositionRoles),
+                Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels),
+                IsCaptain = new EditableCellViewModel(false),
+                IsNewPlayer = new CellViewModel(true),
+            };
         }
 
         public void Changed(ChangeArgs args)
