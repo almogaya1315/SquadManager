@@ -55,12 +55,16 @@
     <DataTemplate x:Key="RadioButtonEditingTemplate">
         <radioButton:TeamRadioButton IsChecked="{Binding Value}"
                                      GroupName="captain"
-                                     Content="C"
+                                     Content="{Binding RelativeSource={RelativeSource Self}, Path=}"
                                      FontWeight="Bold">
             <radioButton:TeamRadioButton.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="Margin"
                             Value="-10 0 0 0"/>
+                    <Setter Property="Padding"
+                            Value="0 0 0 0" />
+                    <Setter Property="Width"
+                            Value="26.5" />
                 </Style>
             </radioButton:TeamRadioButton.Resources>
             

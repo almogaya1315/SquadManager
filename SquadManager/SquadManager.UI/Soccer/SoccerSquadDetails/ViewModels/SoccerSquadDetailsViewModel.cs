@@ -61,7 +61,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 new ColumnViewModel()
                 {
                     DataContextPath = "IsCaptain",
-                    Template = "ImageReadOnlyCellTemplate",
+                    Template = "RadioButtonEditingTemplate", //  "ImageReadOnlyCellTemplate"
                     EditingTemplate = "RadioButtonEditingTemplate",
                 },
                 new ColumnViewModel()
