@@ -84,6 +84,7 @@ namespace SquadManager.UI.Controls.DataGrid
                 var gridColumn = new SquadDataGridColumn()
                 {
                     Header = column.Header,
+                    HeaderTemplate = (DataTemplate)grid.FindResource(column.HeaderTemplate),
                     CellTemplate = (DataTemplate)grid.FindResource(column.Template),
                     DataContext = column.DataContextPath,
                 };

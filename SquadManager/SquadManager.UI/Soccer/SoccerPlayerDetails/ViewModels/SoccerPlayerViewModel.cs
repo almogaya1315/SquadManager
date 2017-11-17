@@ -17,6 +17,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public EditableCellViewModel BirthDate { get; set; }
         public EditableCellViewModel IsCaptain { get; set; }
         public ComboBoxCellViewModel Position { get; set; }
+        public ComboBoxCellViewModel Nationality { get; set; }
         public bool IsLineup { get; set; }
         public bool IsInjured { get; set; }
         public bool IsOnLoan { get; set; }

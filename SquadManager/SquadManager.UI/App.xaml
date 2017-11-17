@@ -123,7 +123,7 @@
                                         </Border>
                                         <ContentPresenter x:Name="contentPresenter"
                                                           Grid.Column="1"
-                                                          Margin="-5 0 0 0"
+                                                          Margin="-10 0 0 0"
                                                           Focusable="False"
                                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                           RecognizesAccessKey="True"
@@ -377,7 +377,7 @@
                             <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
                                        Style="{StaticResource LoadMenuTextBlockStyle}" />
 
-                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LastSave}"
                                        Style="{StaticResource LoadMenuTextBlockStyle}" />
                         </StackPanel>
                     </DataTemplate>
@@ -392,7 +392,7 @@
                             <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.Manager.Name}"
                                        Style="{StaticResource LoadMenuTextBlockStyle}" />
 
-                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LasdtSave}"
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource x:AncestorType={x:Type RadioButton}}, Path=DataContext.LastSave}"
                                        Style="{StaticResource LoadMenuTextBlockStyle}" />
                         </StackPanel>
                     </DataTemplate>

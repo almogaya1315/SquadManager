@@ -12,7 +12,9 @@ namespace SquadManager.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            var isChecked = (bool)value;
+            if (isChecked) return "C";
+            else return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

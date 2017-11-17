@@ -4,16 +4,19 @@
                     xmlns:converters="clr-namespace:SquadManager.UI.Converters">
     <converters:IsCaptainToChecked x:Key="IsCaptainToChecked"/>
 
-    <DataTemplate x:Key="ComboBoxReadOnlyCellTemplate">
-        <TextBlock Text="{Binding Value}"
-                   FontSize="12"
-                   Padding="5 0 0 0" 
-                   Foreground="Black"/>
-    </DataTemplate>
+    <DataTemplate x:Key="DefualtHeaderTemplate">
+        <TextBlock />
+    </DataTemplate>    
     <DataTemplate x:Key="ReadOnlyCellTemplate">
         <TextBlock Text="{Binding Value}" />
     </DataTemplate>
-    <DataTemplate x:Key="ComboBoxEditingTemplate">
+    <DataTemplate x:Key="ComboBoxReadOnlyCellTemplate">
+        <TextBlock Text="{Binding Value}"
+                   FontSize="12"
+                   Padding="5 0 0 0"
+                   Foreground="Black" />
+    </DataTemplate>
+    <DataTemplate x:Key="ComboBoxCellEditingTemplate">
 
         <!--<ItemsControl Width="70"
                       HorizontalAlignment="Left"
@@ -44,6 +47,21 @@
                   Padding="5 0 0 0"
                   IsDropDownOpen="True"
                   Foreground="Black"/>
+    </DataTemplate>
+    <DataTemplate x:Key="ComboBoxItemReadOnlyCellTemplate">
+        <TextBlock Text="{Binding Value.Name}"
+                   FontSize="12"
+                   Padding="5 0 0 0"
+                   Foreground="Black" />
+    </DataTemplate>
+    <DataTemplate x:Key="ComboBoxItemCellEditingTemplate">
+        <ComboBox SelectedItem="{Binding Value}"
+                  ItemsSource="{Binding Items}"
+                  DisplayMemberPath="Name"
+                  FontSize="12"
+                  Padding="5 0 0 0"
+                  IsDropDownOpen="True"
+                  Foreground="Black" />
     </DataTemplate>
     <DataTemplate x:Key="TextEditingTemplate">
         <TextBox Text="{Binding Value}" />

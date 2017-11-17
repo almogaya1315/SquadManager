@@ -40,7 +40,10 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             {
                 Name = new EditableCellViewModel("New player"),
                 BirthDate = new EditableCellViewModel(new DateTime(1985, 5, 23).ToShortDateString()),
+                Age = new CellViewModel(18),
                 Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == position.Role), Collections.PositionRoles),
+                Nationality = new ComboBoxCellViewModel(Collections.NationViewModels.Find(n => n.Id == 1), Collections.NationViewModels),
+                IsCaptain = new EditableCellViewModel(true),
             };
             Players = new List<SoccerPlayerViewModel>() { NewPlayer };
             Players.AddRange(Team.Squad);
@@ -49,9 +52,12 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             {
                 Name = new EditableCellViewModel("New player"),
                 BirthDate = new EditableCellViewModel(new DateTime(1985, 5, 23).ToShortDateString()),
+                Age = new CellViewModel(18),
                 Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == position.Role), Collections.PositionRoles),
+                Nationality = new ComboBoxCellViewModel(Collections.NationViewModels.Find(n => n.Id == 2), Collections.NationViewModels),
+                IsCaptain = new EditableCellViewModel(false),
             };
-            Players.Add(NewPlayer);
+            Players.Add(NewPlayer1);
         }
 
         private void SetColumns()
@@ -60,6 +66,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             {
                 new ColumnViewModel()
                 {
+                    HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "IsCaptain",
                     Template = "RadioButtonEditingTemplate", //  "ImageReadOnlyCellTemplate"
                     EditingTemplate = "RadioButtonEditingTemplate",
@@ -67,13 +74,15 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 new ColumnViewModel()
                 {
                     Header = "Position",
+                    HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Position",
                     Template = "ComboBoxReadOnlyCellTemplate", // "ComboBoxEditingTemplate"
-                    EditingTemplate = "ComboBoxEditingTemplate",
+                    EditingTemplate = "ComboBoxCellEditingTemplate",
                 },
                 new ColumnViewModel()
                 {
                     Header = "Name",
+                    HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Name",
                     Template = "ReadOnlyCellTemplate",
                     EditingTemplate = "TextEditingTemplate",
@@ -81,6 +90,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 new ColumnViewModel()
                 {
                     Header = "Rating",
+                    HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Rating",
                     Template = "ReadOnlyCellTemplate",
                     EditingTemplate = "NumericEditingTemplate",
@@ -88,6 +98,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 new ColumnViewModel()
                 {
                     Header = "Birth date",
+                    HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "BirthDate",
                     Template = "ReadOnlyCellTemplate",
                     EditingTemplate = "CalendarEditingTemplate",
@@ -95,8 +106,17 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 new ColumnViewModel()
                 {
                     Header = "Age",
+                    HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Age",
                     Template = "ReadOnlyCellTemplate",
+                },
+                new ColumnViewModel()
+                {
+                    Header = "Nationality",
+                    HeaderTemplate = "DefualtHeaderTemplate",
+                    DataContextPath = "Nationality",
+                    Template = "ComboBoxItemReadOnlyCellTemplate", // "ComboBoxReadOnlyCellTemplate"
+                    EditingTemplate = "ComboBoxItemCellEditingTemplate", // "ComboBoxCellEditingTemplate"
                 },
             };
         }

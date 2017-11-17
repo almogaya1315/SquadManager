@@ -72,9 +72,15 @@
                                     Margin="10"
                                     Style="{StaticResource ResourceKey=MetroDataGridStyle}">
 
-                <!--<dataGrid:SquadDataGrid.RowBackground>
-                    <SolidColorBrush Color="#e7f5f7"/>
-                </dataGrid:SquadDataGrid.RowBackground>-->
+                <dataGrid:SquadDataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Background"
+                                Value="Transparent"/>
+                    </Style>
+                </dataGrid:SquadDataGrid.CellStyle>
+                <dataGrid:SquadDataGrid.RowBackground>
+                    <SolidColorBrush Color="#bfe3e9"/>
+                </dataGrid:SquadDataGrid.RowBackground>
 
                 <dataGrid:SquadDataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">
