@@ -103,6 +103,7 @@
     <Compile Include="Controls\TextBox\MyTextBox.cs" />
     <Compile Include="Converters\IsCaptainToChecked.cs" />
     <Compile Include="Converters\IsIdExists.cs" />
+    <Compile Include="Converters\IsNewPlayerToAddButtonVisibility.cs" />
     <Compile Include="Enums\SportType.cs" />
     <Compile Include="LoadTeam\ViewModels\LoadTeamViewModel.cs" />
     <Compile Include="LoadTeam\Views\LoadTeamView.xaml.cs">

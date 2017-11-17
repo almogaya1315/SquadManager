@@ -2,57 +2,36 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:radioButton="clr-namespace:SquadManager.UI.Controls.RadioButton"
                     xmlns:converters="clr-namespace:SquadManager.UI.Converters">
-    <converters:IsCaptainToChecked x:Key="IsCaptainToChecked"/>
+    <converters:IsCaptainToChecked x:Key="IsCaptainToChecked" />
+    <converters:IsNewPlayerToAddButtonVisibility x:Key="IsNewPlayerToAddButtonVis" />
 
     <DataTemplate x:Key="DefualtHeaderTemplate">
-        <TextBlock Text="{Binding Value}"
-                   Background="#bfe3e9"/>
-    </DataTemplate>    
+        <!--<TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type }}}"/>-->
+    </DataTemplate>
     <DataTemplate x:Key="ReadOnlyCellTemplate">
-        <TextBlock Text="{Binding Value}" />
+        <TextBlock Text="{Binding Value}"
+                   Padding="6 4 3 3" />
     </DataTemplate>
     <DataTemplate x:Key="ComboBoxReadOnlyCellTemplate">
         <TextBlock Text="{Binding Value}"
                    FontSize="12"
-                   Padding="5 0 0 0"
+                   Padding="6 3 3 3"
                    Foreground="Black" />
     </DataTemplate>
     <DataTemplate x:Key="ComboBoxCellEditingTemplate">
-
-        <!--<ItemsControl Width="70"
-                      HorizontalAlignment="Left"
-                      Margin="-1"
-                      Height="19"
-                      MinHeight="15">
-            <ItemsControl.Style>
-                <Style TargetType="{x:Type ItemsControl}">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="false">
-                            <Setter Property="Template"
-                                    Value="{StaticResource NotFocusedComboBoxCellTemplate}" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver"
-                                 Value="true">
-                            <Setter Property="Template"
-                                    Value="{StaticResource FocusedComboBoxCellTemplate}" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ItemsControl.Style>
-        </ItemsControl>-->
-
         <ComboBox SelectedItem="{Binding Value}"
-                  ItemsSource="{Binding Items}" 
+                  ItemsSource="{Binding Items}"
                   FontSize="12"
-                  Padding="5 0 0 0"
+                  Height="23"
+                  MaxHeight="23"
+                  MinHeight="23"
                   IsDropDownOpen="True"
-                  Foreground="Black"/>
+                  Foreground="Black" />
     </DataTemplate>
     <DataTemplate x:Key="ComboBoxItemReadOnlyCellTemplate">
         <TextBlock Text="{Binding Value.Name}"
                    FontSize="12"
-                   Padding="5 0 0 0"
+                   Padding="6 3 3 3"
                    Foreground="Black" />
     </DataTemplate>
     <DataTemplate x:Key="ComboBoxItemCellEditingTemplate">
@@ -60,19 +39,23 @@
                   ItemsSource="{Binding Items}"
                   DisplayMemberPath="Name"
                   FontSize="12"
-                  Padding="5 0 0 0"
+                  Height="23"
+                  MaxHeight="23"
+                  MinHeight="23"
                   IsDropDownOpen="True"
                   Foreground="Black" />
     </DataTemplate>
     <DataTemplate x:Key="TextEditingTemplate">
-        <TextBox Text="{Binding Value}" />
+        <TextBox Text="{Binding Value}"
+                 Height="23"
+                 MaxHeight="23"
+                 MinHeight="23" />
     </DataTemplate>
     <DataTemplate x:Key="NumericEditingTemplate">
-        <TextBox Text="{Binding Value}" />
-    </DataTemplate>
-    <DataTemplate x:Key="ImageReadOnlyCellTemplate">
-        <Image Source="{Binding Value}"
-               Width="26.5"/>
+        <TextBox Text="{Binding Value}"
+                 Height="23"
+                 MaxHeight="23"
+                 MinHeight="23" />
     </DataTemplate>
     <DataTemplate x:Key="RadioButtonEditingTemplate">
         <radioButton:TeamRadioButton IsChecked="{Binding Value}"
@@ -82,14 +65,14 @@
             <radioButton:TeamRadioButton.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="Margin"
-                            Value="-10 0 0 0"/>
+                            Value="-10 0 0 0" />
                     <Setter Property="Padding"
                             Value="0 0 0 0" />
                     <Setter Property="Width"
                             Value="26.5" />
                 </Style>
             </radioButton:TeamRadioButton.Resources>
-            
+
             <radioButton:TeamRadioButton.Style>
                 <Style BasedOn="{StaticResource RadioButtonStyle}"
                        TargetType="radioButton:TeamRadioButton" />
@@ -97,6 +80,55 @@
         </radioButton:TeamRadioButton>
     </DataTemplate>
     <DataTemplate x:Key="CalendarEditingTemplate">
-        <DatePicker DisplayDate="{Binding Value}" />
+        <DatePicker DisplayDate="{Binding Value}"
+                    Height="23"
+                    MaxHeight="23"
+                    MinHeight="23" />
+    </DataTemplate>
+    <DataTemplate x:Key="AddNewPlayerButtonTemplate">
+        <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.AddNewPlayer}"
+                Visibility="{Binding Value, Converter={StaticResource IsNewPlayerToAddButtonVis}}"
+                Height="23"
+                MaxHeight="23"
+                MinHeight="23"
+                Padding="0">
+            <Button.Template>
+                <ControlTemplate>
+                    <TextBlock Text="+"
+                               FontSize="23"
+                               Width="50"
+                               TextAlignment="Center"
+                               Margin="0 -7 0 0"
+                               Foreground="Green"
+                               Background="Transparent">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="true">
+                                        <Setter Property="FontWeight"
+                                                Value="ExtraBold"/>
+                                        <Setter Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect ShadowDepth="3"
+                                                                  BlurRadius="3"
+                                                                  Color="#a6d6df" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="false">
+                                        <Setter Property="FontWeight"
+                                                Value="Normal" />
+                                        <Setter Property="Effect"
+                                                Value="{x:Null}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </DataTemplate>
 </ResourceDictionary>

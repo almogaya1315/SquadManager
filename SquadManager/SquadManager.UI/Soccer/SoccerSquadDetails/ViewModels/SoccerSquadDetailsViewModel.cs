@@ -1,4 +1,5 @@
-﻿using SquadManager.UI.Base;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using SquadManager.UI.Base;
 using SquadManager.UI.Models;
 using SquadManager.UI.SharedViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 {
@@ -23,6 +25,8 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
         public SoccerPlayerViewModel NewPlayer { get; set; }
 
         public List<ColumnViewModel> Columns { get; set; }
+
+        public ICommand AddNewPlayer { get; set; }
 
         public SoccerSquadDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections)
         {
@@ -44,20 +48,12 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == position.Role), Collections.PositionRoles),
                 Nationality = new ComboBoxCellViewModel(Collections.NationViewModels.Find(n => n.Id == 1), Collections.NationViewModels),
                 IsCaptain = new EditableCellViewModel(true),
+                IsNewPlayer = new CellViewModel(true),
             };
             Players = new List<SoccerPlayerViewModel>() { NewPlayer };
             Players.AddRange(Team.Squad);
 
-            var NewPlayer1 = new SoccerPlayerViewModel()
-            {
-                Name = new EditableCellViewModel("New player"),
-                BirthDate = new EditableCellViewModel(new DateTime(1985, 5, 23).ToShortDateString()),
-                Age = new CellViewModel(18),
-                Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == position.Role), Collections.PositionRoles),
-                Nationality = new ComboBoxCellViewModel(Collections.NationViewModels.Find(n => n.Id == 2), Collections.NationViewModels),
-                IsCaptain = new EditableCellViewModel(false),
-            };
-            Players.Add(NewPlayer1);
+            AddNewPlayer = new RelayCommand(AddNewPlayerToSquad);
         }
 
         private void SetColumns()
@@ -66,59 +62,74 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             {
                 new ColumnViewModel()
                 {
-                    HeaderTemplate = "DefualtHeaderTemplate",
+                    //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "IsCaptain",
-                    Template = "RadioButtonEditingTemplate", //  "ImageReadOnlyCellTemplate"
+                    Template = "RadioButtonEditingTemplate", 
                     EditingTemplate = "RadioButtonEditingTemplate",
                 },
                 new ColumnViewModel()
                 {
-                    Header = "Position",
-                    HeaderTemplate = "DefualtHeaderTemplate",
+                    Header = "POSITION",
+                    //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Position",
-                    Template = "ComboBoxReadOnlyCellTemplate", // "ComboBoxEditingTemplate"
+                    Template = "ComboBoxReadOnlyCellTemplate", 
                     EditingTemplate = "ComboBoxCellEditingTemplate",
                 },
                 new ColumnViewModel()
                 {
-                    Header = "Name",
-                    HeaderTemplate = "DefualtHeaderTemplate",
+                    Header = "NAME",
+                    Width = 150.0,
+                    //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Name",
                     Template = "ReadOnlyCellTemplate",
                     EditingTemplate = "TextEditingTemplate",
                 },
                 new ColumnViewModel()
                 {
-                    Header = "Rating",
-                    HeaderTemplate = "DefualtHeaderTemplate",
+                    Header = "RATING",
+                    //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Rating",
                     Template = "ReadOnlyCellTemplate",
                     EditingTemplate = "NumericEditingTemplate",
                 },
                 new ColumnViewModel()
                 {
-                    Header = "Birth date",
-                    HeaderTemplate = "DefualtHeaderTemplate",
+                    Header = "BIRTH DATE",
+                    //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "BirthDate",
                     Template = "ReadOnlyCellTemplate",
                     EditingTemplate = "CalendarEditingTemplate",
                 },
                 new ColumnViewModel()
                 {
-                    Header = "Age",
-                    HeaderTemplate = "DefualtHeaderTemplate",
+                    Header = "AGE",
+                    //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Age",
                     Template = "ReadOnlyCellTemplate",
                 },
                 new ColumnViewModel()
                 {
-                    Header = "Nationality",
-                    HeaderTemplate = "DefualtHeaderTemplate",
+                    Header = "NATIONALITY",
+                    //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Nationality",
-                    Template = "ComboBoxItemReadOnlyCellTemplate", // "ComboBoxReadOnlyCellTemplate"
-                    EditingTemplate = "ComboBoxItemCellEditingTemplate", // "ComboBoxCellEditingTemplate"
+                    Template = "ComboBoxItemReadOnlyCellTemplate", 
+                    EditingTemplate = "ComboBoxItemCellEditingTemplate", 
+                },
+                new ColumnViewModel()
+                {
+                    Header
+                },
+                new ColumnViewModel()
+                {
+                    DataContextPath = "IsNewPlayer",
+                    Template = "AddNewPlayerButtonTemplate"
                 },
             };
+        }
+
+        private void AddNewPlayerToSquad()
+        {
+
         }
 
         public void Changed(ChangeArgs args)

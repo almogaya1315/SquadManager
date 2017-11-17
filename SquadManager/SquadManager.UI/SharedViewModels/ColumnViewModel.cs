@@ -10,6 +10,7 @@ namespace SquadManager.UI.SharedViewModels
     public class ColumnViewModel : ViewModel
     {
         public string Header { get; set; }
+        public double? Width { get; set; }
         public string HeaderTemplate { get; set; }
         public string EditingTemplate { get; set; }
         public string Template { get; set; }

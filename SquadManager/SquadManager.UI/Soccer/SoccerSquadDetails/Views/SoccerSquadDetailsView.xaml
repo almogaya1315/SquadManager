@@ -9,9 +9,9 @@
              d:DesignHeight="655"
              d:DesignWidth="980">
     <UserControl.Resources>
-        <ResourceDictionary Source="/Resources/Templates/SquadDataGridColumnTemplates.xaml"/>
+        <ResourceDictionary Source="/Resources/Templates/SquadDataGridColumnTemplates.xaml" />
     </UserControl.Resources>
-    
+
     <Border Style="{StaticResource BorderStyle}">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -31,7 +31,7 @@
                                             <Trigger Property="IsMouseOver"
                                                      Value="true">
                                                 <Setter Property="Background"
-                                                        Value="Gray"/>
+                                                        Value="Gray" />
                                             </Trigger>
                                             <Trigger Property="IsMouseOver"
                                                      Value="false">
@@ -45,20 +45,20 @@
                                            Padding="5 1.7">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="true">
-                                                <Setter Property="Foreground"
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver"
+                                                         Value="true">
+                                                    <Setter Property="Foreground"
                                                             Value="#e7f5f7" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="false">
-                                                <Setter Property="Foreground"
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver"
+                                                         Value="false">
+                                                    <Setter Property="Foreground"
                                                             Value="Black" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
                                 </TextBlock>
                             </Border>
                         </ControlTemplate>
@@ -72,22 +72,62 @@
                                     Margin="10"
                                     Style="{StaticResource ResourceKey=MetroDataGridStyle}">
 
+                <dataGrid:SquadDataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader"
+                           BasedOn="{StaticResource ResourceKey={x:Type DataGridColumnHeader}}">
+                        <Setter Property="FontSize"
+                                Value="14" />
+                        <Setter Property="FontWeight"
+                                Value="Bold" />
+                        <Setter Property="BorderBrush"
+                                Value="#a6d6df" />
+                        <Setter Property="BorderThickness"
+                                Value="0 0 0 2" />
+                        <Setter Property="Margin"
+                                Value="5 5 10 5" />
+                    </Style>
+                </dataGrid:SquadDataGrid.ColumnHeaderStyle>
+
+                <dataGrid:SquadDataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="BorderBrush"
+                                Value="#bfe3e9" />
+                        <Setter Property="BorderThickness"
+                                Value="0 0 0 1" />
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="3"
+                                                  BlurRadius="3"
+                                                  Color="#a6d6df" />
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected"
+                                     Value="true">
+                                <Setter Property="Background"
+                                        Value="#a6d6df" />
+                            </Trigger>
+                            <Trigger Property="IsSelected"
+                                     Value="false">
+                                <Setter Property="Background"
+                                        Value="#e7f5f7" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </dataGrid:SquadDataGrid.RowStyle>
+
                 <dataGrid:SquadDataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
                         <Setter Property="Background"
-                                Value="Transparent"/>
+                                Value="Transparent" />
+                        <Setter Property="BorderBrush"
+                                Value="Transparent" />
+                        <Setter Property="Foreground"
+                                Value="Black" />
                     </Style>
                 </dataGrid:SquadDataGrid.CellStyle>
-                <dataGrid:SquadDataGrid.RowBackground>
-                    <SolidColorBrush Color="#bfe3e9"/>
-                </dataGrid:SquadDataGrid.RowBackground>
 
-                <dataGrid:SquadDataGrid.ItemContainerStyle>
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="Background"
-                                Value="Transparent"/>
-                    </Style>
-                </dataGrid:SquadDataGrid.ItemContainerStyle>
             </dataGrid:SquadDataGrid>
         </StackPanel>
     </Border>
