@@ -81,6 +81,7 @@
     </DataTemplate>
     <DataTemplate x:Key="CalendarEditingTemplate">
         <DatePicker DisplayDate="{Binding Value}"
+                    SelectedDate="{Binding Value}"
                     Height="23"
                     MaxHeight="23"
                     MinHeight="23" />

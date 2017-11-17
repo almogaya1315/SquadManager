@@ -26,7 +26,6 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
         public ObservableCollection<SoccerPlayerViewModel> Players { get; set; }
 
         private SoccerPlayerViewModel _newPlayer;
-
         public SoccerPlayerViewModel NewPlayer
         {
             get { return _newPlayer; }
@@ -56,7 +55,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             NewPlayer = new SoccerPlayerViewModel()
             {
                 Name = new EditableCellViewModel(null),
-                BirthDate = new EditableCellViewModel(new DateTime()),
+                BirthDate = new EditableCellViewModel(new DateTime().ToShortDateString()),
                 Age = new CellViewModel(null),
                 Position = new ComboBoxCellViewModel(null, Collections.PositionRoles),
                 Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels),
@@ -77,7 +76,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 {
                     //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "IsCaptain",
-                    Template = "RadioButtonEditingTemplate", 
+                    Template = "RadioButtonEditingTemplate",
                     EditingTemplate = "RadioButtonEditingTemplate",
                 },
                 new ColumnViewModel()
@@ -85,7 +84,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                     Header = "POSITION",
                     //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Position",
-                    Template = "ComboBoxReadOnlyCellTemplate", 
+                    Template = "ComboBoxReadOnlyCellTemplate",
                     EditingTemplate = "ComboBoxCellEditingTemplate",
                 },
                 new ColumnViewModel()
@@ -125,8 +124,8 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                     Header = "NATIONALITY",
                     //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Nationality",
-                    Template = "ComboBoxItemReadOnlyCellTemplate", 
-                    EditingTemplate = "ComboBoxItemCellEditingTemplate", 
+                    Template = "ComboBoxItemReadOnlyCellTemplate",
+                    EditingTemplate = "ComboBoxItemCellEditingTemplate",
                 },
                 new ColumnViewModel()
                 {
@@ -150,22 +149,30 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         private void AddNewPlayerToSquad()
         {
+            var player = new SoccerPlayerViewModel(NewPlayer, Collections);
+            Players.Remove(NewPlayer);
+            Players.Add(player);
             Players.Add(NewPlayer);
-            NewPlayer = new SoccerPlayerViewModel()
-            {
-                Name = new EditableCellViewModel(null),
-                BirthDate = new EditableCellViewModel(new DateTime()),
-                Age = new CellViewModel(null),
-                Position = new ComboBoxCellViewModel(null, Collections.PositionRoles),
-                Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels),
-                IsCaptain = new EditableCellViewModel(false),
-                IsNewPlayer = new CellViewModel(true),
-            };
+
+            NewPlayer.Name.Value = null;
+            NewPlayer.BirthDate.Value = new DateTime().ToShortDateString();
+            NewPlayer.Age.Value = null;
+            NewPlayer.Position.Value = null;
+            NewPlayer.Nationality.Value = null;
+            NewPlayer.IsCaptain.Value = false;
+            NewPlayer.IsNewPlayer.Value = true;
+
+            Team.Squad.Add(player);
+            //_teamModel.Squad.Add(new SoccerPlayer(player));
+
+            //SquadRepository.AddPlayer(_teamModel.Id, _teamModel.Squad.Last());
+
+            _changesManager.Change(new ChangeArgs(ChangeType.PlayerAdded));
         }
 
         public void Changed(ChangeArgs args)
         {
-            
+
         }
     }
 }

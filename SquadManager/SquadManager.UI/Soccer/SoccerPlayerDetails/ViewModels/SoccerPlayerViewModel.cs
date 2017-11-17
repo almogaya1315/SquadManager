@@ -36,5 +36,21 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == model.Position.Role), Collections.PositionRoles);
             IsLineup = model.IsLineup;
         }
+
+        public SoccerPlayerViewModel(SoccerPlayerViewModel viewModel, CollectionFactory collections)
+        {
+            if (viewModel == null) return;
+            Id = viewModel.Id;
+            Name = new EditableCellViewModel(viewModel.Name.Value);
+            Age = new CellViewModel(viewModel.Age.Value);
+
+            var birthDate = (DateTime)viewModel.BirthDate.Value;
+            BirthDate = new EditableCellViewModel(birthDate.ToShortDateString());
+            IsCaptain = new EditableCellViewModel(viewModel.IsCaptain.Value);
+            Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == (PositionRole)viewModel.Position.Value), collections.PositionRoles);
+            Nationality = new ComboBoxCellViewModel(collections.NationViewModels.Find(n => n.Id == (viewModel.Nationality.Value as ComboBoxItemViewModel).Id), collections.NationViewModels);
+            IsNewPlayer = new CellViewModel(false);
+            IsLineup = viewModel.IsLineup;
+        }
     }
 }

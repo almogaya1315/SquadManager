@@ -26,5 +26,6 @@ namespace SquadManager.UI.Base
     public enum ChangeType
     {
         TeamChanged,
+        PlayerAdded,
     }
 }
