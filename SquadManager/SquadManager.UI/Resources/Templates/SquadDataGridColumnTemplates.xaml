@@ -5,7 +5,8 @@
     <converters:IsCaptainToChecked x:Key="IsCaptainToChecked"/>
 
     <DataTemplate x:Key="DefualtHeaderTemplate">
-        <TextBlock />
+        <TextBlock Text="{Binding Value}"
+                   Background="#bfe3e9"/>
     </DataTemplate>    
     <DataTemplate x:Key="ReadOnlyCellTemplate">
         <TextBlock Text="{Binding Value}" />
