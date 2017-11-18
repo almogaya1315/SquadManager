@@ -190,7 +190,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
         private void ResetNewPlayerValues()
         {
             NewPlayer.Name.Value = null;
-            NewPlayer.BirthDate.Value = new DateTime().ToShortDateString();
+            NewPlayer.BirthDate.Value = new DateTime(1950, 1, 1).ToShortDateString();
             NewPlayer.Age.Value = null;
             NewPlayer.Position.Value = null;
             NewPlayer.Nationality.Value = null;

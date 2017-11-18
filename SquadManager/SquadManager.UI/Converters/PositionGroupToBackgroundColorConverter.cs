@@ -20,12 +20,12 @@ namespace SquadManager.UI.Converters
 
                 switch (positionRole)
                 {
-                    case PositionRole.GK: return Brushes.Red;
+                    case PositionRole.GK: return (SolidColorBrush)new BrushConverter().ConvertFrom("#ffcccc");
                     case PositionRole.RB:
                     case PositionRole.RWB:
                     case PositionRole.CB:
                     case PositionRole.LWB:
-                    case PositionRole.LB: return Brushes.Yellow;
+                    case PositionRole.LB: return (SolidColorBrush)new BrushConverter().ConvertFrom("#ffffb3");
                     case PositionRole.RDM:
                     case PositionRole.CDM:
                     case PositionRole.LDM:
@@ -36,7 +36,7 @@ namespace SquadManager.UI.Converters
                     case PositionRole.RM:
                     case PositionRole.RCAM:
                     case PositionRole.CAM:
-                    case PositionRole.LCAM: return Brushes.Green;
+                    case PositionRole.LCAM: return (SolidColorBrush)new BrushConverter().ConvertFrom("#9fdfbf");
                     case PositionRole.RW:
                     case PositionRole.LW:
                     case PositionRole.RF:
@@ -44,7 +44,7 @@ namespace SquadManager.UI.Converters
                     case PositionRole.LF:
                     case PositionRole.RS:
                     case PositionRole.ST:
-                    case PositionRole.LS: return Brushes.Blue;
+                    case PositionRole.LS: return (SolidColorBrush)new BrushConverter().ConvertFrom("#99b3ff");
                 }
             }
 
