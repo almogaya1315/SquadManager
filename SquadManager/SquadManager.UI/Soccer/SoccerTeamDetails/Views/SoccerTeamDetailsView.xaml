@@ -68,7 +68,8 @@
                       HorizontalAlignment="Left"
                       Margin="10 0 10 20"
                       Height="19"
-                      MinHeight="15">
+                      MinHeight="19"
+                      MaxHeight="19">
                 <ComboBox.Style>
                     <Style TargetType="{x:Type ComboBox}">
                         <Style.Triggers>
@@ -96,7 +97,7 @@
                        Width="auto"
                        Margin="10 0 10 20"
                        FontSize="14"
-                       Text="{Binding TeamDetails.Captain.Name}" />
+                       Text="{Binding TeamDetails.Captain.Name.Value, Mode=TwoWay}" />
             
             <Border BorderThickness=".6"
                     Opacity=".3"

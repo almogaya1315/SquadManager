@@ -27,12 +27,20 @@ namespace SquadManager.UI.TeamDetails.ViewModels
                 _manager = value;
                 RaisePropertyChanged();
 
-                if (_changeManager != null)
-                    _changeManager.Change(new ChangeArgs(ChangeType.TeamChanged));
+                //if (_changeManager != null) _changeManager.Change(new ChangeArgs(ChangeType.TeamChanged));
             }
         }
 
-        public SoccerPlayerViewModel Captain { get; set; }
+        private SoccerPlayerViewModel _captain;
+        public SoccerPlayerViewModel Captain
+        {
+            get { return _captain; }
+            set
+            {
+                _captain = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public List<SoccerPlayerViewModel> Squad { get; set; }
 
@@ -51,12 +59,12 @@ namespace SquadManager.UI.TeamDetails.ViewModels
             Id = team.Id;
             Name = team.Name;
             Manager = Collections.ManagerViewModels.Find(m => m.Id == team.ManagerId);
-            Captain = team.Squad.Exists(p => p.IsCaptain) ? new SoccerPlayerViewModel(team.Squad.Find(p => p.IsCaptain), Collections) : new SoccerPlayerViewModel();
+            Captain = team.Squad.Exists(p => p.IsCaptain) ? new SoccerPlayerViewModel(team.Squad.Find(p => p.IsCaptain), Collections, _changeManager) : new SoccerPlayerViewModel();
             Nation = Collections.NationViewModels.Find(n => n.Id == team.NationId);
             City = Collections.CityViewModels.Find(c => c.Id == team.CityId);
             Sport = Collections.SportViewModels.Find(s => s.Id == team.SportId);
-            Crest = new EditableCellViewModel(team.CrestImagePath);
-            Squad = team.Squad.Count > 0 ? team.Squad.Select(p => new SoccerPlayerViewModel(p, Collections)).ToList() : new List<SoccerPlayerViewModel>();
+            Crest = new EditableCellViewModel(team.CrestImagePath, _changeManager);
+            Squad = team.Squad.Count > 0 ? team.Squad.Select(p => new SoccerPlayerViewModel(p, Collections, _changeManager)).ToList() : new List<SoccerPlayerViewModel>();
         }
     }
 }

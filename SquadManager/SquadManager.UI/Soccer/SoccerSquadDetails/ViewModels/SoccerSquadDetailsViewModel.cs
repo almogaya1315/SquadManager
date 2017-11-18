@@ -51,11 +51,12 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         public ICommand AddNewPlayer { get; set; }
 
-        public SoccerSquadDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections, ISquadRepository squadRepository)
+        public SoccerSquadDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections, ISquadRepository squadRepository, Application app)
         {
             _changesManager = changesManager;
             _teamModel = team;
 
+            App = app;
             SquadRepository = squadRepository;
             Collections = collections;
 
@@ -74,14 +75,14 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
             NewPlayer = new SoccerPlayerViewModel()
             {
-                Name = new EditableCellViewModel(null),
-                BirthDate = new EditableCellViewModel(new DateTime(1950, 1, 1).ToShortDateString()),
+                Name = new EditableCellViewModel(null, _changesManager),
+                BirthDate = new EditableCellViewModel(new DateTime(1950, 1, 1).ToShortDateString(), _changesManager),
                 Age = new CellViewModel(null),
-                Position = new ComboBoxCellViewModel(null, Collections.PositionRoles),
-                Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels),
-                Rating = new EditableCellViewModel(null),
+                Position = new ComboBoxCellViewModel(null, Collections.PositionRoles, _changesManager),
+                Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels, _changesManager),
+                Rating = new EditableCellViewModel(null, _changesManager),
                 RotationTeam = new CellViewModel(RotationTeam.Reserves),
-                IsCaptain = new EditableCellViewModel(false),
+                IsCaptain = new EditableCellViewModel(false, _changesManager),
                 IsNewPlayer = new CellViewModel(true),
             };
             Players.Add(NewPlayer);
@@ -172,7 +173,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         private void AddNewPlayerToSquad()
         {
-            var player = new SoccerPlayerViewModel(NewPlayer, Collections);
+            var player = new SoccerPlayerViewModel(NewPlayer, Collections, _changesManager, App);
             Players.Remove(NewPlayer);
             Players.Add(player);
 
@@ -185,7 +186,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
             playerModel.Id = player.Id = SquadRepository.AddPlayer(_teamModel.Id, _teamModel.Squad.Last());
 
-            _changesManager.Change(new ChangeArgs(ChangeType.PlayerAdded));
+            _changesManager.Change(new SoccerPlayerArgs(playerModel, ChangeType.PlayerAdded));
         }
 
         private void ResetNewPlayerValues()
@@ -202,7 +203,16 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         public void Changed(ChangeArgs args)
         {
+            if (args.Type != ChangeType.PlayerChanged) return;
 
+            switch (args.Type)
+            {
+                case ChangeType.PlayerChanged:
+                    
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

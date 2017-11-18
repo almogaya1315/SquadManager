@@ -12,6 +12,7 @@ namespace SquadManager.UI.Models
     public class SoccerPlayer
     {
         public int Id { get; set; }
+        public int TeamId { get; set; }
         public string Name { get; set; }
         public int Age
         {
@@ -33,6 +34,8 @@ namespace SquadManager.UI.Models
         {
             if (viewModel == null) return;
 
+            Id = viewModel.Id;
+            TeamId = viewModel.TeamId;
             Name = (string)viewModel.Name.Value;
 
             DateTime birthDate = new DateTime();

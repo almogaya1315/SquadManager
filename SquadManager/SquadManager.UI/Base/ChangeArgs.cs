@@ -17,13 +17,16 @@ namespace SquadManager.UI.Base
         }
     }
 
-    public class SoccerPlayerAddedArgs : ChangeArgs
+    public class SoccerPlayerArgs : ChangeArgs
     {
-        public SoccerPlayer Player { get; set; }
+        public SoccerPlayer NewPlayerValues { get; set; }
 
-        public SoccerPlayerAddedArgs(SoccerPlayer player, ChangeType type) : base(type)
+        //public SoccerPlayer OriginalBallValues { get; set; }
+
+        public SoccerPlayerArgs(SoccerPlayer newPlayerValues, ChangeType type, SoccerPlayer originalPlayerValues = null) : base(type)
         {
-            Player = player;
+            NewPlayerValues = newPlayerValues;
+            //if (originalPlayerValues != null) OriginalBallValues = originalPlayerValues;
         } 
     }
 
@@ -31,5 +34,6 @@ namespace SquadManager.UI.Base
     {
         TeamChanged,
         PlayerAdded,
+        PlayerChanged,
     }
 }

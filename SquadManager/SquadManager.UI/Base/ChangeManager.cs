@@ -12,7 +12,7 @@ namespace SquadManager.UI.Base
 
         public void Change(ChangeArgs args)
         {
-            //Changeables.ForEach(c => c.Changed(args));
+            Changeables.ForEach(c => c.Changed(args));
         }
     }
 }

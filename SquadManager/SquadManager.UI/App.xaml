@@ -458,12 +458,15 @@
                     </ControlTemplate>
                     <ControlTemplate TargetType="ComboBox"
                                      x:Key="FocusedComboBoxTemplate">
-                        <ComboBox  Margin="0"
+                        <ComboBox  Margin="-4 -2 0 0"
                                    FontSize="14"
                                    SelectedItem="{Binding TeamDetails.Manager}"
                                    DisplayMemberPath="Name"
                                    Padding="0"
-                                   ItemsSource="{Binding Managers}" />
+                                   Height="19"
+                                   MinHeight="19"
+                                   MaxHeight="19"
+                                   ItemsSource="{Binding Managers}"/>
                     </ControlTemplate>
 
                     <!--<ControlTemplate TargetType="ItemsControl"

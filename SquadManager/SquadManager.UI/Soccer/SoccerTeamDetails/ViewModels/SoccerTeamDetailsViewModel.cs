@@ -33,14 +33,86 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public int ReservesCount { get; set; }
-        public int GoalKeeperCount { get; set; }
-        public int DefendersCount { get; set; }
-        public int MidfieldersCount { get; set; }
-        public int AttackersCount { get; set; }
-        public int InjuredCount { get; set; }
-        public int OnLoanCount { get; set; }
-        public int LoanedCount { get; set; }
+        private int _reservesCount;
+        public int ReservesCount
+        {
+            get { return _reservesCount; }
+            set
+            {
+                _reservesCount = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _goalKeeperCount;
+        public int GoalKeeperCount
+        {
+            get { return _goalKeeperCount; }
+            set
+            {
+                _goalKeeperCount = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _defendersCount;
+        public int DefendersCount
+        {
+            get { return _defendersCount; }
+            set
+            {
+                _defendersCount = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _midfieldersCount;
+        public int MidfieldersCount
+        {
+            get { return _midfieldersCount; }
+            set
+            {
+                _midfieldersCount = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _attackersCount;
+        public int AttackersCount
+        {
+            get { return _attackersCount; }
+            set
+            {
+                _attackersCount = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _injuredCount;
+        public int InjuredCount
+        {
+            get { return _injuredCount; }
+            set
+            {
+                _injuredCount = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _onLoanCount;
+        public int OnLoanCount
+        {
+            get { return _onLoanCount; }
+            set
+            {
+                _onLoanCount = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _loanedCount;
+        public int LoanedCount
+        {
+            get { return _loanedCount; }
+            set
+            {
+                _loanedCount = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public SoccerTeamDetailsViewModel() { }
         public SoccerTeamDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections)
@@ -107,16 +179,25 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
 
         public void Changed(ChangeArgs args)
         {
-            if (args.Type != ChangeType.PlayerAdded) return;
+            if (args.Type != ChangeType.PlayerAdded && args.Type != ChangeType.PlayerChanged) return;
 
             switch (args.Type)
             {
-                case ChangeType.TeamChanged:
-                    break;
                 case ChangeType.PlayerAdded:
-                    var playerArgs = (SoccerPlayerAddedArgs)args;
-                    TeamDetails.Squad.Add(new SoccerPlayerViewModel(playerArgs.Player, Collections));
+                    var addedPlayerArgs = (SoccerPlayerArgs)args;
+                    TeamDetails.Squad.Add(new SoccerPlayerViewModel(addedPlayerArgs.NewPlayerValues, Collections, _changesManager));
                     SetTeamSquadDetails();
+                    break;
+                case ChangeType.PlayerChanged:
+                    var changedPlayerArgs = (SoccerPlayerArgs)args;
+                    var player = TeamDetails.Squad.Find(p => p.Id == changedPlayerArgs.NewPlayerValues.Id);
+
+                    if (changedPlayerArgs.NewPlayerValues.IsCaptain)
+                    {
+                        player.IsCaptain.SetValueToBinding(changedPlayerArgs.NewPlayerValues.IsCaptain);
+                        TeamDetails.Captain = player;
+                    }
+
                     break;
                 default:
                     break;
