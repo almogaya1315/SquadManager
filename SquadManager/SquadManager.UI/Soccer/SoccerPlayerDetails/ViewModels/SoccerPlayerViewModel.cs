@@ -33,7 +33,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             Id = model.Id;
             Name = new EditableCellViewModel(model.Name);
             Age = new CellViewModel(model.Age);
-            BirthDate = new EditableCellViewModel(model.BirthDate);
+            BirthDate = new EditableCellViewModel(model.BirthDate.ToShortDateString());
             IsCaptain = new EditableCellViewModel(model.IsCaptain);
             Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == model.Position.Role), collections.PositionRoles);
             Rating = new EditableCellViewModel(model.Rating);
@@ -54,7 +54,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             else birthDate = DateTime.Parse((string)viewModel.BirthDate.Value);
             BirthDate = new EditableCellViewModel(birthDate.ToShortDateString());
 
-            Age = new CellViewModel(viewModel.Age.Value);
+            Age = new CellViewModel(DateTime.Now.Year - birthDate.Year);
             IsCaptain = new EditableCellViewModel(viewModel.IsCaptain.Value);
             Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == (PositionRole)viewModel.Position.Value), collections.PositionRoles);
             Nationality = new ComboBoxCellViewModel(collections.NationViewModels.Find(n => n.Id == (viewModel.Nationality.Value as ComboBoxItemViewModel).Id), collections.NationViewModels);

@@ -57,7 +57,8 @@
                                   Height="23"
                                   MaxHeight="23"
                                   MinHeight="23" 
-                                  Input="Numeric"/>
+                                  Input="Numeric"
+                                  Padding="4 3 3 3"/>
     </DataTemplate>
     <DataTemplate x:Key="RadioButtonEditingTemplate">
         <radioButton:TeamRadioButton IsChecked="{Binding Value}"

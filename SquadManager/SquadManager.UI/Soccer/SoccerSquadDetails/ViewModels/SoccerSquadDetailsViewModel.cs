@@ -180,9 +180,10 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             Players.Add(NewPlayer);
 
             Team.Squad.Add(player);
-            _teamModel.Squad.Add(new SoccerPlayer(player));
+            var playerModel = new SoccerPlayer(player);
+            _teamModel.Squad.Add(playerModel);
 
-            _teamModel.Id = Team.Id = SquadRepository.AddPlayer(_teamModel.Id, _teamModel.Squad.Last());
+            playerModel.Id = player.Id = SquadRepository.AddPlayer(_teamModel.Id, _teamModel.Squad.Last());
 
             _changesManager.Change(new ChangeArgs(ChangeType.PlayerAdded));
         }
