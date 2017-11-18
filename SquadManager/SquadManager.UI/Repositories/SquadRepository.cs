@@ -110,12 +110,24 @@ namespace SquadManager.UI.Repositories
             using (var con = OpenConnection())
             {
                 var parameters = new DynamicParameters();
+                parameters.Add("@TeamId", teamId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@Name", player.Name, DbType.String, ParameterDirection.Input);
-                parameters.Add("@Nationality", player.Nationality, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@Age", player.Age, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@BirthDate", player.BirthDate, DbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@Rotation", player.Rotation, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@IsCaptain", player.IsCaptain, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@PositionRoleId", player.Position.Role, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@PositionGroupId", player.Position.Group, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Rating", player.Rating, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@NationId", player.Nationality, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@IsLineup", player.IsLineup, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@IsInjured", player.IsInjured, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@IsOnLoan", player.IsOnLoan, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@IsLoaned", player.IsLoaned, DbType.Boolean, ParameterDirection.Input);
 
-                return con.Query<int>("", parameters, commandType: CommandType.StoredProcedure).Single();
+                return con.Query<int>("stp_SquadManager_AddPlayer", parameters, commandType: CommandType.StoredProcedure).Single();
             }
         }
     }
 }
+

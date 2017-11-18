@@ -20,7 +20,7 @@ namespace SquadManager.UI.Models
         public DateTime BirthDate { get; set; }
         public bool IsCaptain { get; set; }
         public Position Position { get; set; }
-        public string Rating { get; set; }
+        public int Rating { get; set; }
         public RotationTeam Rotation { get; set; }
         public int Nationality { get; set; }
         public bool IsLineup { get; set; }
@@ -42,7 +42,7 @@ namespace SquadManager.UI.Models
             Position =  CreatePosition((PositionRole)viewModel.Position.Value);
 
             IsCaptain = (bool)viewModel.IsCaptain.Value;
-            Rating = (string)viewModel.Rating.Value;
+            Rating = int.Parse((string)viewModel.Rating.Value);
             Rotation = (RotationTeam)viewModel.RotationTeam.Value;
             Nationality = (viewModel.Nationality.Value as ComboBoxItemViewModel).Id;
         }

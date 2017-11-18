@@ -8,14 +8,5 @@ SELECT *
 FROM TblTeams
 
 SELECT *
-FROM TblNations
-
-SELECT *
-FROM TblCities
-
-SELECT *
-FROM TblSports
-
-SELECT *
-FROM TblTeams
+FROM TblSoccerPlayers
 
