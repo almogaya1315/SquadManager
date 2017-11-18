@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using Mosaic.UI.Extensions;
 using SquadManager.UI.Base;
+using SquadManager.UI.Enums;
 using SquadManager.UI.Models;
 using SquadManager.UI.SharedViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
@@ -21,7 +22,16 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         private Team _teamModel;
 
-        public TeamViewModel Team { get; set; }
+        private TeamViewModel _team;
+        public TeamViewModel Team
+        {
+            get { return _team; }
+            set
+            {
+                _team = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public ObservableCollection<SoccerPlayerViewModel> Players { get; set; }
 
@@ -48,10 +58,15 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             Collections = collections;
 
             SetColumns();
+            SetPlayers();
 
+            AddNewPlayer = new RelayCommand(AddNewPlayerToSquad, CanAdd);
+        }
+
+        private void SetPlayers()
+        {
             Team = new TeamViewModel(_teamModel, _changesManager, Collections);
 
-            //var position = new Position() { Role = PositionRole.GK };
             NewPlayer = new SoccerPlayerViewModel()
             {
                 Name = new EditableCellViewModel(null),
@@ -59,13 +74,13 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 Age = new CellViewModel(null),
                 Position = new ComboBoxCellViewModel(null, Collections.PositionRoles),
                 Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels),
+                Rating = new EditableCellViewModel(null),
+                RotationTeam = new CellViewModel(RotationTeam.Reserves),
                 IsCaptain = new EditableCellViewModel(false),
                 IsNewPlayer = new CellViewModel(true),
             };
             Players = new ObservableCollection<SoccerPlayerViewModel>() { NewPlayer };
             Team.Squad.ForEach(p => Players.Add(p));
-
-            AddNewPlayer = new RelayCommand(AddNewPlayerToSquad, CanAdd);
         }
 
         private void SetColumns()
@@ -107,6 +122,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 new ColumnViewModel()
                 {
                     Header = "BIRTH DATE",
+                    Width = 115.0,
                     //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "BirthDate",
                     Template = "ReadOnlyCellTemplate",
@@ -144,7 +160,10 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         private bool CanAdd()
         {
-            return NewPlayer.Position.Value != null && NewPlayer.Name.Value != null && NewPlayer.BirthDate.Value != null;
+            var rating = NewPlayer.Rating.Value != null ? int.Parse((string)NewPlayer.Rating.Value) : 0;
+
+            return NewPlayer.Position.Value != null && NewPlayer.Name.Value != null && NewPlayer.BirthDate.Value != null && 
+                   NewPlayer.Rating.Value != null && rating > 0 && rating <= 100;
         }
 
         private void AddNewPlayerToSquad()
@@ -152,15 +171,9 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             var player = new SoccerPlayerViewModel(NewPlayer, Collections);
             Players.Remove(NewPlayer);
             Players.Add(player);
-            Players.Add(NewPlayer);
 
-            NewPlayer.Name.Value = null;
-            NewPlayer.BirthDate.Value = new DateTime().ToShortDateString();
-            NewPlayer.Age.Value = null;
-            NewPlayer.Position.Value = null;
-            NewPlayer.Nationality.Value = null;
-            NewPlayer.IsCaptain.Value = false;
-            NewPlayer.IsNewPlayer.Value = true;
+            ResetNewPlayerValues();
+            Players.Add(NewPlayer);
 
             Team.Squad.Add(player);
             //_teamModel.Squad.Add(new SoccerPlayer(player));
@@ -168,6 +181,18 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             //SquadRepository.AddPlayer(_teamModel.Id, _teamModel.Squad.Last());
 
             _changesManager.Change(new ChangeArgs(ChangeType.PlayerAdded));
+        }
+
+        private void ResetNewPlayerValues()
+        {
+            NewPlayer.Name.Value = null;
+            NewPlayer.BirthDate.Value = new DateTime().ToShortDateString();
+            NewPlayer.Age.Value = null;
+            NewPlayer.Position.Value = null;
+            NewPlayer.Nationality.Value = null;
+            NewPlayer.Rating.Value = null;
+            NewPlayer.IsCaptain.Value = false;
+            NewPlayer.IsNewPlayer.Value = true;
         }
 
         public void Changed(ChangeArgs args)

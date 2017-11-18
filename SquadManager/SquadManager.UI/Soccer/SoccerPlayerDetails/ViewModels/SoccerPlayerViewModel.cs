@@ -18,6 +18,8 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public EditableCellViewModel IsCaptain { get; set; }
         public ComboBoxCellViewModel Position { get; set; }
         public ComboBoxCellViewModel Nationality { get; set; }
+        public EditableCellViewModel Rating { get; set; }
+        public CellViewModel RotationTeam { get; set; }
         public bool IsLineup { get; set; }
         public bool IsInjured { get; set; }
         public bool IsOnLoan { get; set; }
@@ -34,6 +36,8 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             BirthDate = new EditableCellViewModel(model.BirthDate);
             IsCaptain = new EditableCellViewModel(model.IsCaptain);
             Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == model.Position.Role), Collections.PositionRoles);
+            Rating = new EditableCellViewModel(model.Rating);
+            RotationTeam = new CellViewModel(model.Rotation);
             IsLineup = model.IsLineup;
         }
 
@@ -52,6 +56,8 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             IsCaptain = new EditableCellViewModel(viewModel.IsCaptain.Value);
             Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == (PositionRole)viewModel.Position.Value), collections.PositionRoles);
             Nationality = new ComboBoxCellViewModel(collections.NationViewModels.Find(n => n.Id == (viewModel.Nationality.Value as ComboBoxItemViewModel).Id), collections.NationViewModels);
+            Rating = new EditableCellViewModel(viewModel.Rating.Value);
+            RotationTeam = new CellViewModel(viewModel.RotationTeam.Value);
             IsNewPlayer = new CellViewModel(false);
             IsLineup = viewModel.IsLineup;
         }
