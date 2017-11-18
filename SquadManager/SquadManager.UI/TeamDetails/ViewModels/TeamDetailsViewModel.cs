@@ -24,7 +24,7 @@ namespace SquadManager.UI.TeamDetails.ViewModels
         public ICommand Save { get; set; }
 
         public TeamDetailsViewModel() { }
-        public TeamDetailsViewModel(ManagerViewModel manager, Application app, ISquadRepository squadRepository, CollectionFactory collections, ViewModelBrowser browser)
+        public TeamDetailsViewModel(Manager manager, Application app, ISquadRepository squadRepository, CollectionFactory collections, ViewModelBrowser browser)
         {
             App = app;
             SquadRepository = squadRepository;

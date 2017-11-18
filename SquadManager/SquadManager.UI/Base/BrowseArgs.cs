@@ -21,9 +21,9 @@ namespace SquadManager.UI.Base
 
     public class TeamDetailsArgs : BrowseArgs
     {
-        public ManagerViewModel Manager { get; set; }
+        public Manager Manager { get; set; }
 
-        public TeamDetailsArgs(BrowseArgsType type, ManagerViewModel manager) : base(type)
+        public TeamDetailsArgs(BrowseArgsType type, Manager manager) : base(type)
         {
             Manager = manager;
         }

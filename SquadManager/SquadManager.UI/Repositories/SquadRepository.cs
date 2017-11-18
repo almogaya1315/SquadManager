@@ -36,7 +36,7 @@ namespace SquadManager.UI.Repositories
             }
         }
 
-        public void AddManager(ManagerViewModel manager)
+        public int AddManager(Manager manager)
         {
             using (var con = OpenConnection())
             {
@@ -45,7 +45,7 @@ namespace SquadManager.UI.Repositories
                 parameters.Add("@Nation", manager.Nationality.Id, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@Age", manager.Age, DbType.Int32, ParameterDirection.Input);
 
-                con.Query("stp_SquadManager_AddManager", parameters, commandType: CommandType.StoredProcedure);
+                return con.Query<int>("stp_SquadManager_AddManager", parameters, commandType: CommandType.StoredProcedure).Single();
             }
         }
 
@@ -102,6 +102,19 @@ namespace SquadManager.UI.Repositories
             using (var con = OpenConnection())
             {
                 return con.Query<Team>("stp_SquadManager_GetTeams", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public int AddPlayer(int teamId, SoccerPlayer player)
+        {
+            using (var con = OpenConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Name", player.Name, DbType.String, ParameterDirection.Input);
+                parameters.Add("@Nationality", player.Nationality, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Age", player.Age, DbType.Int32, ParameterDirection.Input);
+
+                return con.Query<int>("", parameters, commandType: CommandType.StoredProcedure).Single();
             }
         }
     }

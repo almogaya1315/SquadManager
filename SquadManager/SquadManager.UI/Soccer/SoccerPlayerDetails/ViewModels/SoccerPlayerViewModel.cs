@@ -37,6 +37,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             IsCaptain = new EditableCellViewModel(model.IsCaptain);
             Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == model.Position.Role), Collections.PositionRoles);
             Rating = new EditableCellViewModel(model.Rating);
+            Nationality = new ComboBoxCellViewModel(Collections.NationViewModels.Find(n => n.Id == model.Nationality), Collections.NationViewModels);
             RotationTeam = new CellViewModel(model.Rotation);
             IsLineup = model.IsLineup;
         }

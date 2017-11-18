@@ -3,6 +3,7 @@ using Mosaic.UI.Extensions;
 using SquadManager.UI.Base;
 using SquadManager.UI.Enums;
 using SquadManager.UI.Models;
+using SquadManager.UI.Repositories;
 using SquadManager.UI.SharedViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using SquadManager.UI.TeamDetails.ViewModels;
@@ -50,11 +51,12 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         public ICommand AddNewPlayer { get; set; }
 
-        public SoccerSquadDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections)
+        public SoccerSquadDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections, ISquadRepository squadRepository)
         {
             _changesManager = changesManager;
             _teamModel = team;
 
+            SquadRepository = squadRepository;
             Collections = collections;
 
             SetColumns();
@@ -176,9 +178,9 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             Players.Add(NewPlayer);
 
             Team.Squad.Add(player);
-            //_teamModel.Squad.Add(new SoccerPlayer(player));
+            _teamModel.Squad.Add(new SoccerPlayer(player));
 
-            //SquadRepository.AddPlayer(_teamModel.Id, _teamModel.Squad.Last());
+            _teamModel.Id = Team.Id = SquadRepository.AddPlayer(_teamModel.Id, _teamModel.Squad.Last());
 
             _changesManager.Change(new ChangeArgs(ChangeType.PlayerAdded));
         }

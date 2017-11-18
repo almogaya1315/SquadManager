@@ -28,7 +28,7 @@ namespace SquadManager.UI.Soccer.ViewModels
             Collections = collections;
             Browser = browser;
 
-            Source = new SoccerViewModelSource(team, injector, changeManager, Collections);
+            Source = new SoccerViewModelSource(team, injector, changeManager, Collections, SquadRepository);
 
             changeManager.Changeables = new List<IChangeable>()
             {

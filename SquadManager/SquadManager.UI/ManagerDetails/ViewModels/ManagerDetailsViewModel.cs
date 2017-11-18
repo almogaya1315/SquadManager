@@ -117,18 +117,20 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
 
         private void SaveManager()
         {
+            Manager manager = null;
             if (!Managers.Exists(m => m.Id == ManagerViewModel.Id))
             {
                 try
                 {
-                    App.Managers.Add(new Manager()
+                    manager = new Manager()
                     {
                         Name = ManagerViewModel.Name,
                         Nationality = new Nation() { Name = ManagerViewModel.Nationality.Name },
                         Age = ManagerViewModel.Age.Value,
-                    });
+                    };
+                    App.Managers.Add(manager);
 
-                    SquadRepository.AddManager(ManagerViewModel);
+                    manager.Id = SquadRepository.AddManager(manager);
                 }
                 catch (Exception e)
                 {
@@ -136,7 +138,8 @@ namespace SquadManager.UI.ManagerDetails.ViewModels
                 }
             }
 
-            Browser.Browse(new TeamDetailsArgs(BrowseArgsType.TeamDetailsArgs, ManagerViewModel));
+            manager = App.Managers.Find(m => m.Id == ManagerViewModel.Id);
+            Browser.Browse(new TeamDetailsArgs(BrowseArgsType.TeamDetailsArgs, manager));
         }
 
         private void NavigateToMenu()
