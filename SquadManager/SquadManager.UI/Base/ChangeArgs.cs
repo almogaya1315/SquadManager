@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquadManager.UI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +17,14 @@ namespace SquadManager.UI.Base
         }
     }
 
-    public class TeamChangedArgs : ChangeArgs
+    public class SoccerPlayerAddedArgs : ChangeArgs
     {
-        //public PropertyName Property { get; set; }
+        public SoccerPlayer Player { get; set; }
 
-        public TeamChangedArgs(ChangeType type) : base(type) { } 
+        public SoccerPlayerAddedArgs(SoccerPlayer player, ChangeType type) : base(type)
+        {
+            Player = player;
+        } 
     }
 
     public enum ChangeType

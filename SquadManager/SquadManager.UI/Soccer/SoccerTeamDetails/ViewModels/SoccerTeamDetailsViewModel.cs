@@ -20,7 +20,19 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
 
         public TeamViewModel TeamDetails { get; set; }
         public List<ManagerViewModel> Managers { get; set; }
-        public int PlayerCount { get; set; }
+
+        private int _playerCount;
+        public int PlayerCount
+        {
+            get { return _playerCount; }
+            set
+            {
+                if (Equals(_playerCount, value)) return;
+
+                _playerCount = value;
+                RaisePropertyChanged();
+            }
+        }
         public int ReservesCount { get; set; }
         public int GoalKeeperCount { get; set; }
         public int DefendersCount { get; set; }
@@ -43,6 +55,11 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
             TeamDetails = new TeamViewModel(_teamModel, _changesManager, Collections);
             TeamDetails.Manager = Managers.Find(p => p.Id == TeamDetails.Manager.Id);
 
+            SetTeamSquadDetails();
+        }
+
+        private void SetTeamSquadDetails()
+        {
             PlayerCount = TeamDetails.Squad.Count;
             ReservesCount = TeamDetails.Squad.Count(p => !p.IsLineup);
             GoalKeeperCount = TeamDetails.Squad.Count(p => (p.Position.Value as Position).Group == PositionGroup.GoalKeepers);
@@ -56,7 +73,20 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
 
         public void Changed(ChangeArgs args)
         {
-            
+            if (args.Type != ChangeType.PlayerAdded) return;
+
+            switch (args.Type)
+            {
+                case ChangeType.TeamChanged:
+                    break;
+                case ChangeType.PlayerAdded:
+                    var playerArgs = (SoccerPlayerAddedArgs)args;
+                    TeamDetails.Squad.Add(new SoccerPlayerViewModel(playerArgs.Player));
+                    SetTeamSquadDetails();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
