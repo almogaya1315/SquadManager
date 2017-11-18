@@ -27,7 +27,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
 
         public CellViewModel IsNewPlayer { get; set; }
 
-        public SoccerPlayerViewModel(SoccerPlayer model = null)
+        public SoccerPlayerViewModel(SoccerPlayer model = null, CollectionFactory collections = null)
         {
             if (model == null) return;
             Id = model.Id;
@@ -35,11 +35,12 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             Age = new CellViewModel(model.Age);
             BirthDate = new EditableCellViewModel(model.BirthDate);
             IsCaptain = new EditableCellViewModel(model.IsCaptain);
-            Position = new ComboBoxCellViewModel(Collections.PositionRoles.Find(pr => pr == model.Position.Role), Collections.PositionRoles);
+            Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == model.Position.Role), collections.PositionRoles);
             Rating = new EditableCellViewModel(model.Rating);
-            Nationality = new ComboBoxCellViewModel(Collections.NationViewModels.Find(n => n.Id == model.Nationality), Collections.NationViewModels);
+            Nationality = new ComboBoxCellViewModel(collections.NationViewModels.Find(n => n.Id == model.Nationality), collections.NationViewModels);
             RotationTeam = new CellViewModel(model.Rotation);
             IsLineup = model.IsLineup;
+            IsNewPlayer = new CellViewModel(false);
         }
 
         public SoccerPlayerViewModel(SoccerPlayerViewModel viewModel, CollectionFactory collections)

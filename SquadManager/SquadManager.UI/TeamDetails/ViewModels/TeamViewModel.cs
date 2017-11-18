@@ -51,12 +51,12 @@ namespace SquadManager.UI.TeamDetails.ViewModels
             Id = team.Id;
             Name = team.Name;
             Manager = Collections.ManagerViewModels.Find(m => m.Id == team.ManagerId);
-            Captain = team.Squad.Exists(p => p.IsCaptain) ? new SoccerPlayerViewModel(team.Squad.Find(p => p.IsCaptain)) : new SoccerPlayerViewModel();
+            Captain = team.Squad.Exists(p => p.IsCaptain) ? new SoccerPlayerViewModel(team.Squad.Find(p => p.IsCaptain), Collections) : new SoccerPlayerViewModel();
             Nation = Collections.NationViewModels.Find(n => n.Id == team.NationId);
             City = Collections.CityViewModels.Find(c => c.Id == team.CityId);
             Sport = Collections.SportViewModels.Find(s => s.Id == team.SportId);
             Crest = new EditableCellViewModel(team.CrestImagePath);
-            Squad = team.Squad.Count > 0 ? team.Squad.Select(p => new SoccerPlayerViewModel(p)).ToList() : new List<SoccerPlayerViewModel>();
+            Squad = team.Squad.Count > 0 ? team.Squad.Select(p => new SoccerPlayerViewModel(p, Collections)).ToList() : new List<SoccerPlayerViewModel>();
         }
     }
 }

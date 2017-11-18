@@ -62,13 +62,47 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
         {
             PlayerCount = TeamDetails.Squad.Count;
             ReservesCount = TeamDetails.Squad.Count(p => !p.IsLineup);
-            GoalKeeperCount = TeamDetails.Squad.Count(p => (p.Position.Value as Position).Group == PositionGroup.GoalKeepers);
-            DefendersCount = TeamDetails.Squad.Count(p => (p.Position.Value as Position).Group == PositionGroup.Defenders);
-            MidfieldersCount = TeamDetails.Squad.Count(p => (p.Position.Value as Position).Group == PositionGroup.Midfielders);
-            AttackersCount = TeamDetails.Squad.Count(p => (p.Position.Value as Position).Group == PositionGroup.Attackers);
+            GoalKeeperCount = TeamDetails.Squad.Count(p => GetPositionGroup((PositionRole)p.Position.Value) == PositionGroup.GoalKeepers);
+            DefendersCount = TeamDetails.Squad.Count(p => GetPositionGroup((PositionRole)p.Position.Value) == PositionGroup.Defenders);
+            MidfieldersCount = TeamDetails.Squad.Count(p => GetPositionGroup((PositionRole)p.Position.Value) == PositionGroup.Midfielders);
+            AttackersCount = TeamDetails.Squad.Count(p => GetPositionGroup((PositionRole)p.Position.Value) == PositionGroup.Attackers);
             InjuredCount = TeamDetails.Squad.Count(p => p.IsInjured);
             OnLoanCount = TeamDetails.Squad.Count(p => p.IsOnLoan);
             LoanedCount = TeamDetails.Squad.Count(p => p.IsLoaned);
+        }
+
+        private PositionGroup GetPositionGroup(PositionRole role)
+        {
+            switch (role)
+            {
+                case PositionRole.GK: return PositionGroup.GoalKeepers;
+                case PositionRole.RB:
+                case PositionRole.RWB:
+                case PositionRole.CB:
+                case PositionRole.LWB:
+                case PositionRole.LB: return PositionGroup.Defenders;
+                case PositionRole.RDM:
+                case PositionRole.CDM:
+                case PositionRole.LDM:
+                case PositionRole.LM:
+                case PositionRole.LWM:
+                case PositionRole.CM:
+                case PositionRole.RWM:
+                case PositionRole.RM:
+                case PositionRole.RCAM:
+                case PositionRole.CAM:
+                case PositionRole.LCAM: return PositionGroup.Midfielders;
+                case PositionRole.RW:
+                case PositionRole.LW:
+                case PositionRole.RF:
+                case PositionRole.CF:
+                case PositionRole.LF:
+                case PositionRole.RS:
+                case PositionRole.ST:
+                case PositionRole.LS: return PositionGroup.Attackers;
+            }
+
+            throw new InvalidOperationException();
         }
 
         public void Changed(ChangeArgs args)
@@ -81,7 +115,7 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
                     break;
                 case ChangeType.PlayerAdded:
                     var playerArgs = (SoccerPlayerAddedArgs)args;
-                    TeamDetails.Squad.Add(new SoccerPlayerViewModel(playerArgs.Player));
+                    TeamDetails.Squad.Add(new SoccerPlayerViewModel(playerArgs.Player, Collections));
                     SetTeamSquadDetails();
                     break;
                 default:

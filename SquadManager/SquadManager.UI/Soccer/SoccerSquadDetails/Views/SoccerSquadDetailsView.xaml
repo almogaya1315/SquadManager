@@ -108,10 +108,11 @@
                                 <Setter Property="Background"
                                         Value="#a6d6df" />
                             </Trigger>
+                            
                             <Trigger Property="IsSelected"
                                      Value="false">
                                 <Setter Property="Background"
-                                        Value="#e7f5f7" />
+                                        Value="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}" />
                             </Trigger>
 
                             <DataTrigger Binding="{Binding IsNewPlayer.Value}"

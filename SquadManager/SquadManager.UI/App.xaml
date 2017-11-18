@@ -23,6 +23,7 @@
                 <ResourceDictionary>
 
                     <converters:IsIdExists x:Key="IsIdExists" />
+                    <converters:PositionGroupToBackgroundColorConverter x:Key="GroupToBackground"/>
                     <BooleanToVisibilityConverter x:Key="boolToVis" />
 
                     <Style TargetType="dataGrid:SquadDataGrid"

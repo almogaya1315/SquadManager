@@ -68,11 +68,14 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
         private void SetPlayers()
         {
             Team = new TeamViewModel(_teamModel, _changesManager, Collections);
+           
+            Players = new ObservableCollection<SoccerPlayerViewModel>();
+            Team.Squad.ForEach(p => Players.Add(p));
 
             NewPlayer = new SoccerPlayerViewModel()
             {
                 Name = new EditableCellViewModel(null),
-                BirthDate = new EditableCellViewModel(new DateTime().ToShortDateString()),
+                BirthDate = new EditableCellViewModel(new DateTime(1950, 1, 1).ToShortDateString()),
                 Age = new CellViewModel(null),
                 Position = new ComboBoxCellViewModel(null, Collections.PositionRoles),
                 Nationality = new ComboBoxCellViewModel(null, Collections.NationViewModels),
@@ -81,8 +84,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 IsCaptain = new EditableCellViewModel(false),
                 IsNewPlayer = new CellViewModel(true),
             };
-            Players = new ObservableCollection<SoccerPlayerViewModel>() { NewPlayer };
-            Team.Squad.ForEach(p => Players.Add(p));
+            Players.Add(NewPlayer);
         }
 
         private void SetColumns()

@@ -128,6 +128,45 @@ namespace SquadManager.UI.Repositories
                 return con.Query<int>("stp_SquadManager_AddPlayer", parameters, commandType: CommandType.StoredProcedure).Single();
             }
         }
+
+        public List<SoccerPlayer> GetTeamSquad(int teamId)
+        {
+            using (var con = OpenConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@TeamId", teamId, DbType.Int32, ParameterDirection.Input);
+
+                var lookup = new Dictionary<int, SoccerPlayer>();
+                var players = con.Query<SoccerPlayer, Position, SoccerPlayer>("stp_SquadManager_GetTeamSquad",  
+                    (player, position) =>
+                    {
+                        SoccerPlayer innerPlayer;
+
+                        if (!lookup.TryGetValue(player.Id, out innerPlayer)) lookup.Add(player.Id, innerPlayer = player);
+
+                        innerPlayer.Position = position;
+
+                        /*
+                        innerPlayer.Id = player.Id;
+                        innerPlayer.Name = player.Name;
+                        innerPlayer.BirthDate = player.BirthDate;
+                        innerPlayer.IsCaptain = player.IsCaptain;
+                        innerPlayer.IsInjured = player.IsInjured;
+                        innerPlayer.IsLineup = player.IsLineup;
+                        innerPlayer.IsLoaned = player.IsLoaned;
+                        innerPlayer.IsOnLoan = player.IsOnLoan;
+                        innerPlayer.Nationality = player.Nationality;
+                        innerPlayer.Rating = player.Rating;
+                        innerPlayer.Rotation = player.Rotation;
+                        */
+
+                        return innerPlayer;
+                    }, param: parameters, splitOn: "Role",
+                    commandType: CommandType.StoredProcedure).ToList();
+
+                return players;
+            }
+        }
     }
 }
 

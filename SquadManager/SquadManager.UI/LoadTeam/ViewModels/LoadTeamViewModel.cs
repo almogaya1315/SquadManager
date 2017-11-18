@@ -56,6 +56,7 @@ namespace SquadManager.UI.LoadTeam.ViewModels
         {
             var sport = Enum.GetValues(typeof(SportType)).Cast<SportType>().First(s => s.ToString() == SelectedTeam.Sport.Name);
             var team = App.Teams.Find(t => t.Id == SelectedTeam.Id);
+            team.Squad = SquadRepository.GetTeamSquad(team.Id);
 
             switch (sport)
             {

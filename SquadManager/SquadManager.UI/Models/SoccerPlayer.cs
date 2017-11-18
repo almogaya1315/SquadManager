@@ -28,6 +28,7 @@ namespace SquadManager.UI.Models
         public bool IsOnLoan { get; set; }
         public bool IsLoaned { get; set; }
 
+        public SoccerPlayer() { }
         public SoccerPlayer(SoccerPlayerViewModel viewModel = null)
         {
             if (viewModel == null) return;
