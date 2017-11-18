@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.Base;
+using SquadManager.UI.Enums;
 using SquadManager.UI.ManagerDetails.ViewModels;
 using SquadManager.UI.Models;
 using SquadManager.UI.SharedViewModels;
@@ -192,10 +193,17 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
                     var changedPlayerArgs = (SoccerPlayerArgs)args;
                     var player = TeamDetails.Squad.Find(p => p.Id == changedPlayerArgs.NewPlayerValues.Id);
 
-                    if (changedPlayerArgs.NewPlayerValues.IsCaptain)
+                    if (changedPlayerArgs.Column == ColumnName.IsCaptain && changedPlayerArgs.NewPlayerValues.IsCaptain)
                     {
+                        TeamDetails.Squad.Find(p => (bool)p.IsCaptain.Value).IsCaptain.SetValueToBinding(false);
                         player.IsCaptain.SetValueToBinding(changedPlayerArgs.NewPlayerValues.IsCaptain);
                         TeamDetails.Captain = player;
+                    }
+
+                    if (changedPlayerArgs.Column == ColumnName.Position)
+                    {
+                        player.Position.SetValueToBinding(changedPlayerArgs.NewPlayerValues.Position.Role);
+                        SetTeamSquadDetails();
                     }
 
                     break;

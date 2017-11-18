@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.Base;
+using SquadManager.UI.Enums;
 using SquadManager.UI.Models;
 using System;
 using System.Collections;
@@ -13,8 +14,8 @@ namespace SquadManager.UI.SharedViewModels
     {
         public IEnumerable Items { get; set; }
 
-        public ComboBoxCellViewModel(object value, IEnumerable items, IChangeManager changeManager, SoccerPlayer player = null, bool isEnabled = true) 
-            : base(value, changeManager, player, isEnabled)
+        public ComboBoxCellViewModel(object value, IEnumerable items, IChangeManager changeManager, SoccerPlayer player = null, ColumnName? column = null, bool isEnabled = true) 
+            : base(value, changeManager, column, player, isEnabled)
         {
             Items = items;
         }

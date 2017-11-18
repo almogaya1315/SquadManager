@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.Base;
+using SquadManager.UI.Enums;
 using SquadManager.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace SquadManager.UI.SharedViewModels
     {
         private IChangeManager _changeManager;
         private SoccerPlayer _player;
+        private ColumnName? _column;
 
         public bool IsEnabled { get; set; }
 
@@ -26,13 +28,14 @@ namespace SquadManager.UI.SharedViewModels
                 _value = value;
                 RaisePropertyChanged();
 
-                if (_changeManager != null && _player != null)
+                if (_changeManager != null && _player != null && _column.HasValue)
                 {
                     //_player[ColumnName] = value;
 
-                    _player.IsCaptain = (bool)value;
+                    if (_column == ColumnName.IsCaptain) _player.IsCaptain = (bool)value;
+                    if (_column == ColumnName.Position) _player.Position.Role = (PositionRole)value;
 
-                    _changeManager.Change(new SoccerPlayerArgs(_player, ChangeType.PlayerChanged));
+                    _changeManager.Change(new SoccerPlayerArgs(_player, ChangeType.PlayerChanged, _column));
                 }
             }
         }
@@ -43,11 +46,12 @@ namespace SquadManager.UI.SharedViewModels
             RaisePropertyChanged("Value");
         }
 
-        public EditableCellViewModel(object value, IChangeManager changeManager, SoccerPlayer player = null, bool isEnabled = true) : base(value)
+        public EditableCellViewModel(object value, IChangeManager changeManager, ColumnName? column = null, SoccerPlayer player = null, bool isEnabled = true) : base(value)
         {
             _changeManager = changeManager;
             IsEnabled = isEnabled;
             if (player != null) _player = player;
+            if (column.HasValue) _column = column;
         }
     }
 }

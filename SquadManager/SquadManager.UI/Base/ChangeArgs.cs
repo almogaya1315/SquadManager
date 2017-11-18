@@ -1,4 +1,5 @@
-﻿using SquadManager.UI.Models;
+﻿using SquadManager.UI.Enums;
+using SquadManager.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,15 @@ namespace SquadManager.UI.Base
     {
         public SoccerPlayer NewPlayerValues { get; set; }
 
+        public ColumnName Column { get; set; }
+
         //public SoccerPlayer OriginalBallValues { get; set; }
 
-        public SoccerPlayerArgs(SoccerPlayer newPlayerValues, ChangeType type, SoccerPlayer originalPlayerValues = null) : base(type)
+        public SoccerPlayerArgs(SoccerPlayer newPlayerValues, ChangeType type, ColumnName? column = null, SoccerPlayer originalPlayerValues = null) : base(type)
         {
             NewPlayerValues = newPlayerValues;
+            if (column.HasValue) Column = column.Value;
+
             //if (originalPlayerValues != null) OriginalBallValues = originalPlayerValues;
         } 
     }
