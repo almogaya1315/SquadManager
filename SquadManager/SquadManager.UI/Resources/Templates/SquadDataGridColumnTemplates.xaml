@@ -56,9 +56,9 @@
         <numericTextBox:MyTextBox Text="{Binding Value}"
                                   Height="23"
                                   MaxHeight="23"
-                                  MinHeight="23" 
+                                  MinHeight="23"
                                   Input="Numeric"
-                                  Padding="4 3 3 3"/>
+                                  Padding="4 3 3 3" />
     </DataTemplate>
     <DataTemplate x:Key="RadioButtonEditingTemplate">
         <radioButton:TeamRadioButton IsChecked="{Binding Value}"
@@ -89,50 +89,120 @@
                     MaxHeight="23"
                     MinHeight="23" />
     </DataTemplate>
-    <DataTemplate x:Key="AddNewPlayerButtonTemplate">
-        <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.AddNewPlayer}"
-                Visibility="{Binding Value, Converter={StaticResource IsNewPlayerToAddButtonVis}}"
-                Height="23"
-                MaxHeight="23"
-                MinHeight="23"
-                Padding="0">
-            <Button.Template>
-                <ControlTemplate>
-                    <TextBlock Text="+"
-                               FontSize="23"
-                               Width="50"
-                               TextAlignment="Center"
-                               Margin="0 -7 0 0"
-                               Foreground="Green"
-                               Background="Transparent">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="true">
-                                        <Setter Property="FontWeight"
-                                                Value="ExtraBold" />
-                                        <Setter Property="Effect">
-                                            <Setter.Value>
-                                                <DropShadowEffect ShadowDepth="3"
-                                                                  BlurRadius="3"
-                                                                  Color="#a6d6df" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="false">
-                                        <Setter Property="FontWeight"
-                                                Value="Normal" />
-                                        <Setter Property="Effect"
-                                                Value="{x:Null}" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </ControlTemplate>
-            </Button.Template>
+    <DataTemplate x:Key="AddRemovePlayerButtonTemplate">
+        <Button>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Value}"
+                                     Value="True">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.AddNewPlayer}"
+                                                Height="23"
+                                                MaxHeight="23"
+                                                MinHeight="23"
+                                                Padding="0">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <TextBlock Text="+"
+                                                               FontSize="23"
+                                                               Width="50"
+                                                               TextAlignment="Center"
+                                                               Margin="0 -7 0 0"
+                                                               Foreground="Green"
+                                                               Background="Transparent">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver"
+                                                                             Value="true">
+                                                                        <Setter Property="FontWeight"
+                                                                                Value="ExtraBold" />
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect ShadowDepth="3"
+                                                                                                  BlurRadius="3"
+                                                                                                  Color="#a6d6df" />
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver"
+                                                                             Value="false">
+                                                                        <Setter Property="FontWeight"
+                                                                                Value="Normal" />
+                                                                        <Setter Property="Effect"
+                                                                                Value="{x:Null}" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Value}"
+                                     Value="False">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate >
+                                        <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.RemovePlayer}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=DataContext}"
+                                                Height="23"
+                                                MaxHeight="23"
+                                                MinHeight="23"
+                                                Padding="0">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <TextBlock Text="-"
+                                                               FontSize="23"
+                                                               Width="50"
+                                                               TextAlignment="Center"
+                                                               Margin="0 -7 0 0"
+                                                               Foreground="Green"
+                                                               Background="Transparent">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver"
+                                                                             Value="true">
+                                                                        <Setter Property="FontWeight"
+                                                                                Value="ExtraBold" />
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect ShadowDepth="3"
+                                                                                                  BlurRadius="3"
+                                                                                                  Color="#a6d6df" />
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver"
+                                                                             Value="false">
+                                                                        <Setter Property="FontWeight"
+                                                                                Value="Normal" />
+                                                                        <Setter Property="Effect"
+                                                                                Value="{x:Null}" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
     </DataTemplate>
+    
 </ResourceDictionary>

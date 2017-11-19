@@ -50,6 +50,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
         public List<ColumnViewModel> Columns { get; set; }
 
         public ICommand AddNewPlayer { get; set; }
+        public ICommand RemovePlayer { get; set; }
 
         public SoccerSquadDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections, ISquadRepository squadRepository, Application app)
         {
@@ -64,6 +65,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             SetPlayers();
 
             AddNewPlayer = new RelayCommand(AddNewPlayerToSquad, CanAdd);
+            RemovePlayer = new RelayCommand<SoccerPlayerViewModel>(RemovePlayerFromSquad);
         }
 
         private void SetPlayers()
@@ -158,7 +160,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 new ColumnViewModel()
                 {
                     DataContextPath = "IsNewPlayer",
-                    Template = "AddNewPlayerButtonTemplate"
+                    Template = "AddRemovePlayerButtonTemplate"
                 },
             };
         }
@@ -199,6 +201,11 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             NewPlayer.Rating.Value = null;
             NewPlayer.IsCaptain.Value = false;
             NewPlayer.IsNewPlayer.Value = true;
+        }
+
+        private void RemovePlayerFromSquad(SoccerPlayerViewModel player)
+        {
+            
         }
 
         public void Changed(ChangeArgs args)
