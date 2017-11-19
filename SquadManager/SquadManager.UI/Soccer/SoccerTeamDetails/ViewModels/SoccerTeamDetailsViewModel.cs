@@ -180,32 +180,40 @@ namespace SquadManager.UI.Soccer.SoccerTeamDetails.ViewModels
 
         public void Changed(ChangeArgs args)
         {
-            if (args.Type != ChangeType.PlayerAdded && args.Type != ChangeType.PlayerChanged) return;
+            if (args.Type != ChangeType.PlayerAdded && args.Type != ChangeType.PlayerChanged && args.Type != ChangeType.PlayerDeleted) return;
 
             switch (args.Type)
             {
                 case ChangeType.PlayerAdded:
                     var addedPlayerArgs = (SoccerPlayerArgs)args;
-                    TeamDetails.Squad.Add(new SoccerPlayerViewModel(addedPlayerArgs.NewPlayerValues, Collections, _changesManager));
+                    TeamDetails.Squad.Add(new SoccerPlayerViewModel(addedPlayerArgs.PlayerValues, Collections, _changesManager));
                     SetTeamSquadDetails();
                     break;
                 case ChangeType.PlayerChanged:
                     var changedPlayerArgs = (SoccerPlayerArgs)args;
-                    var player = TeamDetails.Squad.Find(p => p.Id == changedPlayerArgs.NewPlayerValues.Id);
+                    var player = TeamDetails.Squad.Find(p => p.Id == changedPlayerArgs.PlayerValues.Id);
 
-                    if (changedPlayerArgs.Column == ColumnName.IsCaptain && changedPlayerArgs.NewPlayerValues.IsCaptain)
+                    if (changedPlayerArgs.Column == ColumnName.IsCaptain && changedPlayerArgs.PlayerValues.IsCaptain)
                     {
-                        TeamDetails.Squad.Find(p => (bool)p.IsCaptain.Value).IsCaptain.SetValueToBinding(false);
-                        player.IsCaptain.SetValueToBinding(changedPlayerArgs.NewPlayerValues.IsCaptain);
+                        if (TeamDetails.Squad.Exists(p => (bool)p.IsCaptain.Value))
+                            TeamDetails.Squad.Find(p => (bool)p.IsCaptain.Value).IsCaptain.SetValueToBinding(false);
+                        player.IsCaptain.SetValueToBinding(changedPlayerArgs.PlayerValues.IsCaptain);
                         TeamDetails.Captain = player;
                     }
 
                     if (changedPlayerArgs.Column == ColumnName.Position)
                     {
-                        player.Position.SetValueToBinding(changedPlayerArgs.NewPlayerValues.Position.Role);
+                        player.Position.SetValueToBinding(changedPlayerArgs.PlayerValues.Position.Role);
                         SetTeamSquadDetails();
                     }
 
+                    break;
+                case ChangeType.PlayerDeleted:
+                    var deletedPlayerArgs = (SoccerPlayerArgs)args;
+                    var deletedPlayer = TeamDetails.Squad.Find(p => p.Id == deletedPlayerArgs.PlayerValues.Id);
+                    if ((bool)deletedPlayer.IsCaptain.Value) TeamDetails.Captain = null;
+                    TeamDetails.Squad.Remove(deletedPlayer);
+                    SetTeamSquadDetails();
                     break;
                 default:
                     break;

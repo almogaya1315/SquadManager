@@ -20,15 +20,15 @@ namespace SquadManager.UI.Base
 
     public class SoccerPlayerArgs : ChangeArgs
     {
-        public SoccerPlayer NewPlayerValues { get; set; }
+        public SoccerPlayer PlayerValues { get; set; }
 
         public ColumnName Column { get; set; }
 
         //public SoccerPlayer OriginalBallValues { get; set; }
 
-        public SoccerPlayerArgs(SoccerPlayer newPlayerValues, ChangeType type, ColumnName? column = null, SoccerPlayer originalPlayerValues = null) : base(type)
+        public SoccerPlayerArgs(SoccerPlayer playerValues, ChangeType type, ColumnName? column = null, SoccerPlayer originalPlayerValues = null) : base(type)
         {
-            NewPlayerValues = newPlayerValues;
+            PlayerValues = playerValues;
             if (column.HasValue) Column = column.Value;
 
             //if (originalPlayerValues != null) OriginalBallValues = originalPlayerValues;
@@ -40,5 +40,6 @@ namespace SquadManager.UI.Base
         TeamChanged,
         PlayerAdded,
         PlayerChanged,
+        PlayerDeleted,
     }
 }

@@ -129,6 +129,31 @@ namespace SquadManager.UI.Repositories
             }
         }
 
+        public void UpdatePlayer(int teamId, SoccerPlayer player)
+        {
+            using (var con = OpenConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@TeamId", teamId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@PlayerId", player.Id, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Name", player.Name, DbType.String, ParameterDirection.Input);
+                parameters.Add("@Age", player.Age, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@BirthDate", player.BirthDate, DbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@NationId", player.Nationality, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Rating", player.Rating, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@Rotation", player.Rotation, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@IsCaptain", player.IsCaptain, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@PositionRoleId", player.Position.Role, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@PosiotionGroupId", player.Position.Group, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@IsLineup", player.IsLineup, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@IsInjured", player.IsInjured, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@IsOnLoan", player.IsOnLoan, DbType.Boolean, ParameterDirection.Input);
+                parameters.Add("@IsLoaned", player.IsLoaned, DbType.Boolean, ParameterDirection.Input);
+
+                con.Query("stp_SquadManager_UpdatePlayer", parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+
         public List<SoccerPlayer> GetTeamSquad(int teamId)
         {
             using (var con = OpenConnection())
@@ -141,30 +166,25 @@ namespace SquadManager.UI.Repositories
                     (player, position) =>
                     {
                         SoccerPlayer innerPlayer;
-
                         if (!lookup.TryGetValue(player.Id, out innerPlayer)) lookup.Add(player.Id, innerPlayer = player);
-
                         innerPlayer.Position = position;
-
-                        /*
-                        innerPlayer.Id = player.Id;
-                        innerPlayer.Name = player.Name;
-                        innerPlayer.BirthDate = player.BirthDate;
-                        innerPlayer.IsCaptain = player.IsCaptain;
-                        innerPlayer.IsInjured = player.IsInjured;
-                        innerPlayer.IsLineup = player.IsLineup;
-                        innerPlayer.IsLoaned = player.IsLoaned;
-                        innerPlayer.IsOnLoan = player.IsOnLoan;
-                        innerPlayer.Nationality = player.Nationality;
-                        innerPlayer.Rating = player.Rating;
-                        innerPlayer.Rotation = player.Rotation;
-                        */
-
                         return innerPlayer;
                     }, param: parameters, splitOn: "Role",
                     commandType: CommandType.StoredProcedure).ToList();
 
                 return players;
+            }
+        }
+
+        public void DeletePlayer(int teamId, int playerId)
+        {
+            using (var con = OpenConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@TeamId", teamId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@PlayerId", playerId, DbType.Int32, ParameterDirection.Input);
+
+                con.Query("stp_SquadManager_DeletePlayer", parameters, commandType: CommandType.StoredProcedure);
             }
         }
     }

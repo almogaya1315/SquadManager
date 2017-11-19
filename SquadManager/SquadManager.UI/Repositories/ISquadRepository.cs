@@ -22,6 +22,8 @@ namespace SquadManager.UI.Repositories
         List<Team> GetTeams();
 
         int AddPlayer(int teamId, SoccerPlayer player);
+        void UpdatePlayer(int teamId, SoccerPlayer player);
         List<SoccerPlayer> GetTeamSquad(int teamId);
+        void DeletePlayer(int teamId, int playerId);
     }
 }

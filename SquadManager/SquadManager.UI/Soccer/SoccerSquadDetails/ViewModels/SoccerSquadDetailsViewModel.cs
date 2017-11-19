@@ -103,6 +103,14 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                 },
                 new ColumnViewModel()
                 {
+                    Header = "NO.",
+                    //HeaderTemplate = "DefualtHeaderTemplate",
+                    DataContextPath = "PlayerNumber",
+                    Template = "ReadOnlyCellTemplate",
+                    EditingTemplate = "NumericEditingTemplate",
+                },
+                new ColumnViewModel()
+                {
                     Header = "POSITION",
                     //HeaderTemplate = "DefualtHeaderTemplate",
                     DataContextPath = "Position",
@@ -205,7 +213,14 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         private void RemovePlayerFromSquad(SoccerPlayerViewModel player)
         {
-            
+            Players.Remove(player);
+            Team.Squad.Remove(player);
+            var playerModel = _teamModel.Squad.Find(p => p.Id == player.Id);
+            _teamModel.Squad.Remove(playerModel);
+
+            SquadRepository.DeletePlayer(_teamModel.Id, player.Id);
+
+            _changesManager.Change(new SoccerPlayerArgs(playerModel, ChangeType.PlayerDeleted));
         }
 
         public void Changed(ChangeArgs args)
@@ -215,7 +230,17 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             switch (args.Type)
             {
                 case ChangeType.PlayerChanged:
-                    
+                    var changedPlayerArgs = (SoccerPlayerArgs)args;
+                    var player = changedPlayerArgs.PlayerValues;
+                    if (changedPlayerArgs.Column == ColumnName.IsCaptain)
+                        player.IsCaptain = (bool)Team.Squad.Find(p => p.Id == player.Id).IsCaptain.Value;
+
+                    // TODO: Correct position group value to DB
+                    if (changedPlayerArgs.Column == ColumnName.Position)
+                        player.Position.Role = (PositionRole)Team.Squad.Find(p => p.Id == player.Id).Position.Value;
+
+                    SquadRepository.UpdatePlayer(_teamModel.Id, player);
+
                     break;
                 default:
                     break;

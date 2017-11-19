@@ -33,9 +33,9 @@ namespace SquadManager.UI.Soccer.ViewModels
             changeManager.Changeables = new List<IChangeable>()
             {
                 this, 
+                Source.SoccerSquadDetails,
                 Source.SoccerNavigationBar,
                 Source.SoccerTeamDetails,
-                Source.SoccerSquadDetails,
                 Source.SoccerPlayerDetails,
                 Source.SoccerLineupDetails,
             };

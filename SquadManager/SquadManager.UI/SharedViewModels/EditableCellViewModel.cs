@@ -32,8 +32,8 @@ namespace SquadManager.UI.SharedViewModels
                 {
                     //_player[ColumnName] = value;
 
-                    if (_column == ColumnName.IsCaptain) _player.IsCaptain = (bool)value;
-                    if (_column == ColumnName.Position) _player.Position.Role = (PositionRole)value;
+                    //if (_column == ColumnName.IsCaptain) _player.IsCaptain = (bool)value;
+                    //if (_column == ColumnName.Position) _player.Position.Role = (PositionRole)value;
 
                     _changeManager.Change(new SoccerPlayerArgs(_player, ChangeType.PlayerChanged, _column));
                 }
