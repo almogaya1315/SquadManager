@@ -47,10 +47,53 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             }
         }
 
+        private SoccerPlayerViewModel _selectedPlayer;
+        public SoccerPlayerViewModel SelectedPlayer
+        {
+            get { return _selectedPlayer; }
+            set
+            {
+                _selectedPlayer = value;
+                _changesManager.Change(new SoccerPlayerArgs(_teamModel.Squad.Find(p => p.Id == (value as SoccerPlayerViewModel).Id), ChangeType.PlayerSelected));
+            }
+        }
+
+        private SoccerPlayerViewModel _playerToRemove;
+        public SoccerPlayerViewModel PlayerToRemove
+        {
+            get { return _playerToRemove; }
+            set
+            {
+                _playerToRemove = value;
+                RaisePropertyChanged();
+            }
+        }
+        private bool _confirmationOverlayVisible;
+        public bool ConfirmationOverlayVisible
+        {
+            get { return _confirmationOverlayVisible; }
+            set
+            {
+                _confirmationOverlayVisible = value;
+                RaisePropertyChanged();
+            }
+        }
+        private bool _panelEnabled;
+        public bool PanelEnabled
+        {
+            get { return _panelEnabled; }
+            set
+            {
+                _panelEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public List<ColumnViewModel> Columns { get; set; }
 
         public ICommand AddNewPlayer { get; set; }
-        public ICommand RemovePlayer { get; set; }
+        public ICommand RemovePlayerConfirmation { get; set; }
+        public ICommand RemovePlayerConfirmed { get; set; }
 
         public SoccerSquadDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections, ISquadRepository squadRepository, Application app)
         {
@@ -65,7 +108,11 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             SetPlayers();
 
             AddNewPlayer = new RelayCommand(AddNewPlayerToSquad, CanAdd);
-            RemovePlayer = new RelayCommand<SoccerPlayerViewModel>(RemovePlayerFromSquad);
+            RemovePlayerConfirmation = new RelayCommand<SoccerPlayerViewModel>(ExecuteRemovePlayerConfirmation);
+            RemovePlayerConfirmed = new RelayCommand<bool>(ExecuteRemovePlayerConfirmed);
+
+            PanelEnabled = true;
+            ConfirmationOverlayVisible = false;
         }
 
         private void SetPlayers()
@@ -193,6 +240,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             Team.Squad.Add(player);
             var playerModel = new SoccerPlayer(player);
             _teamModel.Squad.Add(playerModel);
+            
 
             playerModel.Id = player.Id = SquadRepository.AddPlayer(_teamModel.Id, _teamModel.Squad.Last());
 
@@ -211,16 +259,30 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             NewPlayer.IsNewPlayer.Value = true;
         }
 
-        private void RemovePlayerFromSquad(SoccerPlayerViewModel player)
+        private void ExecuteRemovePlayerConfirmation(SoccerPlayerViewModel player)
         {
-            Players.Remove(player);
-            Team.Squad.Remove(player);
-            var playerModel = _teamModel.Squad.Find(p => p.Id == player.Id);
-            _teamModel.Squad.Remove(playerModel);
+            PlayerToRemove = player;
+            PanelEnabled = false;
+            ConfirmationOverlayVisible = true;
+        }
 
-            SquadRepository.DeletePlayer(_teamModel.Id, player.Id);
+        private void ExecuteRemovePlayerConfirmed(bool isConfirmed)
+        {
+            if (isConfirmed)
+            {
+                Players.Remove(PlayerToRemove);
+                Team.Squad.Remove(PlayerToRemove);
+                var playerModel = _teamModel.Squad.Find(p => p.Id == PlayerToRemove.Id);
+                _teamModel.Squad.Remove(playerModel);
 
-            _changesManager.Change(new SoccerPlayerArgs(playerModel, ChangeType.PlayerDeleted));
+                SquadRepository.DeletePlayer(_teamModel.Id, PlayerToRemove.Id);
+
+                _changesManager.Change(new SoccerPlayerArgs(playerModel, ChangeType.PlayerDeleted));
+            }
+
+            PlayerToRemove = null;
+            PanelEnabled = true;
+            ConfirmationOverlayVisible = false;
         }
 
         public void Changed(ChangeArgs args)

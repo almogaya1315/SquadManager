@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SquadManager.UI.Soccer.SoccerSquadDetails.Views"
+             xmlns:types="clr-namespace:System;assembly=mscorlib"
              xmlns:dataGrid="clr-namespace:SquadManager.UI.Controls.DataGrid"
              mc:Ignorable="d"
              d:DesignHeight="655"
@@ -19,41 +20,62 @@
             <Border HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Background="#a6d6df"
-                    BorderBrush="#a6d6df"
+                    BorderBrush="#3c5458"
                     BorderThickness="1"
                     CornerRadius="5"
                     Height="120"
                     Width="400"
                     Panel.ZIndex="1"
+                    Visibility="{Binding ConfirmationOverlayVisible, Converter={StaticResource boolToVis}}"
                     Style="{StaticResource ResourceKey=BorderStyle}">
                 <StackPanel Margin="10"
                             HorizontalAlignment="Center">
-                    <TextBlock Text="ARE YOU SURE?"
+                    <TextBlock Text="{Binding PlayerToRemove.Name.Value, StringFormat={}Delete {0}?}"
                                FontSize="15"
                                Margin="10"
-                               FontWeight="Bold" />
+                               FontWeight="Bold" 
+                               TextAlignment="Center"/>
                     <StackPanel Orientation="Horizontal">
                         <Button Content="YES"
-                                Margin="10">
+                                Margin="10"
+                                Command="{Binding RemovePlayerConfirmed}">
+                            <Button.CommandParameter>
+                                <types:Boolean>True</types:Boolean>
+                            </Button.CommandParameter>
                             <Button.Template>
                                 <ControlTemplate>
                                     <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Content}"
                                                FontWeight="Bold"
                                                Width="120"
-                                               Margin="0"
+                                               Margin="0 10 0 0"
+                                               FontSize="20"
                                                Style="{StaticResource ButtonTemplateStyle}" />
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
 
                         <Button Content="NO"
-                                FontWeight="Bold"
-                                Template="{StaticResource ResourceKey=ButtonTemplate}" />
+                                Margin="10"
+                                Command="{Binding RemovePlayerConfirmed}">
+                            <Button.CommandParameter>
+                                <types:Boolean>False</types:Boolean>
+                            </Button.CommandParameter>
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Content}"
+                                               FontWeight="Bold"
+                                               Width="120"
+                                               Margin="0 10 0 0"
+                                               FontSize="20"
+                                               Style="{StaticResource ButtonTemplateStyle}" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </Border>
 
-            <StackPanel>
+            <StackPanel IsEnabled="{Binding PanelEnabled}">
                 <StackPanel Orientation="Horizontal">
                     <Button Margin="10 15 10 10"
                             Padding="5"
@@ -110,7 +132,8 @@
                                         ItemsSource="{Binding Players}"
                                         Background="Transparent"
                                         Margin="10"
-                                        Style="{StaticResource ResourceKey=MetroDataGridStyle}">
+                                        Style="{StaticResource ResourceKey=MetroDataGridStyle}"
+                                        SelectedItem="{Binding SelectedPlayer}">
 
                     <dataGrid:SquadDataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader"

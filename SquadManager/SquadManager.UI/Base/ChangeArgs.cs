@@ -41,5 +41,6 @@ namespace SquadManager.UI.Base
         PlayerAdded,
         PlayerChanged,
         PlayerDeleted,
+        PlayerSelected,
     }
 }

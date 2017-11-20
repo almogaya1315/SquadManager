@@ -49,7 +49,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public SoccerPlayerViewModel(SoccerPlayerViewModel viewModel, CollectionFactory collections, IChangeManager changeManager, Application app)
         {
             if (viewModel == null) return;
-            var playerModel = app.Teams.First(t => t.Id == viewModel.TeamId).Squad.First(p => p.Id == viewModel.Id);
+            var playerModel = new SoccerPlayer(viewModel);
 
             Id = viewModel.Id;
             TeamId = viewModel.TeamId;
