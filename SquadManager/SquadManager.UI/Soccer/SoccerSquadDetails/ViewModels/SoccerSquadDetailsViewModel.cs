@@ -54,7 +54,8 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
             set
             {
                 _selectedPlayer = value;
-                _changesManager.Change(new SoccerPlayerArgs(_teamModel.Squad.Find(p => p.Id == (value as SoccerPlayerViewModel).Id), ChangeType.PlayerSelected));
+
+                if (value != null) _changesManager.Change(new SoccerPlayerArgs(_teamModel.Squad.Find(p => p.Id == (value as SoccerPlayerViewModel).Id), ChangeType.PlayerSelected));
             }
         }
 
