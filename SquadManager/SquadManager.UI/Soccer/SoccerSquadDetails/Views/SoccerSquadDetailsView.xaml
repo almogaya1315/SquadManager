@@ -13,136 +13,177 @@
     </UserControl.Resources>
 
     <Border Style="{StaticResource BorderStyle}">
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button Margin="10 15 10 10"
-                        Padding="5"
-                        Height="22"
-                        Command="{Binding AllPlayers}">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Border BorderThickness=".6"
-                                    BorderBrush="Black"
-                                    Opacity=".5"
-                                    CornerRadius="3">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="true">
-                                                <Setter Property="Background"
-                                                        Value="Gray" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="false">
-                                                <Setter Property="Background"
-                                                        Value="Transparent" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <TextBlock Text="All players"
-                                           Padding="5 1.7">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
+
+        <Grid>
+
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#a6d6df"
+                    BorderBrush="#a6d6df"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    Height="120"
+                    Width="400"
+                    Panel.ZIndex="1"
+                    Style="{StaticResource ResourceKey=BorderStyle}">
+                <StackPanel Margin="10"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="ARE YOU SURE?"
+                               FontSize="15"
+                               Margin="10"
+                               FontWeight="Bold" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="YES"
+                                Margin="10">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Content}"
+                                               FontWeight="Bold"
+                                               Width="120"
+                                               Margin="0"
+                                               Style="{StaticResource ButtonTemplateStyle}" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <Button Content="NO"
+                                FontWeight="Bold"
+                                Template="{StaticResource ResourceKey=ButtonTemplate}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="10 15 10 10"
+                            Padding="5"
+                            Height="22"
+                            Command="{Binding AllPlayers}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border BorderThickness=".6"
+                                        BorderBrush="Black"
+                                        Opacity=".5"
+                                        CornerRadius="3">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver"
                                                          Value="true">
-                                                    <Setter Property="Foreground"
-                                                            Value="#e7f5f7" />
+                                                    <Setter Property="Background"
+                                                            Value="Gray" />
                                                 </Trigger>
                                                 <Trigger Property="IsMouseOver"
                                                          Value="false">
-                                                    <Setter Property="Foreground"
-                                                            Value="Black" />
+                                                    <Setter Property="Background"
+                                                            Value="Transparent" />
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-            </StackPanel>
+                                    </Border.Style>
+                                    <TextBlock Text="All players"
+                                               Padding="5 1.7">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver"
+                                                             Value="true">
+                                                        <Setter Property="Foreground"
+                                                                Value="#e7f5f7" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver"
+                                                             Value="false">
+                                                        <Setter Property="Foreground"
+                                                                Value="Black" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
 
-            <dataGrid:SquadDataGrid ColumnBindings="{Binding Columns}"
-                                    ItemsSource="{Binding Players}"
-                                    Background="Transparent"
-                                    Margin="10"
-                                    Style="{StaticResource ResourceKey=MetroDataGridStyle}">
+                <dataGrid:SquadDataGrid ColumnBindings="{Binding Columns}"
+                                        ItemsSource="{Binding Players}"
+                                        Background="Transparent"
+                                        Margin="10"
+                                        Style="{StaticResource ResourceKey=MetroDataGridStyle}">
 
-                <dataGrid:SquadDataGrid.ColumnHeaderStyle>
-                    <Style TargetType="DataGridColumnHeader"
-                           BasedOn="{StaticResource ResourceKey={x:Type DataGridColumnHeader}}">
-                        <Setter Property="FontSize"
-                                Value="14" />
-                        <Setter Property="FontWeight"
-                                Value="Bold" />
-                        <Setter Property="BorderBrush"
-                                Value="#a6d6df" />
-                        <Setter Property="BorderThickness"
-                                Value="0 0 0 2" />
-                        <Setter Property="Margin"
-                                Value="5 5 10 5" />
-                    </Style>
-                </dataGrid:SquadDataGrid.ColumnHeaderStyle>
+                    <dataGrid:SquadDataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader"
+                               BasedOn="{StaticResource ResourceKey={x:Type DataGridColumnHeader}}">
+                            <Setter Property="FontSize"
+                                    Value="14" />
+                            <Setter Property="FontWeight"
+                                    Value="Bold" />
+                            <Setter Property="BorderBrush"
+                                    Value="#a6d6df" />
+                            <Setter Property="BorderThickness"
+                                    Value="0 0 0 2" />
+                            <Setter Property="Margin"
+                                    Value="5 5 10 5" />
+                        </Style>
+                    </dataGrid:SquadDataGrid.ColumnHeaderStyle>
 
-                <dataGrid:SquadDataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="BorderBrush"
-                                Value="#bfe3e9" />
-                        <Setter Property="BorderThickness"
-                                Value="0 0 0 1" />
-                        <Setter Property="Effect">
-                            <Setter.Value>
-                                <DropShadowEffect ShadowDepth="3"
-                                                  BlurRadius="3"
-                                                  Color="#a6d6df" />
-                            </Setter.Value>
-                        </Setter>
+                    <dataGrid:SquadDataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="BorderBrush"
+                                    Value="#bfe3e9" />
+                            <Setter Property="BorderThickness"
+                                    Value="0 0 0 1" />
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="3"
+                                                      BlurRadius="3"
+                                                      Color="#a6d6df" />
+                                </Setter.Value>
+                            </Setter>
 
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected"
-                                     Value="true">
-                                <Setter Property="Background"
-                                        Value="#a6d6df" />
-                            </Trigger>
-                            
-                            <Trigger Property="IsSelected"
-                                     Value="false">
-                                <Setter Property="Background"
-                                        Value="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}" />
-                            </Trigger>
-
-                            <DataTrigger Binding="{Binding IsNewPlayer.Value}"
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected"
                                          Value="true">
-                                
-                                <Setter Property="Margin"
-                                        Value="0 8 0 0" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsNewPlayer.Value}"
+                                    <Setter Property="Background"
+                                            Value="#a6d6df" />
+                                </Trigger>
+
+                                <Trigger Property="IsSelected"
                                          Value="false">
-                                
-                                <Setter Property="Margin"
-                                        Value="0 1 0 0" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </dataGrid:SquadDataGrid.RowStyle>
+                                    <Setter Property="Background"
+                                            Value="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}" />
+                                </Trigger>
 
-                <dataGrid:SquadDataGrid.CellStyle>
-                    <Style TargetType="DataGridCell">
-                        <Setter Property="Background"
-                                Value="Transparent" />
-                        <Setter Property="BorderBrush"
-                                Value="Transparent" />
-                        <Setter Property="Foreground"
-                                Value="Black" />
-                    </Style>
-                </dataGrid:SquadDataGrid.CellStyle>
+                                <DataTrigger Binding="{Binding IsNewPlayer.Value}"
+                                             Value="true">
 
-            </dataGrid:SquadDataGrid>
-        </StackPanel>
+                                    <Setter Property="Margin"
+                                            Value="0 8 0 0" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsNewPlayer.Value}"
+                                             Value="false">
+
+                                    <Setter Property="Margin"
+                                            Value="0 1 0 0" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dataGrid:SquadDataGrid.RowStyle>
+
+                    <dataGrid:SquadDataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background"
+                                    Value="Transparent" />
+                            <Setter Property="BorderBrush"
+                                    Value="Transparent" />
+                            <Setter Property="Foreground"
+                                    Value="Black" />
+                        </Style>
+                    </dataGrid:SquadDataGrid.CellStyle>
+
+                </dataGrid:SquadDataGrid>
+            </StackPanel>
+        </Grid>
     </Border>
 </UserControl>
