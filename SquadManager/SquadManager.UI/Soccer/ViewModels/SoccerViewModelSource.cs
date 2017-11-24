@@ -30,7 +30,7 @@ namespace SquadManager.UI.Soccer.ViewModels
             SoccerTeamDetails = injector.New<SoccerTeamDetailsViewModel>(team: team); 
             SoccerNavigationBar = new SoccerNavigationBarViewModel(team, changeManager);
             SoccerSquadDetails = new SoccerSquadDetailsViewModel(team, changeManager, collections, squadRepository, app);
-            SoccerPlayerDetails = new SoccerPlayerDetailsViewModel(team, changeManager);
+            SoccerPlayerDetails = new SoccerPlayerDetailsViewModel(null, collections, changeManager);
             SoccerLineupDetails = new SoccerLineupDetailsViewModel(team, changeManager);
         }
     }

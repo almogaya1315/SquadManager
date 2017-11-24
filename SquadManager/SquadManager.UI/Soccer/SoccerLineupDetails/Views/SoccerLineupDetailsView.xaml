@@ -8,6 +8,21 @@
              d:DesignHeight="180"
              d:DesignWidth="1310">
     <Border Style="{StaticResource BorderStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"
+                               MinHeight="30"
+                               MaxHeight="30"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Expander Panel.ZIndex="1"
+                      ExpandDirection="Up"
+                      FlowDirection="RightToLeft">
+                <Border Background="Green"
+                        Height="50">
 
+                </Border>
+            </Expander>
+        </Grid>
     </Border>
 </UserControl>

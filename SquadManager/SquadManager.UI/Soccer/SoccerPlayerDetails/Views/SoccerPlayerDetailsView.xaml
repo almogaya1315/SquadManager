@@ -19,45 +19,168 @@
                 <StackPanel Orientation="Horizontal">
                     <Border BorderBrush="#3c5458"
                             BorderThickness="1"
+                            Background="Green"
                             CornerRadius="5"
                             Margin="20">
                         <Image Height="100"
-                               Width="70" />
+                               Width="70" 
+                               Source="/Resources/Images/profile_unknown.png"/>
+
+                        <!--{Binding Player.PicturePath}-->
+
                     </Border>
                     <StackPanel Margin="-10 12">
-                        <StackPanel Orientation="Horizontal"> 
-                            <TextBlock Text="GK"
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Player.Position.Value}"
                                        FontSize="30"
-                                       FontWeight="Bold" />
+                                       FontWeight="Bold"
+                                       Foreground="{Binding Player.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground} }" />
                             <TextBlock Text="C"
                                        Margin="80 7 0 0"
                                        FontSize="25"
-                                       FontWeight="Bold" />
+                                       FontWeight="Bold"
+                                       Foreground="Blue"
+                                       Visibility="{Binding Player.IsCaptain.Value, Converter={StaticResource boolToVis}}"/>
                         </StackPanel>
-                        <TextBlock Text="80"
+                        <TextBlock Text="{Binding Player.Rating.Value}"
                                    Margin="0 0 0 22"
                                    FontSize="20"
                                    FontWeight="Bold" />
-                        <TextBlock Text="Tom Cairney"
+                        <TextBlock Text="{Binding Player.Name.Value}"
                                    FontSize="18"
-                                   FontWeight="Bold" />
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
                     </StackPanel>
                 </StackPanel>
-                <TextBlock Text="AKA 'nickname'"
+                <TextBlock Text="{Binding Player.Nickname.Value, StringFormat={}AKA {0}}"
                            Margin="20 0 20 10"
-                           FontSize="15" />
-                <TextBlock Text="'age' years old"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+                <TextBlock Text="{Binding Player.Age.Value, StringFormat={}{0} years old}"
                            Margin="20 10 20 0"
-                           FontSize="15" />
-                <TextBlock Text="born in 'country'"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+                <TextBlock Text="{Binding Player.Nationality.Value, StringFormat={}born in {0}}"
                            Margin="20 0"
-                           FontSize="15" />
-                <TextBlock Text="on 'date'"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+                <TextBlock Text="{Binding Player.BirthDate.Value, StringFormat={}on {0}}"
                            Margin="20 0"
-                           FontSize="15" />
-                <TextBlock Text="'lineup' rotation team"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+                <TextBlock Text="{Binding Player.Ratation.Value, StringFormat={}{0} rotation team}"
                            Margin="20"
-                           FontSize="15" />
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+                <TextBlock Text="{Binding Player.NetWorth, StringFormat={}{0} &#8364;  Net worth}"
+                           Margin="20 0 0 0"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+
+                <TextBlock Text="Stats"
+                           FontWeight="DemiBold"
+                           Margin="20 40 0 10"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+                <Grid Margin="20 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Appearences"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    <TextBlock Text="{Binding Player.Appearences.Value}"
+                               Grid.Column="1"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    
+                    <TextBlock Text="Goals"
+                               FontSize="15"
+                               Grid.Row="1"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    <TextBlock Text="{Binding Player.Goals.Value}"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+
+                    <TextBlock Text="Assists"
+                               Grid.Row="2"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    <TextBlock Text="{Binding Player.Assists.Value}"
+                               Grid.Column="1"
+                               Grid.Row="2"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+
+                    <TextBlock Text="Saves"
+                               Grid.Row="3"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    <TextBlock Text="{Binding Player.Saves.Value}"
+                               Grid.Column="1"
+                               Grid.Row="3"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+
+                    <TextBlock Text="Clean sheets"
+                               Grid.Row="4"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    <TextBlock Text="{Binding Player.CleanSheets.Value}"
+                               Grid.Column="1"
+                               Grid.Row="4"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+
+
+                    <TextBlock Text="Yellow cards"
+                               Grid.Row="5"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    <TextBlock Text="{Binding Player.YellowCards.Value}"
+                               Grid.Column="1"
+                               Grid.Row="5"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+
+                    <TextBlock Text="Red cards"
+                               Grid.Row="6"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    <TextBlock Text="{Binding Player.RedCards.Value}"
+                               Grid.Column="1"
+                               Grid.Row="6"
+                               FontSize="15"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                </Grid>
+
+                <TextBlock Text="On loan in 'team'"
+                           Margin="20 40 20 10"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}"
+                           Visibility="{Binding Player.IsOnLoan, Converter={StaticResource ResourceKey=boolToVis}}"/>
+                <TextBlock Text="Loaned from 'team'"
+                           Margin="20 10"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}"
+                           Visibility="{Binding Player.IsLoaned, Converter={StaticResource ResourceKey=boolToVis}}"/>
+                <TextBlock Text="Injured until 'date'"
+                           Margin="20 10"
+                           FontSize="15"
+                           Foreground="{StaticResource ResourceKey=#3c5458}"
+                           Visibility="{Binding Player.IsInjured, Converter={StaticResource ResourceKey=boolToVis}}" />
             </StackPanel>
         </Border>
     </Border>
