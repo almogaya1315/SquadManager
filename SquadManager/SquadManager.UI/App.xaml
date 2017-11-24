@@ -471,6 +471,8 @@
 
                     <SolidColorBrush x:Key="#3c5458"
                                      Color="#3c5458" />
+                    <SolidColorBrush x:Key="BorderColor"
+                                     Color="#bfe3e9"/>
                     <SolidColorBrush x:Key="GK"
                                      Color="#ffcccc" />
 

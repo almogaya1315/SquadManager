@@ -8,7 +8,7 @@
              d:DesignHeight="180"
              d:DesignWidth="1310">
     <Border Style="{StaticResource BorderStyle}">
-        <Grid>
+        <!--<Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"
                                MinHeight="30"
@@ -23,6 +23,6 @@
 
                 </Border>
             </Expander>
-        </Grid>
+        </Grid>-->
     </Border>
 </UserControl>

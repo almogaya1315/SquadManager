@@ -49,12 +49,15 @@
                         Value="{StaticResource ScrollViewerControlTemplate}" />
             </Style>
         </ScrollViewer.Style>
-        
-        <Border Background="Transparent"
+
+        <Canvas HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="134 33"
                 Height="950"
                 Width="1650">
 
-            <Grid>
+            <Grid Height="950"
+                  Width="1650">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="6*" />
@@ -84,8 +87,89 @@
                 <ContentPresenter Content="{Binding Source.SoccerLineupDetails}"
                                   Grid.Row="2"
                                   Grid.ColumnSpan="2" />
-
             </Grid>
-        </Border>
+
+            <Canvas Canvas.Top="765"
+                    Canvas.Left="5"
+                    Width="1310">
+                <ToggleButton x:Name="toggle"
+                              Content="Field ^"
+                              Width="1310" />
+                <Popup Placement="Top"
+                       PlacementTarget="{Binding ElementName=toggle}"
+                       IsOpen="{Binding ElementName=toggle, Path=IsChecked}">
+
+                    <!--<Popup.Style>
+                        <Style TargetType="Popup">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="3"
+                                                      BlurRadius="3"
+                                                      Color="#a6d6df" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Popup.Style>-->
+
+                    <!--<ContentPresenter />-->
+
+                    <Border Background="Green"
+                            Width="1310"
+                            Height="665"
+                            BorderBrush="{StaticResource ResourceKey=BorderColor}"
+                            BorderThickness="20">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5*" />
+                                <ColumnDefinition Width="25*" />
+                                <ColumnDefinition Width=".5*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height=".5*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="2*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.ColumnSpan="2"
+                                        Grid.Column="1">
+                                <Button Content="Substitute"
+                                        Margin="0 10 10 0"
+                                        Padding="10 0">
+
+                                </Button>
+                            </StackPanel>
+
+                            <Border Grid.Row="1"
+                                    Grid.Column="1"
+                                    Grid.RowSpan="4"
+                                    Margin="150 10 0 20">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Resources/Images/half_field_layout.png">
+                                        <ImageBrush.RelativeTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform CenterY="0.5"
+                                                                CenterX="0.5" />
+                                                <SkewTransform CenterY="0.5"
+                                                               CenterX="0.5" />
+                                                <RotateTransform CenterY="0.5"
+                                                                 CenterX="0.5" />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </ImageBrush.RelativeTransform>
+                                    </ImageBrush>
+                                </Border.Background>
+
+                            </Border>
+
+                        </Grid>
+                    </Border>
+                </Popup>
+            </Canvas >
+
+        </Canvas>
     </ScrollViewer>
 </UserControl>
