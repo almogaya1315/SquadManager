@@ -1,6 +1,7 @@
 ﻿using SquadManager.UI.Base;
 using SquadManager.UI.Enums;
 using SquadManager.UI.Models;
+using SquadManager.UI.SharedViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using SquadManager.UI.TeamDetails.ViewModels;
 using System;
@@ -56,6 +57,8 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
             Collections = collections;
             Team = new TeamViewModel(team, _changesManager, Collections);
             Substitutions = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Substitute).ToList();
+            if (Substitutions.Count < 7) Substitutions.Add(new SoccerPlayerViewModel() { Name = new EditableCellViewModel(string.Empty, _changesManager), Position = new ComboBoxCellViewModel(null, null, _changesManager) });
+
             Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToList();
 
             string firstName = string.Empty;
@@ -75,7 +78,7 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 
         public void Changed(ChangeArgs args)
         {
-            
+
         }
     }
 }

@@ -33,8 +33,8 @@
                     <TextBlock Text="{Binding PlayerToRemove.Name.Value, StringFormat={}Delete {0}?}"
                                FontSize="15"
                                Margin="10"
-                               FontWeight="Bold" 
-                               TextAlignment="Center"/>
+                               FontWeight="Bold"
+                               TextAlignment="Center" />
                     <StackPanel Orientation="Horizontal">
                         <Button Content="YES"
                                 Margin="10"
@@ -128,12 +128,16 @@
                     </Button>
                 </StackPanel>
 
+
                 <dataGrid:SquadDataGrid ColumnBindings="{Binding Columns}"
                                         ItemsSource="{Binding Players}"
                                         Background="Transparent"
                                         Margin="10"
+                                        MaxHeight="580"
                                         Style="{StaticResource ResourceKey=MetroDataGridStyle}"
-                                        SelectedItem="{Binding SelectedPlayer}">
+                                        SelectedItem="{Binding SelectedPlayer}"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                        ScrollViewer.VerticalScrollBarVisibility="Hidden">
 
                     <dataGrid:SquadDataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader"
@@ -151,6 +155,7 @@
                         </Style>
                     </dataGrid:SquadDataGrid.ColumnHeaderStyle>
 
+                    
                     <dataGrid:SquadDataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Setter Property="BorderBrush"
@@ -204,8 +209,8 @@
                                     Value="Black" />
                         </Style>
                     </dataGrid:SquadDataGrid.CellStyle>
-
                 </dataGrid:SquadDataGrid>
+                
             </StackPanel>
         </Grid>
     </Border>

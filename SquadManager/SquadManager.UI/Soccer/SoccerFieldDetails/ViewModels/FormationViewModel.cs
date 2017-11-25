@@ -23,5 +23,26 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         public SoccerPlayerViewModel Player_9 { get; set; }
         public SoccerPlayerViewModel Player_10 { get; set; }
         public SoccerPlayerViewModel Player_11 { get; set; }
+
+        public List<SoccerPlayerViewModel> Lineup
+        {
+            get
+            {
+                return new List<SoccerPlayerViewModel>()
+                {
+                    Player_1,
+                    Player_2,
+                    Player_3,
+                    Player_4,
+                    Player_5,
+                    Player_6,
+                    Player_7,
+                    Player_8,
+                    Player_9,
+                    Player_10,
+                    Player_11,
+                };
+            }
+        }
     }
 }

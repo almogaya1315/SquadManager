@@ -5,6 +5,7 @@ using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,7 +38,8 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                                                            Player_8 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.CM), Collections, _changeManager),
                                                            Player_9 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.RW), Collections, _changeManager),
                                                            Player_10 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.CAM), Collections, _changeManager),
-                                                           Player_11 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.CF), Collections, _changeManager)},
+                                                           Player_11 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.ST), Collections, _changeManager)},
+
                 new FormationViewModel() { Name = "4-4-2" },
                 new FormationViewModel() { Name = "4-4-2" },
                 new FormationViewModel() { Name = "4-4-2" },
@@ -45,6 +47,19 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             };
 
             SelectedFormation = Formations.First();
+            string firstName = string.Empty;
+            foreach (var player in SelectedFormation.Lineup)
+            {
+                foreach (var c in (string)player.Name.Value)
+                {
+                    if (Char.IsWhiteSpace(c)) break;
+                    firstName += c;
+                }
+                var sureName = (player.Name.Value as string).Replace(firstName, string.Empty).TrimStart(new char[] { ' ' });
+                player.Name.SetValueToBinding(sureName);
+                firstName = string.Empty;
+                sureName = string.Empty;
+            }
         }
 
         public void Changed(ChangeArgs args)

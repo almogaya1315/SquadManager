@@ -40,6 +40,14 @@
                         <ItemContainerTemplate>
                             <ContentControl>
                                 <Border Style="{StaticResource ResourceKey=BorderStyle}"
+                                        Height="26"
+                                        MinHeight="26"
+                                        MaxHeight="26"
+                                        Width="87"
+                                        MinWidth="87"
+                                        MaxWidth="87"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
                                         Background="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Position.Value}"
@@ -75,6 +83,12 @@
                         <ItemContainerTemplate>
                             <ContentControl>
                                 <Border Style="{StaticResource ResourceKey=BorderStyle}"
+                                        Height="26"
+                                        MinHeight="26"
+                                        MaxHeight="26"
+                                        Width="100"
+                                        MinWidth="100"
+                                        MaxWidth="100"
                                         Background="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Position.Value}"
