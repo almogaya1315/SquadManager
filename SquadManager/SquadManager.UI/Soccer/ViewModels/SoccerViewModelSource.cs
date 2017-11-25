@@ -33,7 +33,7 @@ namespace SquadManager.UI.Soccer.ViewModels
             SoccerNavigationBar = new SoccerNavigationBarViewModel(team, changeManager);
             SoccerSquadDetails = new SoccerSquadDetailsViewModel(team, changeManager, collections, squadRepository, app);
             SoccerPlayerDetails = new SoccerPlayerDetailsViewModel(null, collections, changeManager);
-            SoccerLineupDetails = new SoccerLineupDetailsViewModel(team, changeManager);
+            SoccerLineupDetails = new SoccerLineupDetailsViewModel(team, changeManager, collections);
             SoccerFieldDetails = new SoccerFieldDetailsViewModel();
         }
     }

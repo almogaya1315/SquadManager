@@ -62,7 +62,7 @@
                     <ImageBrush ImageSource="/Resources/Images/half_field_layout.png" />
                 </Border.Background>
                 <Canvas>
-
+                    
                 </Canvas>
             </Border>
 

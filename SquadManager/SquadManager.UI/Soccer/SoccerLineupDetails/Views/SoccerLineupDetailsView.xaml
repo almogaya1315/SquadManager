@@ -8,21 +8,88 @@
              d:DesignHeight="180"
              d:DesignWidth="1310">
     <Border Style="{StaticResource BorderStyle}">
-        <!--<Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"
-                               MinHeight="30"
-                               MaxHeight="30"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Expander Panel.ZIndex="1"
-                      ExpandDirection="Up"
-                      FlowDirection="RightToLeft">
-                <Border Background="Green"
-                        Height="50">
+        <StackPanel>
+            <Border Height="16"
+                    Background="Green" />
 
-                </Border>
-            </Expander>
-        </Grid>-->
+            <Grid Width="1200"
+                  HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Substitutions"
+                           FontWeight="DemiBold"
+                           Foreground="{StaticResource ResourceKey=#3c5458}"
+                           Margin="10 10 10 5" />
+
+                <ItemsControl Margin="10 0"
+                              Grid.Row="1"
+                              ItemsSource="{Binding Substitutions}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid FlowDirection="LeftToRight" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <ItemContainerTemplate>
+                            <ContentControl>
+                                <Border Style="{StaticResource ResourceKey=BorderStyle}"
+                                        Background="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Position.Value}"
+                                                   Margin="5"
+                                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
+                                        <TextBlock Text="{Binding Name.Value}"
+                                                   Margin="5"
+                                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
+                                    </StackPanel>
+                                </Border>
+                            </ContentControl>
+                        </ItemContainerTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="Reserves"
+                           Grid.Column="1"
+                           FontWeight="DemiBold"
+                           Foreground="{StaticResource ResourceKey=#3c5458}"
+                           Margin="10 10 10 5" />
+
+                <ItemsControl Margin="10 0"
+                              Grid.Column="1"
+                              Grid.Row="1"
+                              ItemsSource="{Binding Reserves}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid FlowDirection="LeftToRight" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <ItemContainerTemplate>
+                            <ContentControl>
+                                <Border Style="{StaticResource ResourceKey=BorderStyle}"
+                                        Background="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Position.Value}"
+                                                   Margin="5"
+                                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
+                                        <TextBlock Text="{Binding Name.Value}"
+                                                   Margin="5"
+                                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
+                                    </StackPanel>
+                                </Border>
+                            </ContentControl>
+                        </ItemContainerTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </StackPanel>
     </Border>
 </UserControl>
