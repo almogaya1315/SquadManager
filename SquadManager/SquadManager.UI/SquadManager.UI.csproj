@@ -134,6 +134,7 @@
     <Compile Include="SharedViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="SharedViewModels\ComboBoxCellViewModel.cs" />
     <Compile Include="SharedViewModels\EditableCellViewModel.cs" />
+    <Compile Include="Soccer\SoccerFieldDetails\ViewModels\FormationViewModel.cs" />
     <Compile Include="Soccer\SoccerFieldDetails\ViewModels\SoccerFieldDetailsViewModel.cs" />
     <Compile Include="Soccer\SoccerFieldDetails\Views\SoccerFieldDetailsView.xaml.cs">
       <DependentUpon>SoccerFieldDetailsView.xaml</DependentUpon>
