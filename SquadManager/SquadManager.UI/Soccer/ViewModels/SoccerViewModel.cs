@@ -38,6 +38,7 @@ namespace SquadManager.UI.Soccer.ViewModels
                 Source.SoccerTeamDetails,
                 Source.SoccerPlayerDetails,
                 Source.SoccerLineupDetails,
+                Source.SoccerFieldDetails,
             };
         }
         

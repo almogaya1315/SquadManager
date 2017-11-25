@@ -1,6 +1,7 @@
 ﻿using SquadManager.UI.Base;
 using SquadManager.UI.Models;
 using SquadManager.UI.Repositories;
+using SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels;
 using SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels;
 using SquadManager.UI.Soccer.SoccerNavigationBar.ViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
@@ -24,6 +25,7 @@ namespace SquadManager.UI.Soccer.ViewModels
         public SoccerSquadDetailsViewModel SoccerSquadDetails { get; set; }
         public SoccerPlayerDetailsViewModel SoccerPlayerDetails { get; set; }
         public SoccerLineupDetailsViewModel SoccerLineupDetails { get; set; }
+        public SoccerFieldDetailsViewModel SoccerFieldDetails { get; set; }
 
         public SoccerViewModelSource(Team team, Injector injector, IChangeManager changeManager, CollectionFactory collections, ISquadRepository squadRepository, Application app)
         {
@@ -32,6 +34,7 @@ namespace SquadManager.UI.Soccer.ViewModels
             SoccerSquadDetails = new SoccerSquadDetailsViewModel(team, changeManager, collections, squadRepository, app);
             SoccerPlayerDetails = new SoccerPlayerDetailsViewModel(null, collections, changeManager);
             SoccerLineupDetails = new SoccerLineupDetailsViewModel(team, changeManager);
+            SoccerFieldDetails = new SoccerFieldDetailsViewModel();
         }
     }
 }

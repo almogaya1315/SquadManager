@@ -14,6 +14,8 @@
              xmlns:playerDetailsViews="clr-namespace:SquadManager.UI.Soccer.SoccerPlayerDetails.Views"
              xmlns:lineupDetailsViewModels="clr-namespace:SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels"
              xmlns:lineupDetailsViews="clr-namespace:SquadManager.UI.Soccer.SoccerLineupDetails.Views"
+             xmlns:fieldDetailsViewModels="clr-namespace:SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels"
+             xmlns:fieldDetailsViews="clr-namespace:SquadManager.UI.Soccer.SoccerFieldDetails.Views"
              mc:Ignorable="d"
              d:DesignHeight="950"
              d:DesignWidth="1650">
@@ -37,6 +39,10 @@
 
         <DataTemplate DataType="{x:Type lineupDetailsViewModels:SoccerLineupDetailsViewModel}">
             <lineupDetailsViews:SoccerLineupDetailsView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type fieldDetailsViewModels:SoccerFieldDetailsViewModel}">
+            <fieldDetailsViews:SoccerFieldDetailsView />
         </DataTemplate>
     </UserControl.Resources>
 
@@ -89,77 +95,63 @@
                                   Grid.ColumnSpan="2" />
             </Grid>
 
-            <!--<ContentPresenter Width="1310"
+            <ContentPresenter Width="1310"
                               Height="665"
                               Canvas.Top="99"
                               Canvas.Left="5"
-                              Visibility="{Binding ElementName=toggle, Path=IsChecked, Converter={StaticResource ResourceKey=boolToVis}}"/>-->
-
-            <Border Background="Green"
-                    Width="1310"
-                    Height="665"
-                    Canvas.Top="99"
-                    Canvas.Left="5"
-                    BorderBrush="{StaticResource ResourceKey=BorderColor}"
-                    BorderThickness="20"
-                    Visibility="{Binding ElementName=toggle, Path=IsChecked, Converter={StaticResource ResourceKey=boolToVis}}">
-
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Effect">
-                            <Setter.Value>
-                                <DropShadowEffect ShadowDepth="3"
-                                                  BlurRadius="3"
-                                                  Color="#a6d6df" />
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Border.Style>
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*" />
-                        <ColumnDefinition Width="25*" />
-                        <ColumnDefinition Width=".5*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height=".5*" />
-                        <RowDefinition Height="2*" />
-                        <RowDefinition Height="2*" />
-                        <RowDefinition Height="2*" />
-                        <RowDefinition Height="2*" />
-                    </Grid.RowDefinitions>
-
-                    <StackPanel Orientation="Horizontal"
-                                Grid.ColumnSpan="2"
-                                Grid.Column="1">
-                        <Button Content="Substitute"
-                                Margin="0 10 10 0"
-                                Padding="10 0">
-
-                        </Button>
-                    </StackPanel>
-
-                    <Border Grid.Row="1"
-                            Grid.Column="1"
-                            Grid.RowSpan="4"
-                            Margin="150 10 0 20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="/Resources/Images/half_field_layout.png" />
-                        </Border.Background>
-                        <Canvas>
-
-                        </Canvas>
-                    </Border>
-
-                </Grid>
-            </Border>
+                              Content="{Binding Source.SoccerFieldDetails}"
+                              Visibility="{Binding ElementName=toggle, Path=IsChecked, Converter={StaticResource ResourceKey=boolToVis}}"/>
 
             <ToggleButton x:Name="toggle"
-                          Content="Field ^"
                           Width="1310"
                           Canvas.Top="764"
-                          Canvas.Left="5" />
+                          Canvas.Left="5">
+
+                <ToggleButton.Template>
+                    <ControlTemplate>
+                        <Border>
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}, Path=Content}"
+                                       TextAlignment="Center"
+                                       Foreground="White">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter Property="Background"
+                                                        Value="#378907"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="False">
+                                                <Setter Property="Background"
+                                                        Value="#286008" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+                
+                <ToggleButton.Style>
+                    <Style TargetType="ToggleButton">
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked"
+                                     Value="True">
+                                <Setter Property="Content"
+                                        Value="Close field &#8595;">
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsChecked"
+                                     Value="False">
+                                <Setter Property="Content"
+                                        Value="Open field &#8593;" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
 
         </Canvas>
     </ScrollViewer>

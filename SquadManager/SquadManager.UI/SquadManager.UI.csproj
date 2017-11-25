@@ -134,6 +134,10 @@
     <Compile Include="SharedViewModels\ComboBoxItemViewModel.cs" />
     <Compile Include="SharedViewModels\ComboBoxCellViewModel.cs" />
     <Compile Include="SharedViewModels\EditableCellViewModel.cs" />
+    <Compile Include="Soccer\SoccerFieldDetails\ViewModels\SoccerFieldDetailsViewModel.cs" />
+    <Compile Include="Soccer\SoccerFieldDetails\Views\SoccerFieldDetailsView.xaml.cs">
+      <DependentUpon>SoccerFieldDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Soccer\SoccerLineupDetails\ViewModels\SoccerLineupDetailsViewModel.cs" />
     <Compile Include="Soccer\SoccerLineupDetails\Views\SoccerLineupDetailsView.xaml.cs">
       <DependentUpon>SoccerLineupDetailsView.xaml</DependentUpon>
@@ -227,6 +231,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Soccer\SoccerFieldDetails\Views\SoccerFieldDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Soccer\SoccerLineupDetails\Views\SoccerLineupDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -268,6 +276,10 @@
   <ItemGroup>
     <Resource Include="Resources\Images\half_field_layout.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\field_grass.jpg" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
