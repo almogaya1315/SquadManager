@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
+using SquadManager.UI.Extensions;
+using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mosaic.UI.Extensions
+namespace SquadManager.UI.Extensions
 {
     public static class ListExtensions
     {
@@ -35,6 +37,13 @@ namespace Mosaic.UI.Extensions
             foreach (var item in list) observables.Add(item);
 
             return observables;
+        }
+
+        public static SquadList<SoccerPlayerViewModel> ToSquadList<T>(this IEnumerable<T> list) where T : SoccerPlayerViewModel
+        {
+            var squadList = new SquadList<SoccerPlayerViewModel>();
+            foreach (var player in list) squadList.Add(player);
+            return squadList;
         }
     }
 }

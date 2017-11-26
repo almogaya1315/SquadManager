@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
-using Mosaic.UI.Extensions;
 using SquadManager.UI.Base;
 using SquadManager.UI.Enums;
 using SquadManager.UI.Models;

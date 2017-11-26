@@ -109,6 +109,7 @@
     <Compile Include="Enums\RotationTeam.cs" />
     <Compile Include="Enums\SportType.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\SquadList.cs" />
     <Compile Include="LoadTeam\ViewModels\LoadTeamViewModel.cs" />
     <Compile Include="LoadTeam\Views\LoadTeamView.xaml.cs">
       <DependentUpon>LoadTeamView.xaml</DependentUpon>

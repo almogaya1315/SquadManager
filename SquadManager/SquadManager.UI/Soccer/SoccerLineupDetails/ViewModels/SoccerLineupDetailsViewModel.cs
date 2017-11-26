@@ -1,5 +1,6 @@
 ﻿using SquadManager.UI.Base;
 using SquadManager.UI.Enums;
+using SquadManager.UI.Extensions;
 using SquadManager.UI.Models;
 using SquadManager.UI.SharedViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
@@ -28,8 +29,8 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
             }
         }
 
-        private List<SoccerPlayerViewModel> _substitutions;
-        public List<SoccerPlayerViewModel> Substitutions
+        private SquadList<SoccerPlayerViewModel> _substitutions;
+        public SquadList<SoccerPlayerViewModel> Substitutions
         {
             get { return _substitutions; }
             set
@@ -38,13 +39,34 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 RaisePropertyChanged();
             }
         }
-        private List<SoccerPlayerViewModel> _reserves;
-        public List<SoccerPlayerViewModel> Reserves
+        private SquadList<SoccerPlayerViewModel> _reserves;
+        public SquadList<SoccerPlayerViewModel> Reserves
         {
             get { return _reserves; }
             set
             {
                 _reserves = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private SoccerPlayerViewModel _firstSubstitute;
+        public SoccerPlayerViewModel FirstSubstitute
+        {
+            get { return _firstSubstitute; }
+            set
+            {
+                _firstSubstitute = value;
+                RaisePropertyChanged();
+            }
+        }
+        private SoccerPlayerViewModel _secondSubstitute;
+        public SoccerPlayerViewModel SecondSubstitute
+        {
+            get { return _secondSubstitute; }
+            set
+            {
+                _secondSubstitute = value;
                 RaisePropertyChanged();
             }
         }
@@ -61,41 +83,30 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 
             for (int i = 0; i < 7; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Substitute;
             for (int i = 7; i < 18; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Lineup;
-            Substitutions = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Substitute).ToList();
+            Substitutions = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Substitute).ToSquadList();
             if (Substitutions.Count < 7) Substitutions.Add(new SoccerPlayerViewModel() { Name = new EditableCellViewModel(string.Empty, _changesManager), Position = new ComboBoxCellViewModel(null, null, _changesManager) });
-            Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToList();
+            Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToSquadList();
             Reserves.RemoveAll(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Lineup);
 
-            string firstName = string.Empty;
-            foreach (var player in Reserves)
-            {
-                foreach (var c in (string)player.Name.Value)
-                {
-                    if (Char.IsWhiteSpace(c)) break;
-                    firstName += c;
-                }
-                var sureName = (player.Name.Value as string).Replace(firstName, string.Empty).TrimStart(new char[] { ' ' });
-                player.Name.SetValueToBinding(sureName);
-                firstName = string.Empty;
-                sureName = string.Empty;
-            }
-            foreach (var player in Substitutions)
-            {
-                foreach (var c in (string)player.Name.Value)
-                {
-                    if (Char.IsWhiteSpace(c)) break;
-                    firstName += c;
-                }
-                var sureName = (player.Name.Value as string).Replace(firstName, string.Empty).TrimStart(new char[] { ' ' });
-                player.Name.SetValueToBinding(sureName);
-                firstName = string.Empty;
-                sureName = string.Empty;
-            }
+            Reserves.RemoveFirstNames();
+            Substitutions.RemoveFirstNames();
         }
 
-        private void SoccerPlayerViewModel_IsSelectedPropertyChanged(object sender, EventArgs args)
+        private void SoccerPlayerViewModel_IsSelectedPropertyChanged(object sender, IsSelectedEventArgs args)
         {
-            
+            var player = (SoccerPlayerViewModel)sender;
+
+            if (args.IsSelected)
+            {
+                if (FirstSubstitute == null) FirstSubstitute = player;
+                else if (FirstSubstitute != null && SecondSubstitute == null) SecondSubstitute = player;
+                else if (FirstSubstitute != null && SecondSubstitute != null) player.SetIsSelectedBinding(false);
+            }
+            else
+            {
+                if (FirstSubstitute != null && FirstSubstitute.Id == player.Id) FirstSubstitute = null;
+                else if (SecondSubstitute != null && SecondSubstitute.Id == player.Id) SecondSubstitute = null;
+            }
         }
 
         public void Changed(ChangeArgs args)

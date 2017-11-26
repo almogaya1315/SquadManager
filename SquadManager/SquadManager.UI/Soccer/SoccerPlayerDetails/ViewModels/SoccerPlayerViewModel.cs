@@ -12,7 +12,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
 {
     public class SoccerPlayerViewModel : ViewModel
     {
-        public static event EventHandler IsSelectedPropertyChanged;
+        public static event EventHandler<IsSelectedEventArgs> IsSelectedPropertyChanged;
 
         public int Id { get; set; }
         public int TeamId { get; set; }
@@ -38,9 +38,15 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             set
             {
                 _isSelected = value;
+                SetIsSelectedBinding(value);
                 IsSelectedPropertyChanged?.Invoke(this, new IsSelectedEventArgs(_isSelected));
-                RaisePropertyChanged();
             }
+        }
+
+        public void SetIsSelectedBinding(bool value)
+        {
+            if (!Equals(_isSelected, value)) _isSelected = value;
+            RaisePropertyChanged("IsSelected");
         }
 
         public SoccerPlayerViewModel(SoccerPlayer model = null, CollectionFactory collections = null, IChangeManager changeManager = null)
