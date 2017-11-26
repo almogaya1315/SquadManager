@@ -20,7 +20,9 @@
         MinWidth="1240"
         Height="960"
         Width="1240"
-        Background="#e7f5f7">
+        Background="#e7f5f7"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
     <Window.Resources>
 
         <DataTemplate DataType="{x:Type menuViewModels:MenuViewModel}">

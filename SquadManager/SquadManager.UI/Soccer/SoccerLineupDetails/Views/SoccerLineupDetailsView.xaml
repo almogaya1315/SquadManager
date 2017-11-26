@@ -7,16 +7,36 @@
              mc:Ignorable="d"
              d:DesignHeight="180"
              d:DesignWidth="1310">
+    <UserControl.Resources>
+        <DataTemplate x:Key="ItemsControlItemTemplate">
+            <Border Height="26"
+                    MinHeight="26"
+                    MaxHeight="26"
+                    Style="{StaticResource ResourceKey=BorderStyle}"
+                    Background="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}">
+                <StackPanel Orientation="Horizontal"
+                            Margin="5">
+                    <TextBlock Text="{Binding Position.Value}"
+                               Margin="5 0"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                    <TextBlock Text="{Binding Name.Value}"
+                               Margin="5 0"
+                               Foreground="{StaticResource ResourceKey=#3c5458}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Border Style="{StaticResource BorderStyle}">
         <StackPanel>
             <Border Height="16"
                     Background="Green" />
 
-            <Grid Width="1200"
+            <Grid Width="1300"
                   HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="6*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -25,84 +45,44 @@
                 <TextBlock Text="Substitutions"
                            FontWeight="DemiBold"
                            Foreground="{StaticResource ResourceKey=#3c5458}"
-                           Margin="10 10 10 5" />
+                           Margin="15 10 10 5" />
 
                 <ItemsControl Margin="10 0"
                               Grid.Row="1"
-                              ItemsSource="{Binding Substitutions}">
+                              ItemsSource="{Binding Substitutions}"
+                              ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid FlowDirection="LeftToRight" />
+                            <UniformGrid FlowDirection="LeftToRight"
+                                         Columns="3"
+                                         Rows="3"
+                                         Height="110" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
-
-                    <ItemsControl.ItemTemplate>
-                        <ItemContainerTemplate>
-                            <ContentControl>
-                                <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                                        Height="26"
-                                        MinHeight="26"
-                                        MaxHeight="26"
-                                        Width="87"
-                                        MinWidth="87"
-                                        MaxWidth="87"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Background="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Position.Value}"
-                                                   Margin="5"
-                                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
-                                        <TextBlock Text="{Binding Name.Value}"
-                                                   Margin="5"
-                                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
-                                    </StackPanel>
-                                </Border>
-                            </ContentControl>
-                        </ItemContainerTemplate>
-                    </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
                 <TextBlock Text="Reserves"
                            Grid.Column="1"
                            FontWeight="DemiBold"
                            Foreground="{StaticResource ResourceKey=#3c5458}"
-                           Margin="10 10 10 5" />
+                           Margin="15 10 10 5" />
 
-                <ItemsControl Margin="10 0"
-                              Grid.Column="1"
+                <ScrollViewer Grid.Column="1"
                               Grid.Row="1"
-                              ItemsSource="{Binding Reserves}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid FlowDirection="LeftToRight" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
-                    <ItemsControl.ItemTemplate>
-                        <ItemContainerTemplate>
-                            <ContentControl>
-                                <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                                        Height="26"
-                                        MinHeight="26"
-                                        MaxHeight="26"
-                                        Width="100"
-                                        MinWidth="100"
-                                        MaxWidth="100"
-                                        Background="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Position.Value}"
-                                                   Margin="5"
-                                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
-                                        <TextBlock Text="{Binding Name.Value}"
-                                                   Margin="5"
-                                                   Foreground="{StaticResource ResourceKey=#3c5458}" />
-                                    </StackPanel>
-                                </Border>
-                            </ContentControl>
-                        </ItemContainerTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                              Margin="10 0"
+                              VerticalScrollBarVisibility="Hidden"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding Reserves}"
+                                  ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid FlowDirection="LeftToRight"
+                                             Columns="4"
+                                             Height="110" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
             </Grid>
         </StackPanel>
     </Border>

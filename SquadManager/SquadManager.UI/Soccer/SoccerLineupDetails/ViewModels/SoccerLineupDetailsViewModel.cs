@@ -56,10 +56,13 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 
             Collections = collections;
             Team = new TeamViewModel(team, _changesManager, Collections);
+
+            for (int i = 0; i < 7; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Substitute;
+            for (int i = 7; i < 18; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Lineup;
             Substitutions = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Substitute).ToList();
             if (Substitutions.Count < 7) Substitutions.Add(new SoccerPlayerViewModel() { Name = new EditableCellViewModel(string.Empty, _changesManager), Position = new ComboBoxCellViewModel(null, null, _changesManager) });
-
             Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToList();
+            Reserves.RemoveAll(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Lineup);
 
             string firstName = string.Empty;
             foreach (var player in Reserves)
