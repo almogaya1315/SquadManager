@@ -57,6 +57,8 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
             Collections = collections;
             Team = new TeamViewModel(team, _changesManager, Collections);
 
+            SoccerPlayerViewModel.IsSelectedPropertyChanged += SoccerPlayerViewModel_IsSelectedPropertyChanged;
+
             for (int i = 0; i < 7; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Substitute;
             for (int i = 7; i < 18; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Lineup;
             Substitutions = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Substitute).ToList();
@@ -77,6 +79,23 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 firstName = string.Empty;
                 sureName = string.Empty;
             }
+            foreach (var player in Substitutions)
+            {
+                foreach (var c in (string)player.Name.Value)
+                {
+                    if (Char.IsWhiteSpace(c)) break;
+                    firstName += c;
+                }
+                var sureName = (player.Name.Value as string).Replace(firstName, string.Empty).TrimStart(new char[] { ' ' });
+                player.Name.SetValueToBinding(sureName);
+                firstName = string.Empty;
+                sureName = string.Empty;
+            }
+        }
+
+        private void SoccerPlayerViewModel_IsSelectedPropertyChanged(object sender, EventArgs args)
+        {
+            
         }
 
         public void Changed(ChangeArgs args)

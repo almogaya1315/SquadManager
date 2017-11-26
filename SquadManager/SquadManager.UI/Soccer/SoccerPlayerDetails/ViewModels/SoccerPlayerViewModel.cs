@@ -12,6 +12,8 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
 {
     public class SoccerPlayerViewModel : ViewModel
     {
+        public static event EventHandler IsSelectedPropertyChanged;
+
         public int Id { get; set; }
         public int TeamId { get; set; }
         public EditableCellViewModel Name { get; set; }
@@ -28,6 +30,18 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public bool IsLoaned { get; set; }
 
         public CellViewModel IsNewPlayer { get; set; }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                IsSelectedPropertyChanged?.Invoke(this, new IsSelectedEventArgs(_isSelected));
+                RaisePropertyChanged();
+            }
+        }
 
         public SoccerPlayerViewModel(SoccerPlayer model = null, CollectionFactory collections = null, IChangeManager changeManager = null)
         {
@@ -68,6 +82,16 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             RotationTeam = new CellViewModel(viewModel.RotationTeam.Value);
             IsNewPlayer = new CellViewModel(false);
             IsLineup = viewModel.IsLineup;
+        }
+    }
+
+    public class IsSelectedEventArgs : EventArgs
+    {
+        public bool IsSelected { get; set; }
+
+        public IsSelectedEventArgs(bool isSelected)
+        {
+            IsSelected = isSelected;
         }
     }
 }

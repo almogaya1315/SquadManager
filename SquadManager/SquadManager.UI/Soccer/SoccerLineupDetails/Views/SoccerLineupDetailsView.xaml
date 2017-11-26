@@ -9,21 +9,71 @@
              d:DesignWidth="1310">
     <UserControl.Resources>
         <DataTemplate x:Key="ItemsControlItemTemplate">
-            <Border Height="26"
-                    MinHeight="26"
-                    MaxHeight="26"
-                    Style="{StaticResource ResourceKey=BorderStyle}"
-                    Background="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}">
-                <StackPanel Orientation="Horizontal"
-                            Margin="5">
-                    <TextBlock Text="{Binding Position.Value}"
-                               Margin="5 0"
-                               Foreground="{StaticResource ResourceKey=#3c5458}" />
-                    <TextBlock Text="{Binding Name.Value}"
-                               Margin="5 0"
-                               Foreground="{StaticResource ResourceKey=#3c5458}" />
-                </StackPanel>
-            </Border>
+            <ToggleButton IsChecked="{Binding IsSelected}">
+                <ToggleButton.Template>
+                    <ControlTemplate>
+                        <Border Name="border"
+                                Height="26"
+                                MinHeight="26"
+                                MaxHeight="26">
+                            <Border.Style>
+                                <Style TargetType="Border"
+                                       BasedOn="{StaticResource ResourceKey=BorderStyle}">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}, Path=IsChecked}"
+                                                           Value="False"/>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                                                           Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="Background"
+                                                        Value="{Binding Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}, Path=IsChecked}"
+                                                           Value="False" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                                                           Value="True" />
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="Opacity"
+                                                        Value="5" />
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}, Path=IsChecked}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                                                           Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="Background"
+                                                        Value="#a6d6df" />
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="5">
+                                <TextBlock Text="{Binding Position.Value}"
+                                           Margin="5 0"
+                                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+                                <TextBlock Text="{Binding Name.Value}"
+                                           Margin="5 0"
+                                           Foreground="{StaticResource ResourceKey=#3c5458}" />
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
         </DataTemplate>
     </UserControl.Resources>
 
@@ -32,7 +82,7 @@
             <Border Height="16"
                     Background="Green" />
 
-            <Grid Width="1300"
+            <Grid Width="1000"
                   HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*" />
@@ -65,24 +115,24 @@
                            Grid.Column="1"
                            FontWeight="DemiBold"
                            Foreground="{StaticResource ResourceKey=#3c5458}"
-                           Margin="15 10 10 5" />
+                           Margin="5 10 10 5" />
 
-                <ScrollViewer Grid.Column="1"
-                              Grid.Row="1"
-                              Margin="10 0"
-                              VerticalScrollBarVisibility="Hidden"
-                              HorizontalScrollBarVisibility="Disabled">
-                    <ItemsControl ItemsSource="{Binding Reserves}"
-                                  ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid FlowDirection="LeftToRight"
-                                             Columns="4"
-                                             Height="110" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
+                <ItemsControl Grid.Row="1"
+                              Grid.Column="1"
+                              ItemsSource="{Binding Reserves}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.CanContentScroll="True"
+                              ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid FlowDirection="LeftToRight"
+                                         Columns="5"
+                                         Rows="3"
+                                         Height="110" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
             </Grid>
         </StackPanel>
     </Border>
