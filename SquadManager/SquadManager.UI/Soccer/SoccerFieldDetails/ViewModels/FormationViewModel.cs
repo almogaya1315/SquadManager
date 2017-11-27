@@ -1,4 +1,5 @@
 ﻿using SquadManager.UI.Base;
+using SquadManager.UI.Extensions;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 {
     public class FormationViewModel : ViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
+        public int TeamId { get; set; }
 
         public SoccerPlayerViewModel Player_1 { get; set; }
         public SoccerPlayerViewModel Player_2 { get; set; }
@@ -24,11 +27,11 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         public SoccerPlayerViewModel Player_10 { get; set; }
         public SoccerPlayerViewModel Player_11 { get; set; }
 
-        public List<SoccerPlayerViewModel> Lineup
+        public SquadList<SoccerPlayerViewModel> Lineup
         {
             get
             {
-                return new List<SoccerPlayerViewModel>()
+                return new SquadList<SoccerPlayerViewModel>()
                 {
                     Player_1,
                     Player_2,

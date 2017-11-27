@@ -20,10 +20,12 @@ namespace SquadManager.UI.Models
 
         public DateTime LastSave { get; set; }
         public List<SoccerPlayer> Squad { get; set; }
+        public List<Formation> Formations { get; set; }
 
         public Team()
         {
             Squad = new List<SoccerPlayer>();
+            Formations = new List<Formation>();
         }
     }
 }

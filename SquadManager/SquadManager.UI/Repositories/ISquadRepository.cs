@@ -25,5 +25,7 @@ namespace SquadManager.UI.Repositories
         void UpdatePlayer(int teamId, SoccerPlayer player);
         List<SoccerPlayer> GetTeamSquad(int teamId);
         void DeletePlayer(int teamId, int playerId);
+
+        Formation GetDefaultFormation(); //stp_SquadManager_GetDfaultFormation
     }
 }

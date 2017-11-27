@@ -89,7 +89,7 @@
                     HorizontalAlignment="Right"
                     Content="Edit"
                     IsEnabled="False">
-                
+
             </Button>
 
             <Button Grid.Column="1"
@@ -112,7 +112,8 @@
                         Width="100"
                         HorizontalAlignment="Left"
                         Margin="5 0 5 10"
-                        Padding="10 0">
+                        Padding="10 0"
+                        Command="{Binding Substitute}">
                 </Button>
                 <Button Content="Action"
                         Height="25"
@@ -130,10 +131,33 @@
                 <Border.Background>
                     <ImageBrush ImageSource="/Resources/Images/half_field_layout.png" />
                 </Border.Background>
-                <Canvas>
 
-                    <!--GK-->
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
+                <ItemsControl ItemsSource="{Binding SelectedFormation.Lineup}"
+                              ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Top"
+                                    Value="{Binding Y}" />
+                            <Setter Property="Canvas.Left"
+                                    Value="{Binding X}" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+
+                </ItemsControl>
+
+                <!--GK-->
+                <!--<ContentPresenter DataContext="{Binding SelectedFormation.Player_1}"
+                                      ContentTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}"
+                                      Canvas.Left="467"
+                                      Canvas.Top="508" />-->
+
+                <!--<Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_1.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="497"
                             Margin="0"
@@ -146,10 +170,10 @@
                                        Margin="5"
                                        Foreground="{StaticResource ResourceKey=#3c5458}" />
                         </StackPanel>
-                    </Border>
+                    </Border>-->
 
-                    <!--LB-->
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
+                <!--LB-->
+                <!--<Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_2.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="57"
                             Margin="0"
@@ -164,7 +188,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--CB-->
+                    -->
+                <!--CB-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_3.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="307"
@@ -180,7 +206,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--CB-->
+                    -->
+                <!--CB-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_4.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="652"
@@ -196,7 +224,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--RB-->
+                    -->
+                <!--RB-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_5.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="902"
@@ -212,7 +242,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--LW-->
+                    -->
+                <!--LW-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_6.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="87"
@@ -228,7 +260,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--CM-->
+                    -->
+                <!--CM-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_7.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="302"
@@ -244,7 +278,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--CM-->
+                    -->
+                <!--CM-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_8.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="657"
@@ -260,7 +296,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--RW-->
+                    -->
+                <!--RW-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_9.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="877"
@@ -276,7 +314,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--CAM-->
+                    -->
+                <!--CAM-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_10.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="412"
@@ -292,7 +332,9 @@
                         </StackPanel>
                     </Border>
 
-                    <!--ST-->
+                    -->
+                <!--ST-->
+                <!--
                     <Border Style="{StaticResource ResourceKey=BorderStyle}"
                             Background="{Binding SelectedFormation.Player_11.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
                             Canvas.Left="587"
@@ -306,8 +348,7 @@
                                        Margin="5"
                                        Foreground="{StaticResource ResourceKey=#3c5458}" />
                         </StackPanel>
-                    </Border>
-                </Canvas>
+                    </Border>-->
             </Border>
 
         </Grid>

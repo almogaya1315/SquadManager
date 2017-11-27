@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Models\Application.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Formation.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\Nation.cs" />
     <Compile Include="Models\Position.cs" />

@@ -30,6 +30,8 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public bool IsLoaned { get; set; }
 
         public CellViewModel IsNewPlayer { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         private bool _isSelected;
         public bool IsSelected

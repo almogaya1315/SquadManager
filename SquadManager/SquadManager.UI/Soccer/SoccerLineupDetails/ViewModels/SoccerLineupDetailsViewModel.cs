@@ -98,20 +98,78 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 
             if (args.IsSelected)
             {
-                if (FirstSubstitute == null) FirstSubstitute = player;
-                else if (FirstSubstitute != null && SecondSubstitute == null) SecondSubstitute = player;
+                if (FirstSubstitute == null)
+                {
+                    FirstSubstitute = player;
+                    _changesManager.Change(new SubstitutionArgs(ChangeType.SubSelected, new SoccerPlayer(FirstSubstitute)));
+                }
+                else if (FirstSubstitute != null && SecondSubstitute == null)
+                {
+                    SecondSubstitute = player;
+                    _changesManager.Change(new SubstitutionArgs(ChangeType.SubSelected, new SoccerPlayer(FirstSubstitute), new SoccerPlayer(SecondSubstitute)));
+                }
                 else if (FirstSubstitute != null && SecondSubstitute != null) player.SetIsSelectedBinding(false);
             }
             else
             {
-                if (FirstSubstitute != null && FirstSubstitute.Id == player.Id) FirstSubstitute = null;
-                else if (SecondSubstitute != null && SecondSubstitute.Id == player.Id) SecondSubstitute = null;
+                if (FirstSubstitute != null && FirstSubstitute.Id == player.Id)
+                {
+                    FirstSubstitute = null;
+                    _changesManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, null, SecondSubstitute != null ? new SoccerPlayer(SecondSubstitute) : null));
+                }
+                else if (SecondSubstitute != null && SecondSubstitute.Id == player.Id)
+                {
+                    SecondSubstitute = null;
+                    _changesManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, FirstSubstitute != null ? new SoccerPlayer(FirstSubstitute) : null, null));
+                }
             }
         }
 
         public void Changed(ChangeArgs args)
         {
+            if (args is SubstitutionArgs)
+            {
+                var subArgs = (SubstitutionArgs)args;
+                var firstSub = subArgs.FirstSub;
+                var secondSub = subArgs.SecondSub;
+                if (args.Type == ChangeType.SubSelected)
+                {
+                    if (FirstSubstitute == null)
+                    {
+                        FirstSubstitute = new SoccerPlayerViewModel(firstSub, Collections, _changesManager);
+                    }
+                    else if (firstSub.Id == FirstSubstitute.Id && secondSub == null) return;
 
+                    if (secondSub != null)
+                    {
+                        if (SecondSubstitute == null)
+                        {
+                            SecondSubstitute = new SoccerPlayerViewModel(secondSub, Collections, _changesManager);
+                        }
+                        else if (secondSub.Id == SecondSubstitute.Id) return;
+                    }
+                }
+                else if (args.Type == ChangeType.SubDeselect)
+                {
+                    if (firstSub != null)
+                    {
+                        FirstSubstitute = null;
+                    }
+                    else if (secondSub != null)
+                    {
+                        SecondSubstitute = null;
+                    }
+                }
+                else if (args.Type == ChangeType.SubConfirmed)
+                {
+                    // TODO:
+
+                    // reset subs VM
+
+                    // Also: 
+                    // recreate TeamDetails & PlayerDetails
+                }
+            }
         }
     }
 }

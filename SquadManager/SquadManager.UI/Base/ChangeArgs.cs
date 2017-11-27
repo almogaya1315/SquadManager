@@ -35,6 +35,18 @@ namespace SquadManager.UI.Base
         } 
     }
 
+    public class SubstitutionArgs : ChangeArgs
+    {
+        public SoccerPlayer FirstSub { get; set; }
+        public SoccerPlayer SecondSub { get; set; }
+
+        public SubstitutionArgs(ChangeType type, SoccerPlayer firstSub, SoccerPlayer secondSub = null) : base (type)
+        {
+            FirstSub = firstSub;
+            SecondSub = secondSub;
+        }
+    }
+
     public enum ChangeType
     {
         TeamChanged,
@@ -42,5 +54,8 @@ namespace SquadManager.UI.Base
         PlayerChanged,
         PlayerDeleted,
         PlayerSelected,
+        SubSelected,
+        SubDeselect,
+        SubConfirmed,
     }
 }

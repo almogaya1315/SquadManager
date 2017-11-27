@@ -46,7 +46,7 @@ namespace SquadManager.UI.Models
             Position =  CreatePosition((PositionRole)viewModel.Position.Value);
 
             IsCaptain = (bool)viewModel.IsCaptain.Value;
-            Rating = int.Parse((string)viewModel.Rating.Value);
+            Rating = viewModel.Rating.Value is string ? int.Parse((string)viewModel.Rating.Value) : (int)viewModel.Rating.Value;
             Rotation = (RotationTeam)viewModel.RotationTeam.Value;
             Nationality = (viewModel.Nationality.Value as ComboBoxItemViewModel).Id;
         }

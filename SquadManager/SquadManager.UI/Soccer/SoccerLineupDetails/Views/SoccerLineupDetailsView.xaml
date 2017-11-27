@@ -8,7 +8,7 @@
              d:DesignHeight="180"
              d:DesignWidth="1310">
     <UserControl.Resources>
-        <DataTemplate x:Key="ItemsControlItemTemplate">
+        <!--<DataTemplate x:Key="ItemsControlItemTemplate">
             <ToggleButton IsChecked="{Binding IsSelected}">
                 <ToggleButton.Template>
                     <ControlTemplate>
@@ -74,7 +74,7 @@
                     </ControlTemplate>
                 </ToggleButton.Template>
             </ToggleButton>
-        </DataTemplate>
+        </DataTemplate>-->
     </UserControl.Resources>
 
     <Border Style="{StaticResource BorderStyle}">

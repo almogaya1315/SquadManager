@@ -187,6 +187,14 @@ namespace SquadManager.UI.Repositories
                 con.Query("stp_SquadManager_DeletePlayer", parameters, commandType: CommandType.StoredProcedure);
             }
         }
+
+        public Formation GetDefaultFormation()
+        {
+            using (var con = OpenConnection())
+            {
+                return con.Query<Formation>("stp_SquadManager_GetDfaultFormation", commandType: CommandType.StoredProcedure).Single();
+            }
+        }
     }
 }
 
