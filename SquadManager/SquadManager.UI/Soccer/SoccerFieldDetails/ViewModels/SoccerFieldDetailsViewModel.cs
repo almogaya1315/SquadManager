@@ -1,9 +1,11 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using SquadManager.UI.Base;
+using SquadManager.UI.Extensions;
 using SquadManager.UI.Models;
 using SquadManager.UI.Repositories;
 using SquadManager.UI.SharedViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
+using SquadManager.UI.TeamDetails.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,17 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         private readonly IChangeManager _changeManager;
         private Team _teamModel;
 
-        public List<FormationViewModel> Formations { get; set; }
+        private TeamViewModel _team;
+        public TeamViewModel Team
+        {
+            get { return _team; }
+            set
+            {
+                _team = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public FormationViewModel SelectedFormation { get; set; }
 
         private SoccerPlayerViewModel _firstSubstitute;
@@ -53,33 +65,96 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             SquadRepository = squadRepository;
             Collections = collections;
 
-            var defaultFormation = SquadRepository.GetDefaultFormation();
+            Team = new TeamViewModel(team, _changeManager, Collections);
+            Team.Formations = _teamModel.Formations.Select(f => SetFormation(f, f.Name.Contains("Default"))).ToList();
 
-            Formations = new List<FormationViewModel>()
-            {
-                new FormationViewModel() { Name = "4-4-2", Player_1 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.GK), Collections, _changeManager) { X = defaultFormation.Player_1X, Y = defaultFormation.Player_1Y},
-                                                           Player_2 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.LB), Collections, _changeManager) { X = defaultFormation.Player_2X, Y = defaultFormation.Player_2Y},
-                                                           Player_3 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.CB), Collections, _changeManager) { X = defaultFormation.Player_3X, Y = defaultFormation.Player_3Y},
-                                                           Player_4 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.CB), Collections, _changeManager) { X = defaultFormation.Player_4X, Y = defaultFormation.Player_4Y},
-                                                           Player_5 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.RB), Collections, _changeManager) { X = defaultFormation.Player_5X, Y = defaultFormation.Player_5Y},
-                                                           Player_6 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.LW), Collections, _changeManager) { X = defaultFormation.Player_6X, Y = defaultFormation.Player_6Y},
-                                                           Player_7 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.CM), Collections, _changeManager) { X = defaultFormation.Player_7X, Y = defaultFormation.Player_7Y},
-                                                           Player_8 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.CM), Collections, _changeManager) { X = defaultFormation.Player_8X, Y = defaultFormation.Player_8Y},
-                                                           Player_9 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.RW), Collections, _changeManager) { X = defaultFormation.Player_9X, Y = defaultFormation.Player_9Y},
-                                                           Player_10 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.CAM), Collections, _changeManager) { X = defaultFormation.Player_10X, Y = defaultFormation.Player_10Y},
-                                                           Player_11 = new SoccerPlayerViewModel(_teamModel.Squad.FirstOrDefault(p => p.Position.Role == PositionRole.ST), Collections, _changeManager) { X = defaultFormation.Player_11X, Y = defaultFormation.Player_11Y},
-                },
-
-                new FormationViewModel() { Name = "4-4-2" },
-                new FormationViewModel() { Name = "4-4-2" },
-                new FormationViewModel() { Name = "4-4-2" },
-                new FormationViewModel() { Name = "4-4-2" },
-            };
-
-            SelectedFormation = Formations.First();
+            // TODO: Find(f => f.IsInUse)
+            SelectedFormation = Team.Formations.First();  
             SelectedFormation.Lineup.RemoveFirstNames();
 
             Substitute = new RelayCommand(SubstitutePlayers, CanSubstitute);
+        }
+
+        private FormationViewModel SetFormation(Formation formation, bool isDefault = true)
+        {
+            return new FormationViewModel()
+            {
+                Id = formation.Id,
+                Name = formation.Name,
+                Player_1 = SetFormationPlayer(formation.Player_1Id.Value, formation.Player_1X, formation.Player_1Y, isDefault, 1),
+                Player_2 = SetFormationPlayer(formation.Player_2Id.Value, formation.Player_2X, formation.Player_2Y, isDefault, 2),
+                Player_3 = SetFormationPlayer(formation.Player_3Id.Value, formation.Player_3X, formation.Player_3Y, isDefault, 3),
+                Player_4 = SetFormationPlayer(formation.Player_4Id.Value, formation.Player_5X, formation.Player_5Y, isDefault, 4),
+                Player_5 = SetFormationPlayer(formation.Player_5Id.Value, formation.Player_5X, formation.Player_5Y, isDefault, 5),
+                Player_6 = SetFormationPlayer(formation.Player_6Id.Value, formation.Player_6X, formation.Player_6Y, isDefault, 6),
+                Player_7 = SetFormationPlayer(formation.Player_7Id.Value, formation.Player_7X, formation.Player_7Y, isDefault, 7),
+                Player_8 = SetFormationPlayer(formation.Player_8Id.Value, formation.Player_8X, formation.Player_8Y, isDefault, 8),
+                Player_9 = SetFormationPlayer(formation.Player_9Id.Value, formation.Player_9X, formation.Player_9Y, isDefault, 9),
+                Player_10 = SetFormationPlayer(formation.Player_10Id.Value, formation.Player_10X, formation.Player_10Y, isDefault, 10),
+                Player_11 = SetFormationPlayer(formation.Player_11Id.Value, formation.Player_11X, formation.Player_11Y, isDefault, 11),
+            };
+        }
+
+        private SoccerPlayerViewModel SetFormationPlayer(int? playerId, int playerX, int playerY, bool isDefaultFormation, int? playerOrder = null)
+        {
+            SoccerPlayerViewModel player;
+            if (!isDefaultFormation)
+            {
+                if (!playerId.HasValue) return null;
+                player = Team.Squad.Find(p => p.Id == playerId.Value);
+                player.X = playerX;
+                player.Y = playerY;
+                return player;
+            }
+            else if (playerOrder.HasValue)
+            {
+                PositionRole? role = null;
+                switch (playerOrder)
+                {
+                    case 1:
+                        role = PositionRole.GK;
+                        break;
+                    case 2:
+                        role = PositionRole.LB;
+                        break;
+                    case 3:
+                        role = PositionRole.CB;
+                        break;
+                    case 4:
+                        role = PositionRole.CB;
+                        break;
+                    case 5:
+                        role = PositionRole.RB;
+                        break;
+                    case 6:
+                        role = PositionRole.LW;
+                        break;
+                    case 7:
+                        role = PositionRole.CM;
+                        break;
+                    case 8:
+                        role = PositionRole.CM;
+                        break;
+                    case 9:
+                        role = PositionRole.RW;
+                        break;
+                    case 10:
+                        role = PositionRole.CAM;
+                        break;
+                    case 11:
+                        role = PositionRole.ST;
+                        break;
+                }
+                if (role.HasValue)
+                {
+                    player = Team.Squad.FirstOrDefault(p => (PositionRole)p.Position.Value == role.Value);
+                    player.X = playerX;
+                    player.Y = playerY;
+                    return player;
+                }
+                else throw new InvalidOperationException("playerOrder value in not between 1 and 11.");
+            }
+            else throw new InvalidOperationException("playerOrder parameter cannot be null when setting the default formation.");
         }
 
         private bool CanSubstitute()
@@ -89,13 +164,13 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
         private void SubstitutePlayers()
         {
-            var first = FirstSubstitute;
-            var second = SecondSubstitute;
-
             // TODO: 
 
             // viewModel
-
+            var tempFirstSubValues = FirstSubstitute;
+            FirstSubstitute = SecondSubstitute;
+            SecondSubstitute = tempFirstSubValues;
+            tempFirstSubValues = null;
 
             // model
             // DB
@@ -114,7 +189,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                 {
                     if (FirstSubstitute == null)
                     {
-                        FirstSubstitute = new SoccerPlayerViewModel(firstSub, Collections, _changeManager);
+                        FirstSubstitute = Team.Squad.Find(p => p.Id == firstSub.Id);
                     }
                     else if (firstSub.Id == FirstSubstitute.Id && secondSub == null) return;
 
@@ -122,7 +197,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     {
                         if (SecondSubstitute == null)
                         {
-                            SecondSubstitute = new SoccerPlayerViewModel(secondSub, Collections, _changeManager);
+                            SecondSubstitute = Team.Squad.Find(p => p.Id == secondSub.Id); 
                         }
                         else if (secondSub.Id == SecondSubstitute.Id) return;
                     }

@@ -59,6 +59,9 @@
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -108,7 +111,8 @@
     <Compile Include="Enums\ColumnName.cs" />
     <Compile Include="Enums\RotationTeam.cs" />
     <Compile Include="Enums\SportType.cs" />
-    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ListExtension.cs" />
+    <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Extensions\SquadList.cs" />
     <Compile Include="LoadTeam\ViewModels\LoadTeamViewModel.cs" />
     <Compile Include="LoadTeam\Views\LoadTeamView.xaml.cs">

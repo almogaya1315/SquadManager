@@ -57,6 +57,7 @@ namespace SquadManager.UI.LoadTeam.ViewModels
             var sport = Enum.GetValues(typeof(SportType)).Cast<SportType>().First(s => s.ToString() == SelectedTeam.Sport.Name);
             var team = App.Teams.Find(t => t.Id == SelectedTeam.Id);
             team.Squad = SquadRepository.GetTeamSquad(team.Id);
+            team.Formations = SetTeamFormations(team);
 
             switch (sport)
             {
@@ -64,6 +65,34 @@ namespace SquadManager.UI.LoadTeam.ViewModels
                     Browser.Browse(new SoccerArgs(BrowseArgsType.SoccerSquadArgs, team));
                     break;
             }
+        }
+
+        private List<Formation> SetTeamFormations(Team team)
+        {
+            // TODO: should be in 'create new team' stage of the app
+
+            var formations = SquadRepository.GetTeamFormations(team.Id);
+            if (formations.Count == 1 && formations.First().Name.Contains("Default") && !formations.First().TeamId.HasValue)
+            {
+                var formation = formations.First();
+                formation.TeamId = team.Id;
+                formation.Name = "4-4-2";
+                formation.Player_1Id = team.Squad.ElementAt(0) != null ? (int?)team.Squad.ElementAt(0).Id : null;
+                formation.Player_2Id = team.Squad.ElementAt(1) != null ? (int?)team.Squad.ElementAt(1).Id : null;
+                formation.Player_3Id = team.Squad.ElementAt(2) != null ? (int?)team.Squad.ElementAt(2).Id : null;
+                formation.Player_4Id = team.Squad.ElementAt(3) != null ? (int?)team.Squad.ElementAt(3).Id : null;
+                formation.Player_5Id = team.Squad.ElementAt(4) != null ? (int?)team.Squad.ElementAt(4).Id : null;
+                formation.Player_6Id = team.Squad.ElementAt(5) != null ? (int?)team.Squad.ElementAt(5).Id : null;
+                formation.Player_7Id = team.Squad.ElementAt(6) != null ? (int?)team.Squad.ElementAt(6).Id : null;
+                formation.Player_8Id = team.Squad.ElementAt(7) != null ? (int?)team.Squad.ElementAt(7).Id : null;
+                formation.Player_9Id = team.Squad.ElementAt(8) != null ? (int?)team.Squad.ElementAt(8).Id : null;
+                formation.Player_10Id = team.Squad.ElementAt(9) != null ? (int?)team.Squad.ElementAt(9).Id : null;
+                formation.Player_11Id = team.Squad.ElementAt(10) != null ? (int?)team.Squad.ElementAt(10).Id : null;
+
+                SquadRepository.AddFormation(formation);
+            }
+
+            return formations;
         }
     }
 }

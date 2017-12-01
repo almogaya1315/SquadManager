@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SquadManager.UI.Extensions
 {
-    public static class ListExtensions
+    public static class ListExtension 
     {
         public static void Shuffle<T>(this IList<T> list)
         {
@@ -33,9 +33,7 @@ namespace SquadManager.UI.Extensions
         public static ObservableCollection<T> ToObservableCollection<T>(this IList<T> list)
         {
             var observables = new ObservableCollection<T>();
-
             foreach (var item in list) observables.Add(item);
-
             return observables;
         }
 

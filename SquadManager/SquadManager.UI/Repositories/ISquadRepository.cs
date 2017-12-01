@@ -26,6 +26,8 @@ namespace SquadManager.UI.Repositories
         List<SoccerPlayer> GetTeamSquad(int teamId);
         void DeletePlayer(int teamId, int playerId);
 
-        Formation GetDefaultFormation(); //stp_SquadManager_GetDfaultFormation
+        Formation GetDefaultFormation(); 
+        List<Formation> GetTeamFormations(int teamId);
+        void AddFormation(Formation formation);
     }
 }

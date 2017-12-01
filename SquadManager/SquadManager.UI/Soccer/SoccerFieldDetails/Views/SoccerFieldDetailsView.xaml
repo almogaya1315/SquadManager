@@ -47,7 +47,7 @@
             </Grid.RowDefinitions>
 
             <ItemsControl Grid.Column="2"
-                          ItemsSource="{Binding Formations}">
+                          ItemsSource="{Binding Team.Formations}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />

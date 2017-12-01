@@ -15,7 +15,7 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 {
     public class SoccerLineupDetailsViewModel : ViewModel, IChangeable
     {
-        private readonly IChangeManager _changesManager;
+        private readonly IChangeManager _changeManager;
         private Team _teamModel;
 
         private TeamViewModel _team;
@@ -71,20 +71,20 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
             }
         }
 
-        public SoccerLineupDetailsViewModel(Team team, IChangeManager changesManager, CollectionFactory collections)
+        public SoccerLineupDetailsViewModel(Team team, IChangeManager changeManager, CollectionFactory collections)
         {
-            _changesManager = changesManager;
+            _changeManager = changeManager;
             _teamModel = team;
 
             Collections = collections;
-            Team = new TeamViewModel(team, _changesManager, Collections);
+            Team = new TeamViewModel(team, _changeManager, Collections);
 
             SoccerPlayerViewModel.IsSelectedPropertyChanged += SoccerPlayerViewModel_IsSelectedPropertyChanged;
 
             for (int i = 0; i < 7; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Substitute;
             for (int i = 7; i < 18; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Lineup;
             Substitutions = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Substitute).ToSquadList();
-            if (Substitutions.Count < 7) Substitutions.Add(new SoccerPlayerViewModel() { Name = new EditableCellViewModel(string.Empty, _changesManager), Position = new ComboBoxCellViewModel(null, null, _changesManager) });
+            if (Substitutions.Count < 7) Substitutions.Add(new SoccerPlayerViewModel() { Name = new EditableCellViewModel(string.Empty, _changeManager), Position = new ComboBoxCellViewModel(null, null, _changeManager) });
             Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToSquadList();
             Reserves.RemoveAll(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Lineup);
 
@@ -101,12 +101,12 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 if (FirstSubstitute == null)
                 {
                     FirstSubstitute = player;
-                    _changesManager.Change(new SubstitutionArgs(ChangeType.SubSelected, new SoccerPlayer(FirstSubstitute)));
+                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == FirstSubstitute.Id).RefferenceCopy()));
                 }
                 else if (FirstSubstitute != null && SecondSubstitute == null)
                 {
                     SecondSubstitute = player;
-                    _changesManager.Change(new SubstitutionArgs(ChangeType.SubSelected, new SoccerPlayer(FirstSubstitute), new SoccerPlayer(SecondSubstitute)));
+                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == FirstSubstitute.Id).RefferenceCopy(), _teamModel.Squad.Find(p => p.Id == SecondSubstitute.Id).RefferenceCopy()));
                 }
                 else if (FirstSubstitute != null && SecondSubstitute != null) player.SetIsSelectedBinding(false);
             }
@@ -115,12 +115,12 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 if (FirstSubstitute != null && FirstSubstitute.Id == player.Id)
                 {
                     FirstSubstitute = null;
-                    _changesManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, null, SecondSubstitute != null ? new SoccerPlayer(SecondSubstitute) : null));
+                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, null, SecondSubstitute != null ? _teamModel.Squad.Find(p => p.Id == SecondSubstitute.Id).RefferenceCopy() : null));
                 }
                 else if (SecondSubstitute != null && SecondSubstitute.Id == player.Id)
                 {
                     SecondSubstitute = null;
-                    _changesManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, FirstSubstitute != null ? new SoccerPlayer(FirstSubstitute) : null, null));
+                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, FirstSubstitute != null ? _teamModel.Squad.Find(p => p.Id == FirstSubstitute.Id).RefferenceCopy() : null, null));
                 }
             }
         }
@@ -136,7 +136,7 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 {
                     if (FirstSubstitute == null)
                     {
-                        FirstSubstitute = new SoccerPlayerViewModel(firstSub, Collections, _changesManager);
+                        FirstSubstitute = Team.Squad.Find(p => p.Id == firstSub.Id);
                     }
                     else if (firstSub.Id == FirstSubstitute.Id && secondSub == null) return;
 
@@ -144,7 +144,7 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                     {
                         if (SecondSubstitute == null)
                         {
-                            SecondSubstitute = new SoccerPlayerViewModel(secondSub, Collections, _changesManager);
+                            SecondSubstitute = Team.Squad.Find(p => p.Id == secondSub.Id);
                         }
                         else if (secondSub.Id == SecondSubstitute.Id) return;
                     }

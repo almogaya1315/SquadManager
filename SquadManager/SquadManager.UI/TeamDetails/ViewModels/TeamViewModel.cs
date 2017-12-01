@@ -2,6 +2,7 @@
 using SquadManager.UI.ManagerDetails.ViewModels;
 using SquadManager.UI.Models;
 using SquadManager.UI.SharedViewModels;
+using SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels;
 using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,8 @@ namespace SquadManager.UI.TeamDetails.ViewModels
         public ComboBoxItemViewModel City { get; set; }
         public ComboBoxItemViewModel Sport { get; set; }
         public EditableCellViewModel Crest { get; set; }
+
+        public List<FormationViewModel> Formations { get; set; }
 
         public TeamViewModel() { }
         public TeamViewModel(Team team, IChangeManager changeManager, CollectionFactory collections)
