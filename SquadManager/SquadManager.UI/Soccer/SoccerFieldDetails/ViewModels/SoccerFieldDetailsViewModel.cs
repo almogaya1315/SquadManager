@@ -95,6 +95,8 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             // TODO: 
 
             // viewModel
+
+
             // model
             // DB
             // change
