@@ -166,11 +166,39 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         {
             // TODO: 
 
+            var firstSubModel = _teamModel.Squad.Find(p => p.Id == FirstSubstitute.Id);
+            var secondSubModel = _teamModel.Squad.Find(p => p.Id == SecondSubstitute.Id);
+
+            var tempFirstSubModelValues = firstSubModel;
+            secondSubModel.Position.Role = (PositionRole)SecondSubstitute.Position.Value;
+            var formationModel = _teamModel.Formations.Find(f => f.Id == SelectedFormation.Id);
+
+            if (firstSubModel.Id == formationModel.Player_1Id.Value)
+            {
+                formationModel.Player_1Id = SecondSubstitute.Id;
+                formationModel.Player_1X = SecondSubstitute.X;
+                formationModel.Player_1Y = SecondSubstitute.Y;
+            }
+            else if (firstSubModel.Id == formationModel.Player_2Id)
+            {
+
+            }
+            //...
+
             // viewModel
             var tempFirstSubValues = FirstSubstitute;
-            FirstSubstitute = SecondSubstitute;
-            SecondSubstitute = tempFirstSubValues;
+            FirstSubstitute.Position = SecondSubstitute.Position;
+            FirstSubstitute.X = SecondSubstitute.X;
+            FirstSubstitute.Y = SecondSubstitute.Y;
+
+            SecondSubstitute.Position = tempFirstSubValues.Position;
+            SecondSubstitute.X = tempFirstSubValues.X;
+            SecondSubstitute.Y = tempFirstSubValues.Y;
             tempFirstSubValues = null;
+
+            
+
+            SelectedFormation = SetFormation()
 
             // model
             // DB
@@ -189,7 +217,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                 {
                     if (FirstSubstitute == null)
                     {
-                        FirstSubstitute = Team.Squad.Find(p => p.Id == firstSub.Id);
+                        FirstSubstitute = SelectedFormation.Lineup.FirstOrDefault(p => p.Id == firstSub.Id) ?? Team.Squad.Find(p => p.Id == firstSub.Id);
                     }
                     else if (firstSub.Id == FirstSubstitute.Id && secondSub == null) return;
 
@@ -197,7 +225,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     {
                         if (SecondSubstitute == null)
                         {
-                            SecondSubstitute = Team.Squad.Find(p => p.Id == secondSub.Id); 
+                            SecondSubstitute = SelectedFormation.Lineup.FirstOrDefault(p => p.Id == secondSub.Id) ?? Team.Squad.Find(p => p.Id == secondSub.Id); 
                         }
                         else if (secondSub.Id == SecondSubstitute.Id) return;
                     }
