@@ -10,3 +10,7 @@ FROM TblTeams
 SELECT *
 FROM TblSoccerPlayers
 
+SELECT *
+FROM TblFormations
+
+
