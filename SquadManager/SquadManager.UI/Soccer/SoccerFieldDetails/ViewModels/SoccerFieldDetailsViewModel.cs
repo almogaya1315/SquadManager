@@ -166,6 +166,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         {
             // TODO: 
 
+            /*
             var firstSubModel = _teamModel.Squad.Find(p => p.Id == FirstSubstitute.Id);
             var secondSubModel = _teamModel.Squad.Find(p => p.Id == SecondSubstitute.Id);
 
@@ -183,22 +184,22 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             {
 
             }
-            //...
+            //... */
 
             // viewModel
             var tempFirstSubValues = FirstSubstitute;
-            FirstSubstitute.Position = SecondSubstitute.Position;
+            FirstSubstitute.Position.SetValueToBinding(SecondSubstitute.Position.Value);
             FirstSubstitute.X = SecondSubstitute.X;
             FirstSubstitute.Y = SecondSubstitute.Y;
 
-            SecondSubstitute.Position = tempFirstSubValues.Position;
+            SecondSubstitute.Position.SetValueToBinding(tempFirstSubValues.Position.Value);
             SecondSubstitute.X = tempFirstSubValues.X;
             SecondSubstitute.Y = tempFirstSubValues.Y;
             tempFirstSubValues = null;
 
             
 
-            SelectedFormation = SetFormation()
+            //SelectedFormation = SetFormation()
 
             // model
             // DB
