@@ -14,6 +14,8 @@ namespace SquadManager.UI.Extensions
             string firstName = string.Empty;
             foreach (var player in this)
             {
+                if (!(player.Name.Value as string).Contains(" ")) break;
+
                 foreach (var c in (string)player.Name.Value)
                 {
                     if (Char.IsWhiteSpace(c)) break;

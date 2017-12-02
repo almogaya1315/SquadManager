@@ -163,13 +163,12 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             // sub first sub from 'field details' to second sub in 'lineup details'
             else if (SelectedFormation.Lineup.Contains(_firstSubstitute) && !SelectedFormation.Lineup.Contains(_secondSubstitute))
             {
-                _firstSubstitute = new SoccerPlayerViewModel(_secondSubstitute, Collections, _changeManager, App);
+                _firstSubstitute.Name.SetValueToBinding(_secondSubstitute.Name.Value);
+                _firstSubstitute.Position.SetValueToBinding(_secondSubstitute.Position.Value);
                 _firstSubstitute.X = firstSubX;
                 _firstSubstitute.Y = firstSubY;
 
-                // TODO..
-
-                
+                SelectedFormation.Lineup.RemoveFirstNames();
             }
             // sub first sub from 'lineup details' to second sub in 'field details'
             else if (!SelectedFormation.Lineup.Contains(_firstSubstitute) && SelectedFormation.Lineup.Contains(_secondSubstitute))
