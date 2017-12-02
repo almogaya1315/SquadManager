@@ -166,6 +166,8 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                 _firstSubstitute = _secondSubstitute;
                 _firstSubstitute.X = firstSubX;
                 _firstSubstitute.Y = firstSubY;
+
+                // TODO..
             }
             // sub first sub from 'lineup details' to second sub in 'field details'
             else if (!SelectedFormation.Lineup.Exists(p => p.Id == _firstSubstitute.Id) && SelectedFormation.Lineup.Exists(p => p.Id == _secondSubstitute.Id))
