@@ -200,13 +200,9 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
             var formation = _teamModel.Formations.Find(f => f.Id == SelectedFormation.Id);
             if (formation.LineupIds.Contains(_firstSubstitute.Id))
-            {
                 UpdateFormationModel(formation, _firstSubstitute.Id);
-            }
             if (formation.LineupIds.Contains(_secondSubstitute.Id))
-            {
                 UpdateFormationModel(formation, _secondSubstitute.Id);
-            }
 
             // DB
             SquadRepository.UpdatePlayer(_teamModel.Id, firstSubModel);
@@ -241,6 +237,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     _secondSubstitute.X = subX;
                     _secondSubstitute.Y = subY;
                     _secondSubstitute.RotationTeam = new CellViewModel(firstSubRotationValue);
+
                     _firstSubstitute = tempSecondSubValues;
                     _firstSubstitute.X = 0;
                     _firstSubstitute.Y = 0;
@@ -257,6 +254,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     _firstSubstitute.X = subX;
                     _firstSubstitute.Y = subY;
                     _firstSubstitute.RotationTeam = new CellViewModel(firstSubRotationValue);
+
                     _secondSubstitute = tempFirstSubValues;
                     _secondSubstitute.X = 0;
                     _secondSubstitute.Y = 0;
@@ -295,19 +293,6 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     }
                 }
             }
-
-            //if (formation.Player_1Id == subId)
-            //{
-            //    formation.Player_1Id = subId == _firstSubstitute.Id ? _secondSubstitute.Id : _firstSubstitute.Id;
-            //    formation.Player_1X = subId == _firstSubstitute.Id ? _secondSubstitute.X : _firstSubstitute.X;
-            //    formation.Player_1Y = subId == _firstSubstitute.Id ? _secondSubstitute.Y : _firstSubstitute.Y;
-            //}
-            //if (formation.Player_2Id == subId)
-            //{
-            //    formation.Player_2Id = subId == _firstSubstitute.Id ? _secondSubstitute.Id : _firstSubstitute.Id;
-            //    formation.Player_2X = subId == _firstSubstitute.Id ? _secondSubstitute.X : _firstSubstitute.X;
-            //    formation.Player_2Y = subId == _firstSubstitute.Id ? _secondSubstitute.Y : _firstSubstitute.Y;
-            //}
         }
 
         public void Changed(ChangeArgs args)
