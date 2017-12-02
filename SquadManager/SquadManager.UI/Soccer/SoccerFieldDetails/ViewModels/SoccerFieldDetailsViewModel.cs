@@ -89,6 +89,15 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             {
                 if (!playerId.HasValue) return null;
                 player = Team.Squad.Find(p => p.Id == playerId.Value);
+
+                var playerModel = _teamModel.Squad.Find(p => p.Id == player.Id);
+                if (playerModel.Rotation != RotationTeam.Lineup)
+                {
+                    playerModel.Rotation = RotationTeam.Lineup;
+                    SquadRepository.UpdatePlayer(_teamModel.Id, playerModel);
+                }
+
+                player.RotationTeam = new CellViewModel(RotationTeam.Lineup);
                 player.X = playerX;
                 player.Y = playerY;
                 return player;
@@ -218,6 +227,8 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         private void SubstituteBetweenChangeables(SubFrom from, int subX, int subY)
         {
             var lineup = SelectedFormation.Lineup;
+            var firstSubRotationValue = (RotationTeam)_firstSubstitute.RotationTeam.Value;
+            var secondSubRotationValue = (RotationTeam)_secondSubstitute.RotationTeam.Value;
 
             switch (from)
             {
@@ -225,11 +236,12 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     var secondSubIndex = lineup.IndexOf(_secondSubstitute);
                     lineup.Remove(_secondSubstitute);
 
-                    var secondSubRotationValue = _secondSubstitute.RotationTeam.Value;
+                    var tempSecondSubValues = _secondSubstitute;
                     _secondSubstitute = _firstSubstitute;
                     _secondSubstitute.X = subX;
                     _secondSubstitute.Y = subY;
-                    _secondSubstitute.RotationTeam = new CellViewModel(RotationTeam.Lineup);
+                    _secondSubstitute.RotationTeam = new CellViewModel(firstSubRotationValue);
+                    _firstSubstitute = tempSecondSubValues;
                     _firstSubstitute.X = 0;
                     _firstSubstitute.Y = 0;
                     _firstSubstitute.RotationTeam = new CellViewModel(secondSubRotationValue);
@@ -240,14 +252,15 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     var firstSubIndex = lineup.IndexOf(_firstSubstitute);
                     lineup.Remove(_firstSubstitute);
 
-                    var firstSubRotationValue = _firstSubstitute.RotationTeam.Value;
+                    var tempFirstSubValues = _firstSubstitute;
                     _firstSubstitute = _secondSubstitute;
                     _firstSubstitute.X = subX;
                     _firstSubstitute.Y = subY;
-                    _firstSubstitute.RotationTeam = new CellViewModel(RotationTeam.Lineup);
+                    _firstSubstitute.RotationTeam = new CellViewModel(firstSubRotationValue);
+                    _secondSubstitute = tempFirstSubValues;
                     _secondSubstitute.X = 0;
                     _secondSubstitute.Y = 0;
-                    _secondSubstitute.RotationTeam = new CellViewModel(firstSubRotationValue);
+                    _secondSubstitute.RotationTeam = new CellViewModel(secondSubRotationValue);
 
                     lineup.Insert(firstSubIndex, _firstSubstitute);
                     break;
@@ -260,20 +273,26 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         {
             foreach (var prop in formation.GetType().GetProperties())
             {
-                if (prop.Name.Contains("Id") && (int)prop.GetValue(prop) == subId)
+                if (prop.Name.Contains("Player_") && prop.Name.Contains("Id"))
                 {
-                    prop.SetValue(formation, subId == _firstSubstitute.Id ? _secondSubstitute.Id : _firstSubstitute.Id);
+                    var IdPropValue = (prop.GetValue(formation) as int?).Value;
+                    if (IdPropValue == subId)
+                    {
+                        prop.SetValue(formation, subId == _firstSubstitute.Id ? _secondSubstitute.Id : _firstSubstitute.Id);
 
-                    string playerNumber = string.Empty;
-                    foreach (var c in prop.Name) if (Char.IsNumber(c)) playerNumber += c;
+                        string playerNumber = string.Empty;
+                        foreach (var c in prop.Name) if (Char.IsNumber(c)) playerNumber += c;
 
-                    var XPropName = $"Player_{playerNumber}X";
-                    var XProp = formation.GetType().GetProperties().First(p => p.Name == XPropName);
-                    XProp.SetValue(formation, subId == _firstSubstitute.Id ? _secondSubstitute.X : _firstSubstitute.X);
+                        var XPropName = $"Player_{playerNumber}X";
+                        var XProp = formation.GetType().GetProperties().First(p => p.Name == XPropName);
+                        XProp.SetValue(formation, subId == _firstSubstitute.Id ? _secondSubstitute.X : _firstSubstitute.X);
 
-                    var YPropName = $"Player_{playerNumber}Y";
-                    var YProp = formation.GetType().GetProperties().First(p => p.Name == YPropName);
-                    YProp.SetValue(formation, subId == _firstSubstitute.Id ? _secondSubstitute.Y : _firstSubstitute.Y);
+                        var YPropName = $"Player_{playerNumber}Y";
+                        var YProp = formation.GetType().GetProperties().First(p => p.Name == YPropName);
+                        YProp.SetValue(formation, subId == _firstSubstitute.Id ? _secondSubstitute.Y : _firstSubstitute.Y);
+
+                        return;
+                    }
                 }
             }
 
