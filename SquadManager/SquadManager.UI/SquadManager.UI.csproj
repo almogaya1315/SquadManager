@@ -111,6 +111,7 @@
     <Compile Include="Enums\ColumnName.cs" />
     <Compile Include="Enums\RotationTeam.cs" />
     <Compile Include="Enums\SportType.cs" />
+    <Compile Include="Enums\SubFrom.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Extensions\SquadList.cs" />

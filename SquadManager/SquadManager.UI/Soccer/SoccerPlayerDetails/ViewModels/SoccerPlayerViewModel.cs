@@ -87,7 +87,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             IsNewPlayer = new CellViewModel(false);
         }
 
-        public SoccerPlayerViewModel(SoccerPlayerViewModel viewModel, CollectionFactory collections, IChangeManager changeManager, Application app)
+        public SoccerPlayerViewModel(SoccerPlayerViewModel viewModel, CollectionFactory collections, IChangeManager changeManager)
         {
             if (viewModel == null) return;
             var playerModel = new SoccerPlayer(viewModel);

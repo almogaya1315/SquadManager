@@ -230,7 +230,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
 
         private void AddNewPlayerToSquad()
         {
-            var player = new SoccerPlayerViewModel(NewPlayer, Collections, _changesManager, App);
+            var player = new SoccerPlayerViewModel(NewPlayer, Collections, _changesManager);
             Players.Remove(NewPlayer);
             Players.Add(player);
 
