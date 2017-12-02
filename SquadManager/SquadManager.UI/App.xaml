@@ -542,7 +542,20 @@
                                                         </MultiDataTrigger.Conditions>
                                                         <MultiDataTrigger.Setters>
                                                             <Setter Property="Background"
-                                                                    Value="#a6d6df" />
+                                                                    Value="IndianRed" />
+                                                        </MultiDataTrigger.Setters>
+                                                    </MultiDataTrigger>
+
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}, Path=IsChecked}"
+                                                                       Value="True" />
+                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"
+                                                                       Value="True" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <MultiDataTrigger.Setters>
+                                                            <Setter Property="Background"
+                                                                    Value="IndianRed" />
                                                         </MultiDataTrigger.Setters>
                                                     </MultiDataTrigger>
                                                 </Style.Triggers>

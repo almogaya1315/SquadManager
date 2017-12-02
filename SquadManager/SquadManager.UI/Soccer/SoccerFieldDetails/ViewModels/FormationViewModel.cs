@@ -15,7 +15,16 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         public string Name { get; set; }
         public int TeamId { get; set; }
 
-        public SoccerPlayerViewModel Player_1 { get; set; }
+        private SoccerPlayerViewModel _player_1;
+        public SoccerPlayerViewModel Player_1
+        {
+            get { return _player_1; }
+            set
+            {
+                _player_1 = value;
+                RaisePropertyChanged();
+            }
+        }
         public SoccerPlayerViewModel Player_2 { get; set; }
         public SoccerPlayerViewModel Player_3 { get; set; }
         public SoccerPlayerViewModel Player_4 { get; set; }
