@@ -36,6 +36,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         public SoccerPlayerViewModel Player_10 { get; set; }
         public SoccerPlayerViewModel Player_11 { get; set; }
 
+        private SquadList<SoccerPlayerViewModel> _lineup;
         public SquadList<SoccerPlayerViewModel> Lineup
         {
             get
@@ -54,6 +55,11 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     Player_10,
                     Player_11,
                 };
+            }
+            set
+            {
+                _lineup = value;
+                RaisePropertyChanged();
             }
         }
     }

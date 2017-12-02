@@ -153,7 +153,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
             // VIEW MODEL
             // sub inside 'field details'
-            if (SelectedFormation.Lineup.Exists(p => p.Id == _firstSubstitute.Id) && SelectedFormation.Lineup.Exists(p => p.Id == _secondSubstitute.Id))
+            if (SelectedFormation.Lineup.Contains(_firstSubstitute) && SelectedFormation.Lineup.Contains(_secondSubstitute))
             {
                 _firstSubstitute.X = _secondSubstitute.X;
                 _firstSubstitute.Y = _secondSubstitute.Y;
@@ -161,21 +161,23 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                 _secondSubstitute.Y = firstSubY;
             }
             // sub first sub from 'field details' to second sub in 'lineup details'
-            else if (SelectedFormation.Lineup.Exists(p => p.Id == _firstSubstitute.Id) && !SelectedFormation.Lineup.Exists(p => p.Id == _secondSubstitute.Id))
+            else if (SelectedFormation.Lineup.Contains(_firstSubstitute) && !SelectedFormation.Lineup.Contains(_secondSubstitute))
             {
-                _firstSubstitute = _secondSubstitute;
+                _firstSubstitute = new SoccerPlayerViewModel(_secondSubstitute, Collections, _changeManager, App);
                 _firstSubstitute.X = firstSubX;
                 _firstSubstitute.Y = firstSubY;
 
                 // TODO..
+
+                
             }
             // sub first sub from 'lineup details' to second sub in 'field details'
-            else if (!SelectedFormation.Lineup.Exists(p => p.Id == _firstSubstitute.Id) && SelectedFormation.Lineup.Exists(p => p.Id == _secondSubstitute.Id))
+            else if (!SelectedFormation.Lineup.Contains(_firstSubstitute) && SelectedFormation.Lineup.Contains(_secondSubstitute))
             {
 
             }
             // sub inside 'lineup details'
-            else if (!SelectedFormation.Lineup.Exists(p => p.Id == _firstSubstitute.Id) && !SelectedFormation.Lineup.Exists(p => p.Id == _secondSubstitute.Id))
+            else if (!SelectedFormation.Lineup.Contains(_firstSubstitute) && !SelectedFormation.Lineup.Contains(_secondSubstitute))
             {
 
             }
