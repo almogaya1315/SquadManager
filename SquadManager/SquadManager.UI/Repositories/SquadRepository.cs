@@ -129,12 +129,12 @@ namespace SquadManager.UI.Repositories
             }
         }
 
-        public void UpdatePlayer(int teamId, SoccerPlayer player)
+        public void UpdatePlayer(SoccerPlayer player)
         {
             using (var con = OpenConnection())
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@TeamId", teamId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@TeamId", player.TeamId, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@PlayerId", player.Id, DbType.Int32, ParameterDirection.Input);
                 parameters.Add("@Name", player.Name, DbType.String, ParameterDirection.Input);
                 parameters.Add("@Age", player.Age, DbType.Int32, ParameterDirection.Input);
@@ -207,49 +207,67 @@ namespace SquadManager.UI.Repositories
             }
         }
 
-        public void AddFormation(Formation formation)
+        public int AddFormation(Formation formation)
         {
             using (var con = OpenConnection())
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("TeamId", formation.TeamId, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("Name", formation.Name, DbType.String, ParameterDirection.Input);
-                parameters.Add("@PlayerId1", formation.Player_1Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX1", formation.Player_1X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY1", formation.Player_1Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId2", formation.Player_2Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX2", formation.Player_2X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY2", formation.Player_2Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId3", formation.Player_3Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX3", formation.Player_3X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY3", formation.Player_3Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId4", formation.Player_4Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX4", formation.Player_4X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY4", formation.Player_4Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId5", formation.Player_5Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX5", formation.Player_5X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY5", formation.Player_5Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId6", formation.Player_6Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX6", formation.Player_6X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY6", formation.Player_6Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId7", formation.Player_7Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX7", formation.Player_7X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY7", formation.Player_7Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId8", formation.Player_8Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX8", formation.Player_8X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY8", formation.Player_8Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId9", formation.Player_9Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX9", formation.Player_9X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY9", formation.Player_9Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId10", formation.Player_10Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX10", formation.Player_10X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY10", formation.Player_10Y, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerId11", formation.Player_11Id, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerX11", formation.Player_11X, DbType.Int32, ParameterDirection.Input);
-                parameters.Add("@PlayerY11", formation.Player_11Y, DbType.Int32, ParameterDirection.Input);
-
-                con.Query("stp_SquadManager_AddFormation", parameters, commandType: CommandType.StoredProcedure);
+                var parameters = SetFormationParameters(formation);
+                return con.Query<int>("stp_SquadManager_AddFormation", parameters, commandType: CommandType.StoredProcedure).Single();
             }
+        }
+
+        public void UpdateFormation(Formation formation)
+        {
+            using (var con = OpenConnection())
+            {
+                var parameters = SetFormationParameters(formation);
+                con.Query("stp_SquadManager_UpdateFormation", parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        private DynamicParameters SetFormationParameters(Formation formation)
+        {
+            var parameters = new DynamicParameters();
+            if (formation.Id > 0)
+            {
+                parameters.Add("TeamId", formation.TeamId, DbType.Int32, ParameterDirection.Input);
+            }
+            parameters.Add("TeamId", formation.TeamId, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("Name", formation.Name, DbType.String, ParameterDirection.Input);
+            parameters.Add("@PlayerId1", formation.Player_1Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX1", formation.Player_1X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY1", formation.Player_1Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId2", formation.Player_2Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX2", formation.Player_2X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY2", formation.Player_2Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId3", formation.Player_3Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX3", formation.Player_3X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY3", formation.Player_3Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId4", formation.Player_4Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX4", formation.Player_4X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY4", formation.Player_4Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId5", formation.Player_5Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX5", formation.Player_5X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY5", formation.Player_5Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId6", formation.Player_6Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX6", formation.Player_6X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY6", formation.Player_6Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId7", formation.Player_7Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX7", formation.Player_7X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY7", formation.Player_7Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId8", formation.Player_8Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX8", formation.Player_8X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY8", formation.Player_8Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId9", formation.Player_9Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX9", formation.Player_9X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY9", formation.Player_9Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId10", formation.Player_10Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX10", formation.Player_10X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY10", formation.Player_10Y, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerId11", formation.Player_11Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerX11", formation.Player_11X, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@PlayerY11", formation.Player_11Y, DbType.Int32, ParameterDirection.Input);
+            return parameters;
         }
     }
 }

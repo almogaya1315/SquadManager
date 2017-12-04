@@ -89,7 +89,7 @@ namespace SquadManager.UI.LoadTeam.ViewModels
                 formation.Player_10Id = team.Squad.ElementAt(9) != null ? (int?)team.Squad.ElementAt(9).Id : null;
                 formation.Player_11Id = team.Squad.ElementAt(10) != null ? (int?)team.Squad.ElementAt(10).Id : null;
 
-                SquadRepository.AddFormation(formation);
+                formation.Id = SquadRepository.AddFormation(formation);
             }
 
             return formations;

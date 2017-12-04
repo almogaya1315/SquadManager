@@ -22,12 +22,13 @@ namespace SquadManager.UI.Repositories
         List<Team> GetTeams();
 
         int AddPlayer(int teamId, SoccerPlayer player);
-        void UpdatePlayer(int teamId, SoccerPlayer player);
+        void UpdatePlayer(SoccerPlayer player);
         List<SoccerPlayer> GetTeamSquad(int teamId);
         void DeletePlayer(int teamId, int playerId);
 
         Formation GetDefaultFormation(); 
         List<Formation> GetTeamFormations(int teamId);
-        void AddFormation(Formation formation);
+        int AddFormation(Formation formation);
+        void UpdateFormation(Formation formation);
     }
 }

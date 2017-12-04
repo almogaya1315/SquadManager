@@ -301,7 +301,7 @@ namespace SquadManager.UI.Soccer.SoccerSquadDetails.ViewModels
                     if (changedPlayerArgs.Column == ColumnName.Position)
                         player.Position.Role = (PositionRole)Team.Squad.Find(p => p.Id == player.Id).Position.Value;
 
-                    SquadRepository.UpdatePlayer(_teamModel.Id, player);
+                    SquadRepository.UpdatePlayer(player);
 
                     break;
                 default:

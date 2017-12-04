@@ -35,8 +35,8 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
         public FormationViewModel SelectedFormation { get; set; }
 
-        public SoccerPlayerViewModel _firstSubstitute;
-        public SoccerPlayerViewModel _secondSubstitute;
+        private SoccerPlayerViewModel _firstSubstitute;
+        private SoccerPlayerViewModel _secondSubstitute;
 
         public ICommand Substitute { get; set; }
 
@@ -94,7 +94,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                 if (playerModel.Rotation != RotationTeam.Lineup)
                 {
                     playerModel.Rotation = RotationTeam.Lineup;
-                    SquadRepository.UpdatePlayer(_teamModel.Id, playerModel);
+                    SquadRepository.UpdatePlayer(playerModel);
                 }
 
                 player.RotationTeam = new CellViewModel(RotationTeam.Lineup);
@@ -165,6 +165,8 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             var secondSubX = _secondSubstitute.X;
             var secondSubY = _secondSubstitute.Y;
 
+            SubFrom? isInsideLineupSection = null;
+
             // VIEW MODEL
             // sub inside 'field details'
             if (SelectedFormation.Lineup.Contains(_firstSubstitute) && SelectedFormation.Lineup.Contains(_secondSubstitute))
@@ -177,26 +179,34 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             // sub first sub from 'field details' to second sub in 'lineup details'
             else if (SelectedFormation.Lineup.Contains(_firstSubstitute) && !SelectedFormation.Lineup.Contains(_secondSubstitute))
             {
-                SubstituteBetweenChangeables(SubFrom.FieldDetails, firstSubX, firstSubY);
+                SubstituteBetweenChangeables(SubFrom.FieldDetailsSection, firstSubX, firstSubY);
                 SelectedFormation.Lineup.RemoveFirstNames();
             }
             // sub first sub from 'lineup details' to second sub in 'field details'
             else if (!SelectedFormation.Lineup.Contains(_firstSubstitute) && SelectedFormation.Lineup.Contains(_secondSubstitute))
             {
-                SubstituteBetweenChangeables(SubFrom.LineupDetails, secondSubX, secondSubY);
+                SubstituteBetweenChangeables(SubFrom.LineupDetailsSection, secondSubX, secondSubY);
                 SelectedFormation.Lineup.RemoveFirstNames();
             }
             // sub inside 'lineup details'
             else if (!SelectedFormation.Lineup.Contains(_firstSubstitute) && !SelectedFormation.Lineup.Contains(_secondSubstitute))
             {
-
+                isInsideLineupSection = SubFrom.InsideLineupDetailsSection;
             }
 
             // MODEL
             SoccerPlayer firstSubModel = _teamModel.Squad.FirstOrDefault(p => p.Id == _firstSubstitute.Id);
             SoccerPlayer secondSubModel = _teamModel.Squad.FirstOrDefault(p => p.Id == _secondSubstitute.Id);
-            firstSubModel.Rotation = (RotationTeam)_firstSubstitute.RotationTeam.Value;
-            secondSubModel.Rotation = (RotationTeam)_secondSubstitute.RotationTeam.Value;
+            if (isInsideLineupSection.HasValue && isInsideLineupSection.Value == SubFrom.InsideLineupDetailsSection)
+            {
+                firstSubModel.Rotation = (RotationTeam)_secondSubstitute.RotationTeam.Value;
+                secondSubModel.Rotation = (RotationTeam)_firstSubstitute.RotationTeam.Value;
+            }
+            else
+            {
+                firstSubModel.Rotation = (RotationTeam)_firstSubstitute.RotationTeam.Value;
+                secondSubModel.Rotation = (RotationTeam)_secondSubstitute.RotationTeam.Value;
+            }
 
             var formation = _teamModel.Formations.Find(f => f.Id == SelectedFormation.Id);
             if (formation.LineupIds.Contains(_firstSubstitute.Id))
@@ -205,9 +215,9 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                 UpdateFormationModel(formation, _secondSubstitute.Id);
 
             // DB
-            SquadRepository.UpdatePlayer(_teamModel.Id, firstSubModel);
-            SquadRepository.UpdatePlayer(_teamModel.Id, secondSubModel);
-            //SquadRepository.UpdateFormation(_teamModel.Id, formation);
+            SquadRepository.UpdatePlayer(firstSubModel);
+            SquadRepository.UpdatePlayer(secondSubModel);
+            SquadRepository.UpdateFormation(formation);
 
             // CHANGE
             if (firstSubModel == null || secondSubModel == null) throw new InvalidOperationException("Models were not found from the view model id's");
@@ -228,7 +238,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
             switch (from)
             {
-                case SubFrom.LineupDetails:
+                case SubFrom.LineupDetailsSection:
                     var secondSubIndex = lineup.IndexOf(_secondSubstitute);
                     lineup.Remove(_secondSubstitute);
 
@@ -245,7 +255,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
                     lineup.Insert(secondSubIndex, _secondSubstitute);
                     break;
-                case SubFrom.FieldDetails:
+                case SubFrom.FieldDetailsSection:
                     var firstSubIndex = lineup.IndexOf(_firstSubstitute);
                     lineup.Remove(_firstSubstitute);
 
@@ -278,7 +288,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     {
                         prop.SetValue(formation, subId == _firstSubstitute.Id ? _secondSubstitute.Id : _firstSubstitute.Id);
 
-                        string playerNumber = string.Empty;
+                        var playerNumber = string.Empty;
                         foreach (var c in prop.Name) if (Char.IsNumber(c)) playerNumber += c;
 
                         var XPropName = $"Player_{playerNumber}X";

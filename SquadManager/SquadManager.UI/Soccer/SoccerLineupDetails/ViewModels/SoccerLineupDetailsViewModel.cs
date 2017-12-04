@@ -50,26 +50,8 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
             }
         }
 
-        private SoccerPlayerViewModel _firstSubstitute;
-        public SoccerPlayerViewModel FirstSubstitute
-        {
-            get { return _firstSubstitute; }
-            set
-            {
-                _firstSubstitute = value;
-                RaisePropertyChanged();
-            }
-        }
-        private SoccerPlayerViewModel _secondSubstitute;
-        public SoccerPlayerViewModel SecondSubstitute
-        {
-            get { return _secondSubstitute; }
-            set
-            {
-                _secondSubstitute = value;
-                RaisePropertyChanged();
-            }
-        }
+        public SoccerPlayerViewModel _firstSubstitute;
+        public SoccerPlayerViewModel _secondSubstitute;
 
         public SoccerLineupDetailsViewModel(Team team, IChangeManager changeManager, CollectionFactory collections)
         {
@@ -81,12 +63,9 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 
             SoccerPlayerViewModel.IsSelectedPropertyChanged += SoccerPlayerViewModel_IsSelectedPropertyChanged;
 
-            for (int i = 0; i < 7; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Substitute;
-            for (int i = 7; i < 18; i++) Team.Squad.ElementAt(i).RotationTeam.Value = RotationTeam.Lineup;
             Substitutions = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Substitute).ToSquadList();
             if (Substitutions.Count < 7) Substitutions.Add(new SoccerPlayerViewModel() { Name = new EditableCellViewModel(string.Empty, _changeManager), Position = new ComboBoxCellViewModel(null, null, _changeManager) });
             Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToSquadList();
-            Reserves.RemoveAll(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Lineup);
 
             Reserves.RemoveFirstNames();
             Substitutions.RemoveFirstNames();
@@ -98,29 +77,29 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 
             if (args.IsSelected)
             {
-                if (FirstSubstitute == null)
+                if (_firstSubstitute == null)
                 {
-                    FirstSubstitute = player;
-                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == FirstSubstitute.Id).RefferenceCopy()));
+                    _firstSubstitute = player;
+                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy()));
                 }
-                else if (FirstSubstitute != null && SecondSubstitute == null)
+                else if (_firstSubstitute != null && _secondSubstitute == null)
                 {
-                    SecondSubstitute = player;
-                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == FirstSubstitute.Id).RefferenceCopy(), _teamModel.Squad.Find(p => p.Id == SecondSubstitute.Id).RefferenceCopy()));
+                    _secondSubstitute = player;
+                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy(), _teamModel.Squad.Find(p => p.Id == _secondSubstitute.Id).RefferenceCopy()));
                 }
-                else if (FirstSubstitute != null && SecondSubstitute != null) player.SetIsSelectedBinding(false);
+                else if (_firstSubstitute != null && _secondSubstitute != null) player.SetIsSelectedBinding(false);
             }
             else
             {
-                if (FirstSubstitute != null && FirstSubstitute.Id == player.Id)
+                if (_firstSubstitute != null && _firstSubstitute.Id == player.Id)
                 {
-                    FirstSubstitute = null;
-                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, null, SecondSubstitute != null ? _teamModel.Squad.Find(p => p.Id == SecondSubstitute.Id).RefferenceCopy() : null));
+                    _firstSubstitute = null;
+                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, null, _secondSubstitute != null ? _teamModel.Squad.Find(p => p.Id == _secondSubstitute.Id).RefferenceCopy() : null));
                 }
-                else if (SecondSubstitute != null && SecondSubstitute.Id == player.Id)
+                else if (_secondSubstitute != null && _secondSubstitute.Id == player.Id)
                 {
-                    SecondSubstitute = null;
-                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, FirstSubstitute != null ? _teamModel.Squad.Find(p => p.Id == FirstSubstitute.Id).RefferenceCopy() : null, null));
+                    _secondSubstitute = null;
+                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, _firstSubstitute != null ? _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy() : null, null));
                 }
             }
         }
@@ -134,37 +113,117 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 var secondSub = subArgs.SecondSub;
                 if (args.Type == ChangeType.SubSelected)
                 {
-                    if (FirstSubstitute == null)
+                    if (_firstSubstitute == null)
                     {
-                        FirstSubstitute = Team.Squad.Find(p => p.Id == firstSub.Id);
+                        _firstSubstitute = Team.Squad.Find(p => p.Id == firstSub.Id);
                     }
-                    else if (firstSub.Id == FirstSubstitute.Id && secondSub == null) return;
+                    else if (firstSub.Id == _firstSubstitute.Id && secondSub == null) return;
 
                     if (secondSub != null)
                     {
-                        if (SecondSubstitute == null)
+                        if (_secondSubstitute == null)
                         {
-                            SecondSubstitute = Team.Squad.Find(p => p.Id == secondSub.Id);
+                            _secondSubstitute = Team.Squad.Find(p => p.Id == secondSub.Id);
                         }
-                        else if (secondSub.Id == SecondSubstitute.Id) return;
+                        else if (secondSub.Id == _secondSubstitute.Id) return;
                     }
                 }
                 else if (args.Type == ChangeType.SubDeselect)
                 {
                     if (firstSub != null)
                     {
-                        FirstSubstitute = null;
+                        _firstSubstitute = null;
                     }
                     else if (secondSub != null)
                     {
-                        SecondSubstitute = null;
+                        _secondSubstitute = null;
                     }
                 }
                 else if (args.Type == ChangeType.SubConfirmed)
                 {
-                    // TODO:
+                    var firstSubIndex = Substitutions.Contains(_firstSubstitute) ? Substitutions.IndexOf(_firstSubstitute) : Reserves.IndexOf(_firstSubstitute);
+                    var secondSubIndex = Substitutions.Contains(_secondSubstitute) ? Substitutions.IndexOf(_secondSubstitute) : Reserves.IndexOf(_secondSubstitute);
+
+                    // sub inside 'lineup details'
+                    if ((RotationTeam)_firstSubstitute.RotationTeam.Value != RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value != RotationTeam.Lineup)
+                    {
+                        // sub inside same rotation team 
+                        if (_firstSubstitute.RotationTeam.Value == _secondSubstitute.RotationTeam.Value)
+                        {
+                            if (Substitutions.Contains(_firstSubstitute))
+                            {
+                                Substitutions.RemoveAt(firstSubIndex);
+                                Substitutions.Insert(firstSubIndex, _secondSubstitute);
+                                Substitutions.RemoveAt(secondSubIndex);
+                                Substitutions.Insert(secondSubIndex, _firstSubstitute);
+                            }
+                            else if (Reserves.Contains(_firstSubstitute))
+                            {
+                                Reserves.RemoveAt(firstSubIndex);
+                                Reserves.Insert(firstSubIndex, _secondSubstitute);
+                                Reserves.RemoveAt(secondSubIndex);
+                                Reserves.Insert(secondSubIndex, _firstSubstitute);
+                            }
+                        }
+                        // sub between differant rotaion team
+                        else if (_firstSubstitute.RotationTeam.Value != _secondSubstitute.RotationTeam.Value)
+                        {
+                            if (Substitutions.Contains(_firstSubstitute))
+                            {
+                                Substitutions.RemoveAt(firstSubIndex);
+                                Substitutions.Insert(firstSubIndex, _secondSubstitute);
+
+                                Reserves.RemoveAt(secondSubIndex);
+                                Reserves.Insert(secondSubIndex, _firstSubstitute);
+                            }
+                            else if (Reserves.Contains(_firstSubstitute))
+                            {
+                                Reserves.RemoveAt(firstSubIndex);
+                                Reserves.Insert(firstSubIndex, _secondSubstitute);
+
+                                Substitutions.RemoveAt(secondSubIndex);
+                                Substitutions.Insert(secondSubIndex, _firstSubstitute);
+                            }
+                        }
+                    }
+                    // sub first sub from 'field details' to second sub in 'lineup details'
+                    else if ((RotationTeam)_firstSubstitute.RotationTeam.Value == RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value != RotationTeam.Lineup)
+                    {
+                        if (Substitutions.Contains(_secondSubstitute))
+                        {
+                            Substitutions.Remove(_secondSubstitute);
+                            Substitutions.Insert(secondSubIndex, _firstSubstitute);
+                            Substitutions.RemoveFirstNames();
+                        }
+                        else if (Reserves.Contains(_secondSubstitute))
+                        {
+                            Reserves.Remove(_secondSubstitute);
+                            Reserves.Insert(secondSubIndex, _firstSubstitute);
+                            Reserves.RemoveFirstNames();
+                        }
+                    }
+                    // sub first sub from 'lineup details' to second sub in 'field details'
+                    else if ((RotationTeam)_firstSubstitute.RotationTeam.Value != RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value == RotationTeam.Lineup)
+                    {
+                        if (Substitutions.Contains(_firstSubstitute))
+                        {
+                            Substitutions.Remove(_firstSubstitute);
+                            Substitutions.Insert(firstSubIndex, _secondSubstitute);
+                            Substitutions.RemoveFirstNames();
+                        }
+                        else if (Reserves.Contains(_firstSubstitute))
+                        {
+                            Reserves.Remove(_firstSubstitute);
+                            Reserves.Insert(firstSubIndex, _secondSubstitute);
+                            Reserves.RemoveFirstNames();
+                        }
+                    }
 
                     // reset subs VM
+                    _firstSubstitute.SetIsSelectedBinding(false);
+                    _secondSubstitute.SetIsSelectedBinding(false);
+                    _firstSubstitute = null;
+                    _secondSubstitute = null;
 
                     // Also: 
                     // recreate TeamDetails & PlayerDetails

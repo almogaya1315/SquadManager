@@ -8,7 +8,8 @@ namespace SquadManager.UI.Enums
 {
     public enum SubFrom
     {
-        LineupDetails,
-        FieldDetails,
+        LineupDetailsSection,
+        FieldDetailsSection,
+        InsideLineupDetailsSection,
     }
 }
