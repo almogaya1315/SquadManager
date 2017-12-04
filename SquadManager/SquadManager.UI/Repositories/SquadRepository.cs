@@ -230,10 +230,10 @@ namespace SquadManager.UI.Repositories
             var parameters = new DynamicParameters();
             if (formation.Id > 0)
             {
-                parameters.Add("TeamId", formation.TeamId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@FormationId", formation.Id, DbType.Int32, ParameterDirection.Input);
             }
-            parameters.Add("TeamId", formation.TeamId, DbType.Int32, ParameterDirection.Input);
-            parameters.Add("Name", formation.Name, DbType.String, ParameterDirection.Input);
+            parameters.Add("@TeamId", formation.TeamId, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@Name", formation.Name, DbType.String, ParameterDirection.Input);
             parameters.Add("@PlayerId1", formation.Player_1Id, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@PlayerX1", formation.Player_1X, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@PlayerY1", formation.Player_1Y, DbType.Int32, ParameterDirection.Input);

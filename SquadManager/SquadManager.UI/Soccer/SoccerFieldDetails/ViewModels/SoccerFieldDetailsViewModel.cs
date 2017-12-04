@@ -197,6 +197,9 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             // MODEL
             SoccerPlayer firstSubModel = _teamModel.Squad.FirstOrDefault(p => p.Id == _firstSubstitute.Id);
             SoccerPlayer secondSubModel = _teamModel.Squad.FirstOrDefault(p => p.Id == _secondSubstitute.Id);
+            var originalFirstSub = firstSubModel.RefferenceCopy();
+            var originalSecondSub = secondSubModel.RefferenceCopy();
+
             if (isInsideLineupSection.HasValue && isInsideLineupSection.Value == SubFrom.InsideLineupDetailsSection)
             {
                 firstSubModel.Rotation = (RotationTeam)_secondSubstitute.RotationTeam.Value;
@@ -221,7 +224,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
             // CHANGE
             if (firstSubModel == null || secondSubModel == null) throw new InvalidOperationException("Models were not found from the view model id's");
-            _changeManager.Change(new SubstitutionArgs(ChangeType.SubConfirmed, firstSubModel, secondSubModel));
+            _changeManager.Change(new SubstitutionArgs(ChangeType.SubConfirmed, originalFirstSub, originalSecondSub));
 
             // RESET SUB VM => should be in VIEW MODEL update??
             _firstSubstitute.SetIsSelectedBinding(false);

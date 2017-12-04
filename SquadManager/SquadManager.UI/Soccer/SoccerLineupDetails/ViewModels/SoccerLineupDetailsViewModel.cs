@@ -65,10 +65,12 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 
             Substitutions = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Substitute).ToSquadList();
             if (Substitutions.Count < 7) Substitutions.Add(new SoccerPlayerViewModel() { Name = new EditableCellViewModel(string.Empty, _changeManager), Position = new ComboBoxCellViewModel(null, null, _changeManager) });
-            Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToSquadList();
-
-            Reserves.RemoveFirstNames();
             Substitutions.RemoveFirstNames();
+            Substitutions.ArrangePositionRoleAsec();
+
+            Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToSquadList();
+            Reserves.RemoveFirstNames();
+            Reserves.ArrangePositionRoleAsec();
         }
 
         private void SoccerPlayerViewModel_IsSelectedPropertyChanged(object sender, IsSelectedEventArgs args)
@@ -111,122 +113,137 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 var subArgs = (SubstitutionArgs)args;
                 var firstSub = subArgs.FirstSub;
                 var secondSub = subArgs.SecondSub;
-                if (args.Type == ChangeType.SubSelected)
-                {
-                    if (_firstSubstitute == null)
-                    {
-                        _firstSubstitute = Team.Squad.Find(p => p.Id == firstSub.Id);
-                    }
-                    else if (firstSub.Id == _firstSubstitute.Id && secondSub == null) return;
 
-                    if (secondSub != null)
-                    {
-                        if (_secondSubstitute == null)
-                        {
-                            _secondSubstitute = Team.Squad.Find(p => p.Id == secondSub.Id);
-                        }
-                        else if (secondSub.Id == _secondSubstitute.Id) return;
-                    }
-                }
-                else if (args.Type == ChangeType.SubDeselect)
+                switch (args.Type)
                 {
-                    if (firstSub != null)
-                    {
+                    case ChangeType.SubSelected:
+                        if (_firstSubstitute == null)
+                        {
+                            _firstSubstitute = Team.Squad.Find(p => p.Id == firstSub.Id);
+                        }
+                        else if (firstSub.Id == _firstSubstitute.Id && secondSub == null) return;
+
+                        if (secondSub != null)
+                        {
+                            if (_secondSubstitute == null)
+                            {
+                                _secondSubstitute = Team.Squad.Find(p => p.Id == secondSub.Id);
+                            }
+                            else if (secondSub.Id == _secondSubstitute.Id) return;
+                        }
+                        break;
+                    case ChangeType.SubDeselect:
+                        if (firstSub != null)
+                        {
+                            _firstSubstitute = null;
+                        }
+                        else if (secondSub != null)
+                        {
+                            _secondSubstitute = null;
+                        }
+                        break;
+                    case ChangeType.SubConfirmed:
+                        var firstSubIndex = Substitutions.Contains(_firstSubstitute) ? Substitutions.IndexOf(_firstSubstitute) : Reserves.IndexOf(_firstSubstitute);
+                        var secondSubIndex = Substitutions.Contains(_secondSubstitute) ? Substitutions.IndexOf(_secondSubstitute) : Reserves.IndexOf(_secondSubstitute);
+
+                        // sub inside 'lineup details'
+                        if ((RotationTeam)_firstSubstitute.RotationTeam.Value != RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value != RotationTeam.Lineup)
+                        {
+                            // sub inside same rotation team 
+                            if ((RotationTeam)_firstSubstitute.RotationTeam.Value == (RotationTeam)_secondSubstitute.RotationTeam.Value)
+                            {
+                                if (Substitutions.Contains(_firstSubstitute))
+                                {
+                                    Substitutions.RemoveAt(firstSubIndex);
+                                    Substitutions.Insert(firstSubIndex, _secondSubstitute);
+                                    Substitutions.RemoveAt(secondSubIndex);
+                                    Substitutions.Insert(secondSubIndex, _firstSubstitute);
+                                }
+                                else if (Reserves.Contains(_firstSubstitute))
+                                {
+                                    Reserves.RemoveAt(firstSubIndex);
+                                    Reserves.Insert(firstSubIndex, _secondSubstitute);
+                                    Reserves.RemoveAt(secondSubIndex);
+                                    Reserves.Insert(secondSubIndex, _firstSubstitute);
+                                }
+                            }
+                            // sub between differant rotaion team
+                            else if ((RotationTeam)_firstSubstitute.RotationTeam.Value != (RotationTeam)_secondSubstitute.RotationTeam.Value)
+                            {
+                                if (Substitutions.Contains(_firstSubstitute))
+                                {
+                                    Substitutions.RemoveAt(firstSubIndex);
+                                    Substitutions.Insert(firstSubIndex, _secondSubstitute);
+
+                                    Reserves.RemoveAt(secondSubIndex);
+                                    Reserves.Insert(secondSubIndex, _firstSubstitute);
+                                }
+                                else if (Reserves.Contains(_firstSubstitute))
+                                {
+                                    Reserves.RemoveAt(firstSubIndex);
+                                    Reserves.Insert(firstSubIndex, _secondSubstitute);
+
+                                    Substitutions.RemoveAt(secondSubIndex);
+                                    Substitutions.Insert(secondSubIndex, _firstSubstitute);
+                                }
+                            }
+                        }
+                        // sub first sub from 'field details' to second sub in 'lineup details'
+                        else if ((RotationTeam)_firstSubstitute.RotationTeam.Value == RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value != RotationTeam.Lineup)
+                        {
+                            if (Substitutions.Contains(_secondSubstitute))
+                            {
+                                Substitutions.Remove(_secondSubstitute);
+                                Substitutions.Insert(secondSubIndex, _firstSubstitute);
+                            }
+                            else if (Reserves.Contains(_secondSubstitute))
+                            {
+                                Reserves.Remove(_secondSubstitute);
+                                Reserves.Insert(secondSubIndex, _firstSubstitute);
+                            }
+
+                            _secondSubstitute.X = _firstSubstitute.X;
+                            _secondSubstitute.Y = _firstSubstitute.Y;
+                            _firstSubstitute.X = 0;
+                            _firstSubstitute.Y = 0;
+                        }
+                        // sub first sub from 'lineup details' to second sub in 'field details'
+                        else if ((RotationTeam)_firstSubstitute.RotationTeam.Value != RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value == RotationTeam.Lineup)
+                        {
+                            if (Substitutions.Contains(_firstSubstitute))
+                            {
+                                Substitutions.Remove(_firstSubstitute);
+                                Substitutions.Insert(firstSubIndex, _secondSubstitute);
+                            }
+                            else if (Reserves.Contains(_firstSubstitute))
+                            {
+                                Reserves.Remove(_firstSubstitute);
+                                Reserves.Insert(firstSubIndex, _secondSubstitute);
+                            }
+
+                            _firstSubstitute.X = _secondSubstitute.X;
+                            _firstSubstitute.Y = _secondSubstitute.Y;
+                            _secondSubstitute.X = 0;
+                            _secondSubstitute.Y = 0;
+                        }
+
+                        Substitutions.RemoveFirstNames();
+                        Substitutions.ArrangePositionRoleAsec();
+                        Substitutions = new SquadList<SoccerPlayerViewModel>(Substitutions);
+
+                        Reserves.RemoveFirstNames();
+                        Reserves.ArrangePositionRoleAsec();
+                        Reserves = new SquadList<SoccerPlayerViewModel>(Reserves);
+
+                        // reset subs VM
+                        _firstSubstitute.SetIsSelectedBinding(false);
+                        _secondSubstitute.SetIsSelectedBinding(false);
                         _firstSubstitute = null;
-                    }
-                    else if (secondSub != null)
-                    {
                         _secondSubstitute = null;
-                    }
-                }
-                else if (args.Type == ChangeType.SubConfirmed)
-                {
-                    var firstSubIndex = Substitutions.Contains(_firstSubstitute) ? Substitutions.IndexOf(_firstSubstitute) : Reserves.IndexOf(_firstSubstitute);
-                    var secondSubIndex = Substitutions.Contains(_secondSubstitute) ? Substitutions.IndexOf(_secondSubstitute) : Reserves.IndexOf(_secondSubstitute);
 
-                    // sub inside 'lineup details'
-                    if ((RotationTeam)_firstSubstitute.RotationTeam.Value != RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value != RotationTeam.Lineup)
-                    {
-                        // sub inside same rotation team 
-                        if (_firstSubstitute.RotationTeam.Value == _secondSubstitute.RotationTeam.Value)
-                        {
-                            if (Substitutions.Contains(_firstSubstitute))
-                            {
-                                Substitutions.RemoveAt(firstSubIndex);
-                                Substitutions.Insert(firstSubIndex, _secondSubstitute);
-                                Substitutions.RemoveAt(secondSubIndex);
-                                Substitutions.Insert(secondSubIndex, _firstSubstitute);
-                            }
-                            else if (Reserves.Contains(_firstSubstitute))
-                            {
-                                Reserves.RemoveAt(firstSubIndex);
-                                Reserves.Insert(firstSubIndex, _secondSubstitute);
-                                Reserves.RemoveAt(secondSubIndex);
-                                Reserves.Insert(secondSubIndex, _firstSubstitute);
-                            }
-                        }
-                        // sub between differant rotaion team
-                        else if (_firstSubstitute.RotationTeam.Value != _secondSubstitute.RotationTeam.Value)
-                        {
-                            if (Substitutions.Contains(_firstSubstitute))
-                            {
-                                Substitutions.RemoveAt(firstSubIndex);
-                                Substitutions.Insert(firstSubIndex, _secondSubstitute);
-
-                                Reserves.RemoveAt(secondSubIndex);
-                                Reserves.Insert(secondSubIndex, _firstSubstitute);
-                            }
-                            else if (Reserves.Contains(_firstSubstitute))
-                            {
-                                Reserves.RemoveAt(firstSubIndex);
-                                Reserves.Insert(firstSubIndex, _secondSubstitute);
-
-                                Substitutions.RemoveAt(secondSubIndex);
-                                Substitutions.Insert(secondSubIndex, _firstSubstitute);
-                            }
-                        }
-                    }
-                    // sub first sub from 'field details' to second sub in 'lineup details'
-                    else if ((RotationTeam)_firstSubstitute.RotationTeam.Value == RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value != RotationTeam.Lineup)
-                    {
-                        if (Substitutions.Contains(_secondSubstitute))
-                        {
-                            Substitutions.Remove(_secondSubstitute);
-                            Substitutions.Insert(secondSubIndex, _firstSubstitute);
-                            Substitutions.RemoveFirstNames();
-                        }
-                        else if (Reserves.Contains(_secondSubstitute))
-                        {
-                            Reserves.Remove(_secondSubstitute);
-                            Reserves.Insert(secondSubIndex, _firstSubstitute);
-                            Reserves.RemoveFirstNames();
-                        }
-                    }
-                    // sub first sub from 'lineup details' to second sub in 'field details'
-                    else if ((RotationTeam)_firstSubstitute.RotationTeam.Value != RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value == RotationTeam.Lineup)
-                    {
-                        if (Substitutions.Contains(_firstSubstitute))
-                        {
-                            Substitutions.Remove(_firstSubstitute);
-                            Substitutions.Insert(firstSubIndex, _secondSubstitute);
-                            Substitutions.RemoveFirstNames();
-                        }
-                        else if (Reserves.Contains(_firstSubstitute))
-                        {
-                            Reserves.Remove(_firstSubstitute);
-                            Reserves.Insert(firstSubIndex, _secondSubstitute);
-                            Reserves.RemoveFirstNames();
-                        }
-                    }
-
-                    // reset subs VM
-                    _firstSubstitute.SetIsSelectedBinding(false);
-                    _secondSubstitute.SetIsSelectedBinding(false);
-                    _firstSubstitute = null;
-                    _secondSubstitute = null;
-
-                    // Also: 
-                    // recreate TeamDetails & PlayerDetails
+                        // Also: 
+                        // recreate TeamDetails & PlayerDetails
+                        break;
                 }
             }
         }

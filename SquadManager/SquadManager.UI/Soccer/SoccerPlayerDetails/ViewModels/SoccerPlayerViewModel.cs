@@ -21,6 +21,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
         public EditableCellViewModel BirthDate { get; set; }
         public EditableCellViewModel IsCaptain { get; set; }
         public ComboBoxCellViewModel Position { get; set; }
+        public PositionGroup Group { get; set; }
         public ComboBoxCellViewModel Nationality { get; set; }
         public EditableCellViewModel Rating { get; set; }
         public CellViewModel RotationTeam { get; set; }
@@ -80,6 +81,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             BirthDate = new EditableCellViewModel(model.BirthDate.ToShortDateString(), changeManager, ColumnName.BirthDate, model);
             IsCaptain = new EditableCellViewModel(model.IsCaptain, changeManager, ColumnName.IsCaptain, model);
             Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == model.Position.Role), collections.PositionRoles, changeManager, model, ColumnName.Position);
+            Group = model.Position.Group;
             Rating = new EditableCellViewModel(model.Rating, changeManager, ColumnName.Rating, model);
             Nationality = new ComboBoxCellViewModel(collections.NationViewModels.Find(n => n.Id == model.Nationality), collections.NationViewModels, changeManager, model, ColumnName.Nationality);
             RotationTeam = new CellViewModel(model.Rotation);
@@ -104,6 +106,7 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             Age = new CellViewModel(DateTime.Now.Year - birthDate.Year);
             IsCaptain = new EditableCellViewModel(viewModel.IsCaptain.Value, changeManager, ColumnName.IsCaptain, playerModel);
             Position = new ComboBoxCellViewModel(collections.PositionRoles.Find(pr => pr == (PositionRole)viewModel.Position.Value), collections.PositionRoles, changeManager, playerModel, ColumnName.Position);
+            Group = viewModel.Group;
             Nationality = new ComboBoxCellViewModel(collections.NationViewModels.Find(n => n.Id == (viewModel.Nationality.Value as ComboBoxItemViewModel).Id), collections.NationViewModels, changeManager, playerModel, ColumnName.Nationality);
             Rating = new EditableCellViewModel(viewModel.Rating.Value, changeManager, ColumnName.Rating, playerModel);
             RotationTeam = new CellViewModel(viewModel.RotationTeam.Value);

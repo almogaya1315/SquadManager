@@ -1,4 +1,5 @@
-﻿using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
+﻿using SquadManager.UI.Models;
+using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,20 @@ namespace SquadManager.UI.Extensions
                 firstName = string.Empty;
                 sureName = string.Empty;
             }
+        }
+
+        public void ArrangePositionRoleAsec()
+        {
+            var goalKeepers = this.Where(p => p.Group == PositionGroup.GoalKeepers).ToList();
+            var defenders = this.Where(p => p.Group == PositionGroup.Defenders).ToList();
+            var midfielders = this.Where(p => p.Group == PositionGroup.Midfielders).ToList();
+            var attackers = this.Where(p => p.Group == PositionGroup.Attackers).ToList();
+
+            Clear();
+            goalKeepers.ForEach(gk => Add(gk));
+            defenders.ForEach(df => Add(df));
+            midfielders.ForEach(md => Add(md));
+            attackers.ForEach(at => Add(at));
         }
     }
 }
