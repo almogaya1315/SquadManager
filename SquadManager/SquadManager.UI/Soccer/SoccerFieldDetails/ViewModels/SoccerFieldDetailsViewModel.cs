@@ -200,7 +200,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             var originalFirstSub = firstSubModel.RefferenceCopy();
             var originalSecondSub = secondSubModel.RefferenceCopy();
 
-            if (isInsideLineupSection.HasValue && isInsideLineupSection.Value == SubFrom.InsideLineupDetailsSection)
+            if (false) //isInsideLineupSection.HasValue && isInsideLineupSection.Value == SubFrom.InsideLineupDetailsSection)
             {
                 firstSubModel.Rotation = (RotationTeam)_secondSubstitute.RotationTeam.Value;
                 secondSubModel.Rotation = (RotationTeam)_firstSubstitute.RotationTeam.Value;
@@ -261,11 +261,11 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
                     _firstSubstitute.X = 0;
                     _firstSubstitute.Y = 0;
-                    _firstSubstitute.RotationTeam = new CellViewModel(secondSubRotationValue);
+                    _firstSubstitute.RotationTeam = new CellViewModel(firstSubRotationValue);
 
                     _secondSubstitute.X = subX;
                     _secondSubstitute.Y = subY;
-                    _secondSubstitute.RotationTeam = new CellViewModel(firstSubRotationValue);
+                    _secondSubstitute.RotationTeam = new CellViewModel(secondSubRotationValue);
 
                     lineup.Insert(firstSubIndex, _secondSubstitute);
                     break;
