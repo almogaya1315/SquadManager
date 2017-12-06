@@ -200,7 +200,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             var originalFirstSub = firstSubModel.RefferenceCopy();
             var originalSecondSub = secondSubModel.RefferenceCopy();
 
-            if (false) //isInsideLineupSection.HasValue && isInsideLineupSection.Value == SubFrom.InsideLineupDetailsSection)
+            if (isInsideLineupSection.HasValue && isInsideLineupSection.Value == SubFrom.InsideLineupDetailsSection)
             {
                 firstSubModel.Rotation = (RotationTeam)_secondSubstitute.RotationTeam.Value;
                 secondSubModel.Rotation = (RotationTeam)_firstSubstitute.RotationTeam.Value;
