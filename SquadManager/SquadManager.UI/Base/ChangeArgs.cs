@@ -38,7 +38,11 @@ namespace SquadManager.UI.Base
     public class SubstitutionArgs : ChangeArgs
     {
         public SoccerPlayer FirstSub { get; set; }
+        public int firstSubX { get; set; }
+        public int firstSubY { get; set; }
         public SoccerPlayer SecondSub { get; set; }
+        public int secondSubX { get; set; }
+        public int secondSubY { get; set; }
 
         public SubstitutionArgs(ChangeType type, SoccerPlayer firstSub, SoccerPlayer secondSub = null) : base (type)
         {

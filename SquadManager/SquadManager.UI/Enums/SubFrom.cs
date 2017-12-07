@@ -11,5 +11,6 @@ namespace SquadManager.UI.Enums
         LineupDetailsSection,
         FieldDetailsSection,
         InsideLineupDetailsSection,
+        InsideFieldDetailsSection,
     }
 }

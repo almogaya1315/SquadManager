@@ -82,12 +82,26 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 if (_firstSubstitute == null)
                 {
                     _firstSubstitute = player;
-                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy()));
+                    var subArgs = new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy())
+                    {
+                        firstSubX = _firstSubstitute.X,
+                        firstSubY = _firstSubstitute.Y,
+                        secondSubX = 0,
+                        secondSubY = 0,
+                    };
+                    _changeManager.Change(subArgs);
                 }
                 else if (_firstSubstitute != null && _secondSubstitute == null)
                 {
                     _secondSubstitute = player;
-                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy(), _teamModel.Squad.Find(p => p.Id == _secondSubstitute.Id).RefferenceCopy()));
+                    var subArgs = new SubstitutionArgs(ChangeType.SubSelected, _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy(), _teamModel.Squad.Find(p => p.Id == _secondSubstitute.Id).RefferenceCopy())
+                    {
+                        firstSubX = _firstSubstitute.X,
+                        firstSubY = _firstSubstitute.Y,
+                        secondSubX = _secondSubstitute.X,
+                        secondSubY = _secondSubstitute.Y,
+                    };
+                    _changeManager.Change(subArgs);
                 }
                 else if (_firstSubstitute != null && _secondSubstitute != null) player.SetIsSelectedBinding(false);
             }
@@ -96,12 +110,26 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                 if (_firstSubstitute != null && _firstSubstitute.Id == player.Id)
                 {
                     _firstSubstitute = null;
-                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, null, _secondSubstitute != null ? _teamModel.Squad.Find(p => p.Id == _secondSubstitute.Id).RefferenceCopy() : null));
+                    var subArgs = new SubstitutionArgs(ChangeType.SubDeselect, null, _secondSubstitute != null ? _teamModel.Squad.Find(p => p.Id == _secondSubstitute.Id).RefferenceCopy() : null)
+                    {
+                        firstSubX = 0,
+                        firstSubY = 0,
+                        secondSubX = _secondSubstitute.X,
+                        secondSubY = _secondSubstitute.Y,
+                    };
+                    _changeManager.Change(subArgs);
                 }
                 else if (_secondSubstitute != null && _secondSubstitute.Id == player.Id)
                 {
                     _secondSubstitute = null;
-                    _changeManager.Change(new SubstitutionArgs(ChangeType.SubDeselect, _firstSubstitute != null ? _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy() : null, null));
+                    var subArgs = new SubstitutionArgs(ChangeType.SubDeselect, _firstSubstitute != null ? _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy() : null, null)
+                    {
+                        firstSubX = _firstSubstitute.X,
+                        firstSubY = _firstSubstitute.Y,
+                        secondSubX = 0,
+                        secondSubY = 0,
+                    };
+                    _changeManager.Change(subArgs);
                 }
             }
         }
@@ -143,8 +171,16 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                         }
                         break;
                     case ChangeType.SubConfirmed:
+                        _firstSubstitute.RotationTeam.Value = firstSub.Rotation;
+                        _secondSubstitute.RotationTeam.Value = secondSub.Rotation; 
+
                         var firstSubIndex = Substitutions.Contains(_firstSubstitute) ? Substitutions.IndexOf(_firstSubstitute) : Reserves.IndexOf(_firstSubstitute);
                         var secondSubIndex = Substitutions.Contains(_secondSubstitute) ? Substitutions.IndexOf(_secondSubstitute) : Reserves.IndexOf(_secondSubstitute);
+
+                        var firstSubX = subArgs.secondSubX;
+                        var firstSubY = subArgs.secondSubY;
+                        var secondSubX = subArgs.firstSubX;
+                        var secondSubY = subArgs.firstSubY;
 
                         // sub inside 'lineup details'
                         if ((RotationTeam)_firstSubstitute.RotationTeam.Value != RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value != RotationTeam.Lineup)
@@ -194,18 +230,20 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                             if (Substitutions.Contains(_secondSubstitute))
                             {
                                 Substitutions.Remove(_secondSubstitute);
+                                _firstSubstitute.RotationTeam.Value = RotationTeam.Substitute;
                                 Substitutions.Insert(secondSubIndex, _firstSubstitute);
                             }
                             else if (Reserves.Contains(_secondSubstitute))
                             {
                                 Reserves.Remove(_secondSubstitute);
+                                _firstSubstitute.RotationTeam.Value = RotationTeam.Reserves;
                                 Reserves.Insert(secondSubIndex, _firstSubstitute);
                             }
 
-                            _secondSubstitute.X = _firstSubstitute.X;
-                            _secondSubstitute.Y = _firstSubstitute.Y;
-                            _firstSubstitute.X = 0;
-                            _firstSubstitute.Y = 0;
+                            _secondSubstitute.X = firstSubX;
+                            _secondSubstitute.Y = firstSubY;
+                            _firstSubstitute.X = secondSubX;
+                            _firstSubstitute.Y = secondSubY;
                         }
                         // sub first sub from 'lineup details' to second sub in 'field details'
                         else if ((RotationTeam)_firstSubstitute.RotationTeam.Value != RotationTeam.Lineup && (RotationTeam)_secondSubstitute.RotationTeam.Value == RotationTeam.Lineup)
@@ -213,18 +251,20 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                             if (Substitutions.Contains(_firstSubstitute))
                             {
                                 Substitutions.Remove(_firstSubstitute);
+                                _secondSubstitute.RotationTeam.Value = RotationTeam.Substitute;
                                 Substitutions.Insert(firstSubIndex, _secondSubstitute);
                             }
                             else if (Reserves.Contains(_firstSubstitute))
                             {
                                 Reserves.Remove(_firstSubstitute);
+                                _secondSubstitute.RotationTeam.Value = RotationTeam.Reserves;
                                 Reserves.Insert(firstSubIndex, _secondSubstitute);
                             }
 
-                            _firstSubstitute.X = _secondSubstitute.X;
-                            _firstSubstitute.Y = _secondSubstitute.Y;
-                            _secondSubstitute.X = 0;
-                            _secondSubstitute.Y = 0;
+                            _firstSubstitute.X = secondSubX;
+                            _firstSubstitute.Y = secondSubY;
+                            _secondSubstitute.X = firstSubX;
+                            _secondSubstitute.Y = firstSubY;
                         }
 
                         Substitutions.RemoveFirstNames();
