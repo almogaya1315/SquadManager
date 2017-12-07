@@ -3,10 +3,274 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SquadManager.UI.Soccer.SoccerFieldDetails.Views"
              mc:Ignorable="d"
              d:DesignHeight="665"
              d:DesignWidth="1310">
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="DefaultSubTemplate">
+            <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, Path=DataContext.SelectedFormation.Lineup}"
+                          ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Top"
+                                Value="{Binding Y}" />
+                        <Setter Property="Canvas.Left"
+                                Value="{Binding X}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
+            </ItemsControl>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="EditFormationTemplate">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4" 
+                        Grid.Column="1"/>
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Column="2" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Column="3" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Column="4" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="1" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="1"
+                        Grid.Column="1" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="1"
+                        Grid.Column="2" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="1"
+                        Grid.Column="3" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="1"
+                        Grid.Column="4" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="2" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="2"
+                        Grid.Column="1" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="2"
+                        Grid.Column="2" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="2"
+                        Grid.Column="3" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="2"
+                        Grid.Column="4" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="3" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="3"
+                        Grid.Column="1" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="3"
+                        Grid.Column="2" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="3"
+                        Grid.Column="3" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="3"
+                        Grid.Column="4" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="4" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="4"
+                        Grid.Column="1" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="4"
+                        Grid.Column="2" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="4"
+                        Grid.Column="3" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="4"
+                        Grid.Column="4" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="5" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="5"
+                        Grid.Column="1" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="5"
+                        Grid.Column="2" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="5"
+                        Grid.Column="3" />
+
+                <Border BorderThickness="1"
+                        BorderBrush="White"
+                        Background="LightSlateGray"
+                        Opacity=".4"
+                        Grid.Row="5"
+                        Grid.Column="4" />
+
+                <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, Path=DataContext.SelectedFormation.Lineup}"
+                              ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}"
+                              Grid.ColumnSpan="5"
+                              Grid.RowSpan="6">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Top"
+                                    Value="{Binding Y}" />
+                            <Setter Property="Canvas.Left"
+                                    Value="{Binding X}" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+
+                </ItemsControl>
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
+
     <Border Width="1310"
             Height="665"
             Canvas.Top="99"
@@ -80,17 +344,17 @@
 
             </Button>
 
-            <Button Grid.Column="2"
-                    Width="80"
-                    Padding="0"
-                    Height="22"
-                    MinHeight="22"
-                    Margin="5 5 100 -7"
-                    HorizontalAlignment="Right"
-                    Content="Edit"
-                    IsEnabled="False">
+            <ToggleButton Name="EditButton"
+                          Grid.Column="2"
+                          Width="80"
+                          Padding="0"
+                          Height="22"
+                          MinHeight="22"
+                          Margin="5 5 100 -7"
+                          HorizontalAlignment="Right"
+                          Content="Edit">
 
-            </Button>
+            </ToggleButton>
 
             <Button Grid.Column="1"
                     Width="100"
@@ -132,225 +396,25 @@
                     <ImageBrush ImageSource="/Resources/Images/half_field_layout.png" />
                 </Border.Background>
 
-                <ItemsControl ItemsSource="{Binding SelectedFormation.Lineup}"
-                              ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
-                    <ItemsControl.ItemContainerStyle>
-                        <Style TargetType="ContentPresenter">
-                            <Setter Property="Canvas.Top"
-                                    Value="{Binding Y}" />
-                            <Setter Property="Canvas.Left"
-                                    Value="{Binding X}" />
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=EditButton, Path=IsChecked}"
+                                             Value="false">
+                                    <Setter Property="Template"
+                                            Value="{StaticResource DefaultSubTemplate}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=EditButton, Path=IsChecked}"
+                                             Value="true">
+                                    <Setter Property="Template"
+                                            Value="{StaticResource EditFormationTemplate}" />
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
-                    </ItemsControl.ItemContainerStyle>
-
-                </ItemsControl>
-
-                <!--GK-->
-                <!--<ContentPresenter DataContext="{Binding SelectedFormation.Player_1}"
-                                      ContentTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}"
-                                      Canvas.Left="467"
-                                      Canvas.Top="508" />-->
-
-                <!--<Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_1.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="497"
-                            Margin="0"
-                            Canvas.Top="517">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_1.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_1.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>-->
-
-                <!--LB-->
-                <!--<Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_2.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="57"
-                            Margin="0"
-                            Canvas.Top="417">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_2.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_2.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--CB-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_3.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="307"
-                            Margin="0"
-                            Canvas.Top="432">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_3.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_3.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--CB-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_4.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="652"
-                            Margin="0"
-                            Canvas.Top="428">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_4.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_4.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--RB-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_5.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="902"
-                            Margin="0"
-                            Canvas.Top="422">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_5.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_5.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--LW-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_6.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="87"
-                            Margin="0"
-                            Canvas.Top="168">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_6.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_6.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--CM-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_7.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="302"
-                            Margin="0"
-                            Canvas.Top="238">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_7.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_7.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--CM-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_8.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="657"
-                            Margin="0"
-                            Canvas.Top="227">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_8.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_8.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--RW-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_9.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="877"
-                            Margin="0"
-                            Canvas.Top="152">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_9.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_9.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--CAM-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_10.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="412"
-                            Margin="0"
-                            Canvas.Top="138">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_10.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_10.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>
-
-                    -->
-                <!--ST-->
-                <!--
-                    <Border Style="{StaticResource ResourceKey=BorderStyle}"
-                            Background="{Binding SelectedFormation.Player_11.Position.Value, Converter={StaticResource ResourceKey=GroupToBackground}}"
-                            Canvas.Left="587"
-                            Margin="0"
-                            Canvas.Top="33">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding SelectedFormation.Player_11.Position.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                            <TextBlock Text="{Binding SelectedFormation.Player_11.Name.Value}"
-                                       Margin="5"
-                                       Foreground="{StaticResource ResourceKey=#3c5458}" />
-                        </StackPanel>
-                    </Border>-->
+                    </ContentControl.Style>
+                </ContentControl>
             </Border>
-
         </Grid>
     </Border>
 </UserControl>

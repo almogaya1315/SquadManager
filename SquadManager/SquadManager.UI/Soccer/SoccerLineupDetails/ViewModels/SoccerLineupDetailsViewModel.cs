@@ -114,8 +114,8 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                     {
                         firstSubX = 0,
                         firstSubY = 0,
-                        secondSubX = _secondSubstitute.X,
-                        secondSubY = _secondSubstitute.Y,
+                        secondSubX = _secondSubstitute != null ? _secondSubstitute.X : 0,
+                        secondSubY = _secondSubstitute != null ? _secondSubstitute.Y : 0,
                     };
                     _changeManager.Change(subArgs);
                 }
@@ -124,8 +124,8 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                     _secondSubstitute = null;
                     var subArgs = new SubstitutionArgs(ChangeType.SubDeselect, _firstSubstitute != null ? _teamModel.Squad.Find(p => p.Id == _firstSubstitute.Id).RefferenceCopy() : null, null)
                     {
-                        firstSubX = _firstSubstitute.X,
-                        firstSubY = _firstSubstitute.Y,
+                        firstSubX = _firstSubstitute != null ? _firstSubstitute.X : 0,
+                        firstSubY = _firstSubstitute != null ? _firstSubstitute.Y : 0,
                         secondSubX = 0,
                         secondSubY = 0,
                     };
