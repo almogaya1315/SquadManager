@@ -26,6 +26,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
             InitializeComponent();
 
             var editFormationControlTemplate = (ControlTemplate)Resources["EditFormationTemplate"];
+            _formationCanvas = (Canvas)editFormationControlTemplate.Resources.FindName("FormationCanvas");
         }
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
