@@ -8,6 +8,15 @@
              d:DesignWidth="1310">
 
     <UserControl.Resources>
+
+        <Style x:Key="FormationCellStyle"
+               TargetType="ContentPresenter">
+            <Setter Property="Canvas.Top"
+                    Value="{Binding Y}" />
+            <Setter Property="Canvas.Left"
+                    Value="{Binding X}" />
+        </Style>
+        
         <ControlTemplate x:Key="DefaultSubTemplate">
             <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, Path=DataContext.SelectedFormation.Lineup}"
                           ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}">
@@ -18,12 +27,8 @@
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Top"
-                                Value="{Binding Y}" />
-                        <Setter Property="Canvas.Left"
-                                Value="{Binding X}" />
-                    </Style>
+                    <Style BasedOn="{StaticResource FormationCellStyle}"
+                           TargetType="ContentPresenter" />
                 </ItemsControl.ItemContainerStyle>
 
             </ItemsControl>
@@ -247,22 +252,14 @@
                         Grid.Row="5"
                         Grid.Column="4" />
 
-                <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, Path=DataContext.SelectedFormation.Lineup}"
-                              ItemTemplate="{StaticResource ResourceKey=ItemsControlItemTemplate}"
-                              Grid.ColumnSpan="5"
-                              Grid.RowSpan="6">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                <ItemsControl Template="{StaticResource DefaultSubTemplate}">
 
-                    <ItemsControl.ItemContainerStyle>
-                        <Style TargetType="ContentPresenter">
-                            <Setter Property="Canvas.Top"
-                                    Value="{Binding Y}" />
-                            <Setter Property="Canvas.Left"
-                                    Value="{Binding X}" />
+                    <ItemsControl.ItemContainerStyle >
+                        <Style TargetType="ContentPresenter"
+                               BasedOn="{StaticResource FormationCellStyle}">
+                            
+                            <!--TODO-->
+                            
                         </Style>
                     </ItemsControl.ItemContainerStyle>
 

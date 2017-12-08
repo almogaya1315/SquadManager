@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
 {
-    /// <summary>
-    /// Interaction logic for SoccerFieldDetailsView.xaml
-    /// </summary>
     public partial class SoccerFieldDetailsView : UserControl
     {
         public SoccerFieldDetailsView()
