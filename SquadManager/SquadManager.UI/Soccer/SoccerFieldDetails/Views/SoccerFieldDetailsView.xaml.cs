@@ -28,7 +28,6 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
         public SoccerFieldDetailsView()
         {
             InitializeComponent();
-
             
             _onMouseMoveChanged = new MouseEventHandler(OnMouseMoveChanged);
         }
@@ -42,18 +41,11 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
             {
                 AddHandler(MouseMoveEvent, _onMouseMoveChanged);
                 _playerDragged = true;
-
-                // TODO: 
-                // raise change for start of edit formation mode
             }
             else
             {
                 RemoveHandler(MouseMoveEvent, _onMouseMoveChanged);
                 _playerDragged = false;
-
-                // TODO:
-                // update DB
-                // raise change for end of edit formation mode
             }
         }
 
@@ -65,6 +57,9 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
             var playerViewModel = (SoccerPlayerViewModel)_player.DataContext;
             playerViewModel.X = (int)(mouseX - _player.ActualWidth / 2);
             playerViewModel.Y = (int)(mouseY - _player.ActualHeight / 2);
+
+            // TODO:
+            // stay inside canvas
         }
 
         private Canvas FormationCanvas()

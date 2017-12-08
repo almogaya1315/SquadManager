@@ -22,6 +22,9 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         private readonly IChangeManager _changeManager;
         private Team _teamModel;
 
+        private SoccerPlayerViewModel _firstSubstitute;
+        private SoccerPlayerViewModel _secondSubstitute;
+
         private TeamViewModel _team;
         public TeamViewModel Team
         {
@@ -35,10 +38,11 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
         public FormationViewModel SelectedFormation { get; set; }
 
-        private SoccerPlayerViewModel _firstSubstitute;
-        private SoccerPlayerViewModel _secondSubstitute;
+        public bool EditButtonChecked { get; set; }
 
         public ICommand Substitute { get; set; }
+        public ICommand ToggleEditFormation { get; set; }
+        public ICommand DragDropPlayer { get; set; }
 
         public SoccerFieldDetailsViewModel(Team team, IChangeManager changeManager, CollectionFactory collections, ISquadRepository squadRepository)
         {
@@ -56,6 +60,8 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             SelectedFormation.Lineup.RemoveFirstNames();
 
             Substitute = new RelayCommand(SubstitutePlayers, CanSubstitute);
+            ToggleEditFormation = new RelayCommand(ToggleEditFormationMode);
+            DragDropPlayer = new RelayCommand<SoccerPlayerViewModel>(DragOrDropFieldPlayer);
         }
 
         private FormationViewModel SetFormation(Formation formation, bool isDefault = true)
@@ -155,7 +161,13 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
 
         private bool CanSubstitute()
         {
+            if (IsInEditFormationMode()) return false;
             return _firstSubstitute != null && _secondSubstitute != null;
+        }
+
+        private bool IsInEditFormationMode()
+        {
+            return EditButtonChecked;
         }
 
         private void SubstitutePlayers()
@@ -315,6 +327,17 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     }
                 }
             }
+        }
+
+        private void ToggleEditFormationMode()
+        {
+            if (EditButtonChecked) _changeManager.Change(new EditFormationArgs(ChangeType.EditFormationModeEnabled, true));
+            else _changeManager.Change(new EditFormationArgs(ChangeType.EditFormationModeDisabled, false));
+        }
+
+        private void DragOrDropFieldPlayer(SoccerPlayerViewModel obj)
+        {
+
         }
 
         public void Changed(ChangeArgs args)

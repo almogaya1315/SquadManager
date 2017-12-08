@@ -260,7 +260,9 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <ToggleButton IsChecked="{Binding IsSelected}"
-                                          Click="ToggleButton_Click">
+                                          Click="ToggleButton_Click"
+                                          Command="{Binding DragDropPlayer}"
+                                          CommandParameter="{Binding}">
 
                                 <ToggleButton.Template>
                                     <ControlTemplate>
@@ -440,7 +442,9 @@
                           MinHeight="22"
                           Margin="5 5 100 -7"
                           HorizontalAlignment="Right"
-                          Content="Edit">
+                          Content="Edit"
+                          IsChecked="{Binding EditButtonChecked}"
+                          Command="{Binding ToggleEditFormation}">
 
             </ToggleButton>
 

@@ -51,6 +51,16 @@ namespace SquadManager.UI.Base
         }
     }
 
+    public class EditFormationArgs : ChangeArgs
+    {
+        public bool IsEditMode { get; set; }
+
+        public EditFormationArgs(ChangeType type, bool isEditMode) : base (type)
+        {
+            IsEditMode = isEditMode;
+        }
+    }
+
     public enum ChangeType
     {
         TeamChanged,
@@ -61,5 +71,7 @@ namespace SquadManager.UI.Base
         SubSelected,
         SubDeselect,
         SubConfirmed,
+        EditFormationModeEnabled,
+        EditFormationModeDisabled,
     }
 }

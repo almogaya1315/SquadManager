@@ -136,6 +136,7 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 
         public void Changed(ChangeArgs args)
         {
+            #region Substitution
             if (args is SubstitutionArgs)
             {
                 var subArgs = (SubstitutionArgs)args;
@@ -286,6 +287,25 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
                         break;
                 }
             }
+            #endregion
+
+            #region EditFormation
+            if (args is EditFormationArgs)
+            {
+                var editArgs = (EditFormationArgs)args;
+                Substitutions.ForEach(p => p.IsEnabled = !editArgs.IsEditMode);
+                Reserves.ForEach(p => p.IsEnabled = !editArgs.IsEditMode);
+
+                switch (editArgs.Type)
+                {
+                    //case ChangeType.EditFormationModeEnabled:
+                    //    break;
+
+                    case ChangeType.EditFormationModeDisabled:
+                        break;
+                }
+            }
+            #endregion
         }
     }
 }

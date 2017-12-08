@@ -71,6 +71,18 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             RaisePropertyChanged("IsSelected");
         }
 
+        private bool _isEnabled;
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set
+            {
+                _isEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
         public SoccerPlayerViewModel(SoccerPlayer model = null, CollectionFactory collections = null, IChangeManager changeManager = null)
         {
             if (model == null) return;
@@ -87,6 +99,8 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             RotationTeam = new CellViewModel(model.Rotation);
             IsLineup = model.IsLineup;
             IsNewPlayer = new CellViewModel(false);
+
+            IsEnabled = true;
         }
 
         public SoccerPlayerViewModel(SoccerPlayerViewModel viewModel, CollectionFactory collections, IChangeManager changeManager)
@@ -112,6 +126,8 @@ namespace SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels
             RotationTeam = new CellViewModel(viewModel.RotationTeam.Value);
             IsNewPlayer = new CellViewModel(false);
             IsLineup = viewModel.IsLineup;
+
+            IsEnabled = true;
         }
     }
 

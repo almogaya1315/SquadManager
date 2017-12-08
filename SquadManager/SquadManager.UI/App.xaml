@@ -495,7 +495,8 @@
             </ControlTemplate>-->
 
                     <DataTemplate x:Key="ItemsControlItemTemplate">
-                        <ToggleButton IsChecked="{Binding IsSelected}">
+                        <ToggleButton IsChecked="{Binding IsSelected}"
+                                      IsEnabled="{Binding IsEnabled}">
 
                             <ToggleButton.Template>
                                 <ControlTemplate>
