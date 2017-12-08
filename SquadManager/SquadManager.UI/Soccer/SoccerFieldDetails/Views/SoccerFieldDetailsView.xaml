@@ -252,8 +252,6 @@
                         Grid.Row="5"
                         Grid.Column="4" />
 
-                <ContentPresenter />
-
                 <ItemsControl Name="FormationItemsControl"
                               ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, Path=DataContext.SelectedFormation.Lineup}">
 
@@ -344,7 +342,7 @@
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas x:Name="FormationCanvas"/>
+                            <Canvas x:Name="FormationCanvas" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
@@ -484,7 +482,7 @@
                     <ImageBrush ImageSource="/Resources/Images/half_field_layout.png" />
                 </Border.Background>
 
-                <ContentControl>
+                <ContentControl Name="FormationContentControl">
                     <ContentControl.Style>
                         <Style TargetType="ContentControl">
                             <Style.Triggers>

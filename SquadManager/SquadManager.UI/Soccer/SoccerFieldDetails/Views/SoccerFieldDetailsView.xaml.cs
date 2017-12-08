@@ -24,13 +24,14 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
         public SoccerFieldDetailsView()
         {
             InitializeComponent();
-
-            var editFormationControlTemplate = (ControlTemplate)Resources["EditFormationTemplate"];
-            _formationCanvas = (Canvas)editFormationControlTemplate.Resources.FindName("FormationCanvas");
         }
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
+            var editFormationControlTemplate = (ControlTemplate)Resources["EditFormationTemplate"];
+            var formationItemsControl = (ItemsControl)editFormationControlTemplate.FindName("FormationItemsControl", FormationContentControl);
+            _formationCanvas = (Canvas)formationItemsControl.ItemsPanel.LoadContent(); //FindName("FormationCanvas");
+
             _player = (ToggleButton)sender;
             if (_player == null) return;
             AddHandler(MouseMoveEvent, new MouseEventHandler(OnMouseMoveChanged));
