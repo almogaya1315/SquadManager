@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SquadManager.UI.Base;
+using SquadManager.UI.Soccer.SoccerPlayerDetails.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +32,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
         {
             var editFormationControlTemplate = (ControlTemplate)Resources["EditFormationTemplate"];
             var formationItemsControl = (ItemsControl)editFormationControlTemplate.FindName("FormationItemsControl", FormationContentControl);
-            _formationCanvas = (Canvas)formationItemsControl.ItemsPanel.LoadContent(); //FindName("FormationCanvas");
+            _formationCanvas = XamlHelper.FindChild<Canvas>(this, "FormationCanvas"); 
 
             _player = (ToggleButton)sender;
             if (_player == null) return;
@@ -39,7 +41,12 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
 
         private void OnMouseMoveChanged(object sender, MouseEventArgs args)
         {
-            Canvas.SetLeft(_player, args.GetPosition(_formationCanvas).X - _player.ActualWidth / 2);
+            var mouseX = args.GetPosition(_formationCanvas).X;
+            var mouseY = args.GetPosition(_formationCanvas).Y;
+
+            var playerViewModel = (SoccerPlayerViewModel)_player.DataContext;
+            playerViewModel.X = (int)(mouseX - _player.ActualWidth / 2);
+            playerViewModel.Y = (int)(mouseY - _player.ActualHeight / 2);
         }
     }
 }

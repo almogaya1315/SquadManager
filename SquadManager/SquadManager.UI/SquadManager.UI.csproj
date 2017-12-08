@@ -100,6 +100,7 @@
     <Compile Include="Base\IChangeManager.cs" />
     <Compile Include="Base\Injector.cs" />
     <Compile Include="Base\ViewModel.cs" />
+    <Compile Include="Base\XamlHelper.cs" />
     <Compile Include="Controls\DataGrid\SquadDataGrid.cs" />
     <Compile Include="Controls\DataGrid\SquadDataGridColumn.cs" />
     <Compile Include="Controls\RadioButton\TeamRadioButton.cs" />
