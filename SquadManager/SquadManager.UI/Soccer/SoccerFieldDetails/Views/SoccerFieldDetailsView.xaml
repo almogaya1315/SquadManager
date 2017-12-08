@@ -252,15 +252,13 @@
                         Grid.Row="5"
                         Grid.Column="4" />
 
+                <ContentPresenter />
+
                 <ItemsControl Template="{StaticResource DefaultSubTemplate}">
 
                     <ItemsControl.ItemContainerStyle >
                         <Style TargetType="ContentPresenter"
-                               BasedOn="{StaticResource FormationCellStyle}">
-                            
-                            <!--TODO-->
-                            
-                        </Style>
+                               BasedOn="{StaticResource FormationCellStyle}" />
                     </ItemsControl.ItemContainerStyle>
 
                 </ItemsControl>

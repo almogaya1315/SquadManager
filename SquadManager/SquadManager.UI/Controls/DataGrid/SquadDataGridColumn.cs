@@ -18,7 +18,7 @@ namespace SquadManager.UI.Controls.DataGrid
         {
             var contentPresenter = base.GenerateElement(cell, dataItem);
 
-            BindingOperations.SetBinding(contentPresenter, ContentPresenter.ContentProperty, new Binding(DataContext));
+            BindingOperations.SetBinding(contentPresenter, System.Windows.Controls.ContentPresenter.ContentProperty, new Binding(DataContext));
 
             return contentPresenter;
         }
@@ -27,7 +27,7 @@ namespace SquadManager.UI.Controls.DataGrid
         {
             var contentPresenter = base.GenerateEditingElement(cell, dataItem);
 
-            BindingOperations.SetBinding(contentPresenter, ContentPresenter.ContentProperty, new Binding(DataContext));
+            BindingOperations.SetBinding(contentPresenter, System.Windows.Controls.ContentPresenter.ContentProperty, new Binding(DataContext));
 
             return contentPresenter;
         }

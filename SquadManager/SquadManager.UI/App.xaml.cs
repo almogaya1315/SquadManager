@@ -13,5 +13,6 @@ namespace SquadManager.UI
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }

@@ -6,7 +6,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:SquadManager.UI.Converters"
              xmlns:radioButton="clr-namespace:SquadManager.UI.Controls.RadioButton"
-             xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:dataGrid="clr-namespace:SquadManager.UI.Controls.DataGrid"
              StartupUri="AppContainer\Views\Container.xaml"
              d1p1:Ignorable="d">
@@ -497,6 +496,7 @@
 
                     <DataTemplate x:Key="ItemsControlItemTemplate">
                         <ToggleButton IsChecked="{Binding IsSelected}">
+
                             <ToggleButton.Template>
                                 <ControlTemplate>
                                     <Border Name="border"
