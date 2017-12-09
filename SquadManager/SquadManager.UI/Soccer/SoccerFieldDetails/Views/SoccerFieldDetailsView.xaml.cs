@@ -20,7 +20,6 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
 {
     public partial class SoccerFieldDetailsView : UserControl
     {
-        private Canvas _formationCanvas;
         private ToggleButton _player;
         private bool _playerDragged;
         private MouseEventHandler _onMouseMoveChanged;
@@ -28,7 +27,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
         public SoccerFieldDetailsView()
         {
             InitializeComponent();
-            
+
             _onMouseMoveChanged = new MouseEventHandler(OnMouseMoveChanged);
         }
 
@@ -64,13 +63,9 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.Views
 
         private Canvas FormationCanvas()
         {
-            if (_formationCanvas == null)
-            {
-                var editFormationControlTemplate = (ControlTemplate)Resources["EditFormationTemplate"];
-                var formationItemsControl = (ItemsControl)editFormationControlTemplate.FindName("FormationItemsControl", FormationContentControl);
-                _formationCanvas = XamlHelper.FindChild<Canvas>(this, "FormationCanvas");
-            }
-            return _formationCanvas;
+            var editFormationControlTemplate = (ControlTemplate)Resources["EditFormationTemplate"];
+            var formationItemsControl = (ItemsControl)editFormationControlTemplate.FindName("FormationItemsControl", FormationContentControl);
+            return XamlHelper.FindChild<Canvas>(this, "FormationCanvas");
         }
     }
 }

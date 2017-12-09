@@ -508,6 +508,12 @@
                                             <Style TargetType="Border"
                                                    BasedOn="{StaticResource ResourceKey=BorderStyle}">
                                                 <Style.Triggers>
+                                                    <Trigger Property="IsEnabled"
+                                                             Value="false">
+                                                        <Setter Property="Opacity"
+                                                                Value="1"/>
+                                                    </Trigger>
+                                                    
                                                     <MultiDataTrigger>
                                                         <MultiDataTrigger.Conditions>
                                                             <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}, Path=IsChecked}"

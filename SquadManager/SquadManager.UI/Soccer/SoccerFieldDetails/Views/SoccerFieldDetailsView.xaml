@@ -261,7 +261,7 @@
                         <DataTemplate>
                             <ToggleButton IsChecked="{Binding IsSelected}"
                                           Click="ToggleButton_Click"
-                                          Command="{Binding DragDropPlayer}"
+                                          Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.DragDropPlayer}"
                                           CommandParameter="{Binding}">
 
                                 <ToggleButton.Template>

@@ -25,6 +25,8 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
         private SoccerPlayerViewModel _firstSubstitute;
         private SoccerPlayerViewModel _secondSubstitute;
 
+        private SoccerPlayerViewModel _draggedPlayer;
+
         private TeamViewModel _team;
         public TeamViewModel Team
         {
@@ -294,7 +296,7 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             SelectedFormation.Lineup = new SquadList<SoccerPlayerViewModel>(lineup);
         }
 
-        private void UpdateFormationModel(Formation formation, int subId)
+        private void UpdateFormationModel(Formation formation, int subId, bool editFormationMode = false)
         {
             foreach (var prop in formation.GetType().GetProperties())
             {
@@ -305,23 +307,27 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
                     {
                         var propId = prop;
                         var propIdValue = propId.GetValue(formation);
-                        propId.SetValue(formation, subId == _firstSubstitute.Id ? _secondSubstitute.Id : _firstSubstitute.Id);
+                        var playerId = _draggedPlayer != null ? _draggedPlayer.Id : (subId == _firstSubstitute.Id ? _secondSubstitute.Id : _firstSubstitute.Id);
+                        propId.SetValue(formation, playerId);
                         propIdValue = propId.GetValue(formation);
 
-                        //var playerNumber = string.Empty;
-                        //foreach (var c in prop.Name) if (Char.IsNumber(c)) playerNumber += c;
+                        if (editFormationMode)
+                        {
+                            var playerNumber = string.Empty;
+                            foreach (var c in prop.Name) if (Char.IsNumber(c)) playerNumber += c;
 
-                        //var XPropName = $"Player_{playerNumber}X";
-                        //var XProp = formation.GetType().GetProperties().First(p => p.Name == XPropName);
-                        //var XPropValue = XProp.GetValue(formation);
-                        //XProp.SetValue(formation, subId == _secondSubstitute.Id ? _secondSubstitute.X : _firstSubstitute.X);
-                        //XPropValue = XProp.GetValue(formation);
+                            var XPropName = $"Player_{playerNumber}X";
+                            var XProp = formation.GetType().GetProperties().First(p => p.Name == XPropName);
+                            var XPropValue = XProp.GetValue(formation);
+                            XProp.SetValue(formation, +_draggedPlayer.X);
+                            XPropValue = XProp.GetValue(formation);
 
-                        //var YPropName = $"Player_{playerNumber}Y";
-                        //var YProp = formation.GetType().GetProperties().First(p => p.Name == YPropName);
-                        //var YPropValue = YProp.GetValue(formation);
-                        //YProp.SetValue(formation, subId == _secondSubstitute.Id ? _secondSubstitute.Y : _firstSubstitute.Y);
-                        //YPropValue = YProp.GetValue(formation);
+                            var YPropName = $"Player_{playerNumber}Y";
+                            var YProp = formation.GetType().GetProperties().First(p => p.Name == YPropName);
+                            var YPropValue = YProp.GetValue(formation);
+                            YProp.SetValue(formation, +_draggedPlayer.Y);
+                            YPropValue = YProp.GetValue(formation);
+                        }
 
                         return;
                     }
@@ -335,9 +341,20 @@ namespace SquadManager.UI.Soccer.SoccerFieldDetails.ViewModels
             else _changeManager.Change(new EditFormationArgs(ChangeType.EditFormationModeDisabled, false));
         }
 
-        private void DragOrDropFieldPlayer(SoccerPlayerViewModel obj)
+        private void DragOrDropFieldPlayer(SoccerPlayerViewModel draggedPlayer)
         {
+            if (_draggedPlayer == null)
+            {
+                _draggedPlayer = draggedPlayer;
+            }
+            else
+            {
+                var formation = _teamModel.Formations.Find(f => f.Id == SelectedFormation.Id);
+                UpdateFormationModel(formation, _draggedPlayer.Id, true);
+                SquadRepository.UpdateFormation(formation);
 
+                _draggedPlayer = null;
+            }
         }
 
         public void Changed(ChangeArgs args)
