@@ -511,7 +511,7 @@
                                                     <Trigger Property="IsEnabled"
                                                              Value="false">
                                                         <Setter Property="Opacity"
-                                                                Value="1"/>
+                                                                Value=".6"/>
                                                     </Trigger>
                                                     
                                                     <MultiDataTrigger>
