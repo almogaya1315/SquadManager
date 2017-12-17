@@ -41,9 +41,9 @@
             <lineupDetailsViews:SoccerLineupDetailsView />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type fieldDetailsViewModels:SoccerFieldDetailsViewModel}">
+        <!--<DataTemplate DataType="{x:Type fieldDetailsViewModels:SoccerFieldDetailsViewModel}">
             <fieldDetailsViews:SoccerFieldDetailsView />
-        </DataTemplate>
+        </DataTemplate>-->
     </UserControl.Resources>
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto"

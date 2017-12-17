@@ -1,4 +1,5 @@
-﻿using SquadManager.UI.Base;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using SquadManager.UI.Base;
 using SquadManager.UI.Enums;
 using SquadManager.UI.Extensions;
 using SquadManager.UI.Models;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
 {
@@ -53,6 +55,9 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
         public SoccerPlayerViewModel _firstSubstitute;
         public SoccerPlayerViewModel _secondSubstitute;
 
+        public ICommand DragDropPlayer { get; set; }
+
+        public SoccerLineupDetailsViewModel() { }
         public SoccerLineupDetailsViewModel(Team team, IChangeManager changeManager, CollectionFactory collections)
         {
             _changeManager = changeManager;
@@ -71,6 +76,24 @@ namespace SquadManager.UI.Soccer.SoccerLineupDetails.ViewModels
             Reserves = Team.Squad.Where(p => (RotationTeam)p.RotationTeam.Value == RotationTeam.Reserves).ToSquadList();
             Reserves.RemoveFirstNames();
             Reserves.ArrangePositionRoleAsec();
+
+            DragDropPlayer = new RelayCommand<SoccerPlayerViewModel>(DragOrDropFieldPlayer);
+        }
+
+        private void DragOrDropFieldPlayer(SoccerPlayerViewModel draggedPlayer)
+        {
+            //if (_draggedPlayer == null)
+            //{
+            //    _draggedPlayer = draggedPlayer;
+            //}
+            //else
+            //{
+            //    var formation = _teamModel.Formations.Find(f => f.Id == SelectedFormation.Id);
+            //    UpdateFormationModel(formation, _draggedPlayer.Id, true);
+            //    SquadRepository.UpdateFormation(formation);
+
+            //    _draggedPlayer = null;
+            //}
         }
 
         private void SoccerPlayerViewModel_IsSelectedPropertyChanged(object sender, IsSelectedEventArgs args)
