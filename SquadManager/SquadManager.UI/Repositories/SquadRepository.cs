@@ -54,7 +54,7 @@ namespace SquadManager.UI.Repositories
             using (var con = OpenConnection())
             {
                 var lookup = new Dictionary<int, Manager>();
-                var managers = con.Query<Manager, Nation, Manager>("stp_SquadManager_GetManagers",
+                con.Query<Manager, Nation, Manager>("stp_SquadManager_GetManagers",
                     (manager, nation) =>
                     {
                         Manager innerManager;
@@ -67,7 +67,7 @@ namespace SquadManager.UI.Repositories
                     },
                     commandType: CommandType.StoredProcedure).ToList();
 
-                return managers;
+                return lookup.Values.ToList();
             }
         }
 
